@@ -1,0 +1,821 @@
+{
+    "count": 200,
+    "Informations": [
+        {
+            "name": "</dev-news:1407097053502509136>",
+            "description": "Pour avoir les dernières informations de mon développeur !"
+        },
+        {
+            "name": "</help:1394643470177665033>",
+            "description": "Affiche la liste de toutes mes commandes avec une courte description."
+        },
+        {
+            "name": "</info channel:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur un salon."
+        },
+        {
+            "name": "</info color:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur une couleur."
+        },
+        {
+            "name": "</info invite-link:1394643470337183794>",
+            "description": "Donne des informations sur un lien d'invitation Discord."
+        },
+        {
+            "name": "</info role:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur un rôle."
+        },
+        {
+            "name": "</info server:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur le serveur."
+        },
+        {
+            "name": "</info toki:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur moi !"
+        },
+        {
+            "name": "</info user:1394643470337183794>",
+            "description": "Permet d'obtenir des informations sur un utilisateur."
+        },
+        {
+            "name": "</invite:1394643470337183795>",
+            "description": "Te donne mon lien d'invitation pour m'ajouter sur d'autres serveurs."
+        },
+        {
+            "name": "</patch-notes:1394643470337183796>",
+            "description": "Pour consulter toutes mes notes de patch."
+        },
+        {
+            "name": "</ping:1394643470337183797>",
+            "description": "Te donne ma latence et celle de l'API."
+        },
+        {
+            "name": "</report:1394643470337183798>",
+            "description": "Pour faire des remarques et des suggestions à mon développeur !"
+        },
+        {
+            "name": "</vote:1394643470337183800>",
+            "description": "Pour avoir des récompenses en me votant sur Top.gg !"
+        }
+    ],
+    "Fun": [
+        {
+            "name": "</9ball:1394643469817090139>",
+            "description": "Permet d'avoir une réponse à n'importe quelle question !"
+        },
+        {
+            "name": "</anime character:1394643469817090140>",
+            "description": "Permet de rechercher un personnage d'anime ou de manga."
+        },
+        {
+            "name": "</anime manga:1394643469817090140>",
+            "description": "Pour chercher un manga."
+        },
+        {
+            "name": "</anime search:1394643469817090140>",
+            "description": "Permet de chercher un anime."
+        },
+        {
+            "name": "</avatar:1394643469817090141>",
+            "description": "Donne l'avatar d'un utilisateur avec un effet ou pas !"
+        },
+        {
+            "name": "</emote-list:1420004835088007251>",
+            "description": "Donne une liste de tous les émojis utilisables pour la commande /say."
+        },
+        {
+            "name": "</fun-facts:1411332145884037171>",
+            "description": "Pour avoir un fait aléatoire sur tout et rien !"
+        },
+        {
+            "name": "</game-stats minecraft-player:1394643469817090143>",
+            "description": "Permet d'obtenir des statistiques sur un joueur Minecraft."
+        },
+        {
+            "name": "</game-stats minecraft-server:1394643469817090143>",
+            "description": "Permet d'obtenir des informations sur un serveur Minecraft."
+        },
+        {
+            "name": "</game-stats osu:1394643469817090143>",
+            "description": "Permet de voir le profile d'un joueur osu! sur l'un des quatres modes."
+        },
+        {
+            "name": "</game-stats speedrun:1394643469817090143>",
+            "description": "Donne le classement any% d'un jeu."
+        },
+        {
+            "name": "</game-stats super-mario-maker-1:1394643469817090143>",
+            "description": "Donne un niveau aléatoire. La fonction de recherche est désactivé car il n'y a pas les identifiants."
+        },
+        {
+            "name": "</game-stats super-mario-maker-2:1394643469817090143>",
+            "description": "Pour voir un niveau ou un profile sur Super Mario Maker 2."
+        },
+        {
+            "name": "</game-stats yunayunori:1394643469817090143>",
+            "description": "Permet de consulter le classement des jeux Yunayunori !"
+        },
+        {
+            "name": "</love:1394643469817090144>",
+            "description": "Calcule le pourcentage d'amour entre deux utilisateurs !"
+        },
+        {
+            "name": "</meme:1394643469817090145>",
+            "description": "Affiche un meme aléatoire (SFW) provenant de Reddit."
+        },
+        {
+            "name": "</mix-names:1394643469817090146>",
+            "description": "Mélange deux pseudonymes pour en créer un nouveau."
+        },
+        {
+            "name": "</nostalgia:1394643469817090147>",
+            "description": "Pour découvrir ou redécouvrir d'anciennes commandes et fonctionalités !"
+        },
+        {
+            "name": "</random animal:1394643470009761954>",
+            "description": "Affiche une image aléatoire d'un animal de ton choix."
+        },
+        {
+            "name": "</random anime-holding-a-programming-book:1394643470009761954>",
+            "description": "Affiche une image aléatoire d'une fille d'anime tenant un livre de programmation."
+        },
+        {
+            "name": "</random baka-wiki:1394643470009761954>",
+            "description": "Permet d'avoir une page aléatoire du Baka Wiki."
+        },
+        {
+            "name": "</random card:1394643470009761954>",
+            "description": "Donne une carte aléatoire d'un paquet de carte classique."
+        },
+        {
+            "name": "</random character:1394643470009761954>",
+            "description": "Pour avoir un caractère UNICODE aléatoire !"
+        },
+        {
+            "name": "</random choice:1394643470009761954>",
+            "description": "Permet de faire le choix entre 2 à 3 options."
+        },
+        {
+            "name": "</random coin-flip:1394643470009761954>",
+            "description": "Simule un lancer de pièce."
+        },
+        {
+            "name": "</random dice:1394643470009761954>",
+            "description": "Simule le lancer d'un dé."
+        },
+        {
+            "name": "</random flag:1394643470009761954>",
+            "description": "Montre un drapeau aléatoire du monde."
+        },
+        {
+            "name": "</random kanji:1394643470009761954>",
+            "description": "Donne un kanji aléatoire du JLPT 5 au JLPT 1."
+        },
+        {
+            "name": "</random periodic-element:1394643470009761954>",
+            "description": "Permet d'avoir un élément aléatoire du tableau périodique des éléments."
+        },
+        {
+            "name": "</random pokemon:1394643470009761954>",
+            "description": "Donne un Pokémon aléatoire."
+        },
+        {
+            "name": "</random user:1394643470009761954>",
+            "description": "Donne un utilisateur aléatoire qui a cliqué sur la réaction."
+        },
+        {
+            "name": "</random ytpmv:1394643470009761954>",
+            "description": "Pour obtenir une idée aléatoire d'YTPMV, avec une source et une musique."
+        },
+        {
+            "name": "</say classic:1394643470009761955>",
+            "description": "Me fait dire ce que tu veux !"
+        },
+        {
+            "name": "</say embed:1394643470009761955>",
+            "description": "Envoie un embed complet."
+        },
+        {
+            "name": "</scp english:1394643470009761956>",
+            "description": "Affiche un rapport SCP en anglais, marche avec tous, mais est plus lent et pas forcément pertinent."
+        },
+        {
+            "name": "</scp french:1394643470009761956>",
+            "description": "Affiche un rapport SCP en français mieux rédigé et rapidemment, mais en quantité limité."
+        },
+        {
+            "name": "</scp french-list:1394643470009761956>",
+            "description": "Liste tous les rapports SCP disponible avec /scp french."
+        },
+        {
+            "name": "</stylise-text:1394643470009761957>",
+            "description": "Modifie l'aspect d'un texte dans divers formats."
+        },
+        {
+            "name": "</tokinotsuki:1394643470009761958>",
+            "description": "Affiche une image aléatoire de moi dans un autre univers !"
+        }
+    ],
+    "Jeux": [
+        {
+            "name": "</bank account:1460189316075487455>",
+            "description": "Permet de voir ton compte Foyllori."
+        },
+        {
+            "name": "</bank money:1460189316075487455>",
+            "description": "Pour gérer l'argent sur ton compte Foyllori."
+        },
+        {
+            "name": "</cards collection:1426640616540082276>",
+            "description": "Affiche ta collection de cartes actuel."
+        },
+        {
+            "name": "</cards drop:1426640616540082276>",
+            "description": "Ouvre un de tes paquets de cartes."
+        },
+        {
+            "name": "</claim-code:1420139743492182036>",
+            "description": "Pour obtenir des récompenses avec un code."
+        },
+        {
+            "name": "</cooldowns:1394643470009761961>",
+            "description": "Affiche la liste de tous tes temps d'attentes."
+        },
+        {
+            "name": "</daily:1420004835088007253>",
+            "description": "Permet d'obtenir une récompense toutes les 24 heures."
+        },
+        {
+            "name": "</game adventure:1394643470177665024>",
+            "description": "Un jeu d'aventure où des ressources sont nécessaire pour envoyer Miyunira à l'aventure !"
+        },
+        {
+            "name": "</game arkeology:1394643470177665024>",
+            "description": "Un jeu d'archéologie où il faut faire attention de ne pas se faire voler !"
+        },
+        {
+            "name": "</game blackjack:1394643470177665024>",
+            "description": "Permet de jouer au blackjack avec des règles simplifiées."
+        },
+        {
+            "name": "</game congelo:1394643470177665024>",
+            "description": "Concept repris de la commande +explo du bot Discord Hasu."
+        },
+        {
+            "name": "</game fight:1394643470177665024>",
+            "description": "Un petit jeu de combat à la RPG où il faut vaincre un ennemi en tour par tour."
+        },
+        {
+            "name": "</game fish:1394643470177665024>",
+            "description": "Un simple jeu de pêche avec divers poissons à attraper."
+        },
+        {
+            "name": "</game gtn:1394643470177665024>",
+            "description": "Un jeu où il faut trouver un nombre choisi au hasard."
+        },
+        {
+            "name": "</game guess-my-ping:1394643470177665024>",
+            "description": "Jeu où tu dois essayer de trouver ma latence exacte en millisecondes."
+        },
+        {
+            "name": "</game jackpot:1394643470177665024>",
+            "description": "Jouable toutes les heures, si les 3 émojis sont les mêmes, c'est gagné !"
+        },
+        {
+            "name": "</game minesweeper:1394643470177665024>",
+            "description": "Pour jouer au jeu du démineur, mais il n'y a rien à gagner..."
+        },
+        {
+            "name": "</game pikpik:1394643470177665024>",
+            "description": "Jeu se passant dans une mine, où il faut miner pour avoir le meilleur minerai."
+        },
+        {
+            "name": "</game puzzle:1394643470177665024>",
+            "description": "Un jeu d'énigme où il faut trouver un code pour passer au niveau suivant."
+        },
+        {
+            "name": "</game snap-bird:1394643470177665024>",
+            "description": "Permet de tenter de photographier des oiseaux pour gagner de l'argent."
+        },
+        {
+            "name": "</game tictactoe:1394643470177665024>",
+            "description": "Pour jouer au jeu du morpion !"
+        },
+        {
+            "name": "</game rock-paper-scissors:1394643470177665024>",
+            "description": "Permet de jouer au chifoumi contre moi."
+        },
+        {
+            "name": "</game roulette:1394643470177665024>",
+            "description": "Permet de doubler ta mise, ou tout perdre !"
+        },
+        {
+            "name": "</inventory artefacts:1394643470177665026>",
+            "description": "Permet de consulter son inventaire d'artéfacts ou d'une autre personne !"
+        },
+        {
+            "name": "</inventory birds:1394643470177665026>",
+            "description": "Permet de consulter son inventaire de photos d'oiseaux ou d'une autre personne !"
+        },
+        {
+            "name": "</inventory fishes:1394643470177665026>",
+            "description": "Permet de consulter son inventaire de poissons ou d'une autre personne !"
+        },
+        {
+            "name": "</inventory items:1394643470177665026>",
+            "description": "Permet de consulter son inventaire d'objets ou d'une autre personne !"
+        },
+        {
+            "name": "</inventory ores:1394643470177665026>",
+            "description": "Permet de consulter son inventaire de minerais ou d'une autre personne !"
+        },
+        {
+            "name": "</pay:1394643470177665027>",
+            "description": "Permet de donner de l'argent à quelqu'un."
+        },
+        {
+            "name": "</pins:1408074432165052516>",
+            "description": "Permet de voir tout les pin's obtenable !"
+        },
+        {
+            "name": "</quests claim:1394643470177665029>",
+            "description": "Récupère la récompense d'une quête accomplie."
+        },
+        {
+            "name": "</quests list:1394643470177665029>",
+            "description": "Liste toutes les quêtes disponibles."
+        },
+        {
+            "name": "</rob:1394643470177665030>",
+            "description": "Pour essayer voler de l'argent à quelqu'un."
+        },
+        {
+            "name": "</shop:1394643470177665031>",
+            "description": "Affiche toutes les boutiques avec les objets achetables ou pouvant être vendus."
+        },
+        {
+            "name": "</task:1428496112829857896>",
+            "description": "Donne une tâche à faire. Chaque tâche réalisé donne une récompense !"
+        },
+        {
+            "name": "</team join:1419791638795911199>",
+            "description": "Permet de rejoindre une équipe. Attention, ce choix sera définitif !"
+        },
+        {
+            "name": "</team rewards:1419791638795911199>",
+            "description": "Pour récupérer les récompenses actuelles de l'équipe gagnante (si tu l'as rejoint)."
+        },
+        {
+            "name": "</top:1394643470177665032>",
+            "description": "Affiche et classe les utilisateurs ou les équipes avec le plus de ressources ou de points !"
+        },
+        {
+            "name": "</weekly:1420093745034035220>",
+            "description": "Permet d'obtenir une récompense toutes les semaines."
+        }
+    ],
+    "Modération": [
+        {
+            "name": "</auto-mod block-bad-words:1407697617491857460>",
+            "description": "Ajoute la règle pour limiter les mots interdits."
+        },
+        {
+            "name": "</auto-mod block-custom-bad-words:1407697617491857460>",
+            "description": "Ajoute la règle pour limiter les mots interdits de ton choix."
+        },
+        {
+            "name": "</auto-mod mention-spam:1407697617491857460>",
+            "description": "Ajoute la règle pour limiter le spam de mention."
+        },
+        {
+            "name": "</auto-mod spam:1407697617491857460>",
+            "description": "Ajoute la règle pour limiter le spam."
+        },
+        {
+            "name": "</auto-mod words-in-profile:1407697617491857460>",
+            "description": "Ajoute la règle bloquer des mots non appropriés présent dans un profile."
+        },
+        {
+            "name": "</mod-config anti-bot:1400189597929050333>",
+            "description": "Empêche n'importe qui d'ajouter un bot au serveur. Pratique pour éviter les raids."
+        },
+        {
+            "name": "</mod-config anti-link:1400189597929050333>",
+            "description": "Supprime tous les messages contenant un lien."
+        },
+        {
+            "name": "</mod-config anti-raid:1400189597929050333>",
+            "description": "Empêche n'importe qui de rejoindre le serveur en les prévenant."
+        },
+        {
+            "name": "</mod-config anti-say:1400189597929050333>",
+            "description": "Permet d'activer ou non les commandes /say classic, /say embed et /useless no-you."
+        },
+        {
+            "name": "</mod-config anti-scam:1400189597929050333>",
+            "description": "Permet de supprimer les potentiels messages d'arnaque. Attention, il peut y avoir des faux-positifs."
+        },
+        {
+            "name": "</mod-config recap:1400189597929050333>",
+            "description": "Indique l'état de ma configuraion sur ce serveur."
+        },
+        {
+            "name": "</mod ban:1394643470337183801>",
+            "description": "Pour bannir un utilisateur."
+        },
+        {
+            "name": "</mod clean-username:1394643470337183801>",
+            "description": "Ajoute un pseudo de serveur basé sur le pseudo de base, avec des caractères lisibles."
+        },
+        {
+            "name": "</mod kick:1394643470337183801>",
+            "description": "Pour expulser un utilisateur."
+        },
+        {
+            "name": "</mod lock:1394643470337183801>",
+            "description": "Pour bloquer ou débloquer en écriture un salon."
+        },
+        {
+            "name": "</mod remove-roles:1394643470337183801>",
+            "description": "Enlève tout les rôles d'un utilisateur."
+        },
+        {
+            "name": "</mod soft-ban:1394643470337183801>",
+            "description": "Pour soft bannir un utilisateur. Il sera ban puis unban, enlevant ses messages des 7 derniers jours."
+        },
+        {
+            "name": "</mod timeout:1394643470337183801>",
+            "description": "Pour exclure un utilisateur."
+        },
+        {
+            "name": "</mod unban:1394643470337183801>",
+            "description": "Pour unbannir un utilisateur."
+        },
+        {
+            "name": "</mod untimeout:1394643470337183801>",
+            "description": "Pour enlever l'exclusion d'un utilisateur."
+        }
+    ],
+    "Utilitaire": [
+        {
+            "name": "</calculate:1394643470509146252>",
+            "description": "Permet de calculer (arithmétique, équations, intégrales, etc.). Donne aussi la notation LaTeX."
+        },
+        {
+            "name": "</clear classic:1394643470509146253>",
+            "description": "Efface un certains nombre (entre 1 et 100) de messages."
+        },
+        {
+            "name": "</clear channel:1394643470509146253>",
+            "description": "Supprime et recrée à l'identique un salon pour le nettoyer."
+        },
+        {
+            "name": "</clear user:1394643470509146253>",
+            "description": "Efface un certain nombre (entre 1 et 100) de messages d'un utilisateur spécifique."
+        },
+        {
+            "name": "</convert area:1394643470509146255>",
+            "description": "Pour faire des conversions d'aires."
+        },
+        {
+            "name": "</convert angle:1394643470509146255>",
+            "description": "Pour faire des conversions d'angles."
+        },
+        {
+            "name": "</convert data:1394643470509146255>",
+            "description": "Pour faire des conversions de données informatiques."
+        },
+        {
+            "name": "</convert energy:1394643470509146255>",
+            "description": "Pour faire des conversions d'énergies."
+        },
+        {
+            "name": "</convert force:1394643470509146255>",
+            "description": "Pour faire des conversions de forces."
+        },
+        {
+            "name": "</convert length:1394643470509146255>",
+            "description": "Pour faire des conversions de longueurs."
+        },
+        {
+            "name": "</convert mass:1394643470509146255>",
+            "description": "Pour faire des conversions de masses."
+        },
+        {
+            "name": "</convert money:1394643470509146255>",
+            "description": "Pour faire des conversions de monnaie."
+        },
+        {
+            "name": "</convert power:1394643470509146255>",
+            "description": "Pour faire des conversions de puissances."
+        },
+        {
+            "name": "</convert temperature:1394643470509146255>",
+            "description": "Pour faire des conversions de températures."
+        },
+        {
+            "name": "</convert time:1394643470509146255>",
+            "description": "Pour faire des conversions de temps."
+        },
+        {
+            "name": "</convert timezone:1394643470509146255>",
+            "description": "Pour faire des conversions de fuseaux horaires."
+        },
+        {
+            "name": "</convert pressure:1394643470509146255>",
+            "description": "Pour faire des conversions de pressions."
+        },
+        {
+            "name": "</convert volume:1394643470509146255>",
+            "description": "Pour faire des conversions de volumes."
+        },
+        {
+            "name": "</count characters:1404381590251114527>",
+            "description": "Pour compter le nombre de caractères dans une phrase."
+        },
+        {
+            "name": "</count pattern:1404381590251114527>",
+            "description": "Pour compter le nombre de fois qu'un caractère ou mot est répété."
+        },
+        {
+            "name": "</count words:1404381590251114527>",
+            "description": "Pour compter le nombre de mots dans une phrase."
+        },
+        {
+            "name": "</counting-channel apply:1400399985824104560>",
+            "description": "Permet de mettre en place un jeu du comptage dans un salon !"
+        },
+        {
+            "name": "</counting-channel remove:1400399985824104560>",
+            "description": "Enlève le jeu du comptage."
+        },
+        {
+            "name": "</encode-text:1394643469817090142>",
+            "description": "Pour coder ou décoder du texte, pratique pour la stéganographie !"
+        },
+        {
+            "name": "</generate-key:1397272274419056823>",
+            "description": "Génère une clé sécurisée aléatoire avec une longueur personalisable."
+        },
+        {
+            "name": "</giveaway setup:1400399985824104561>",
+            "description": "Pour mettre en place un giveaway sur le serveur !"
+        },
+        {
+            "name": "</grab emoji:1394643470509146256>",
+            "description": "Permet de récupérer l'image d'un émoji."
+        },
+        {
+            "name": "</grab sound:1394643470509146256>",
+            "description": "Permet de récupérer l'audio d'un son."
+        },
+        {
+            "name": "</grab sticker:1394643470509146256>",
+            "description": "Permet de récupérer l'image d'un sticker."
+        },
+        {
+            "name": "</qr-code image:1394643470009761952>",
+            "description": "Crée un QR code en image avec des couleurs personalisables."
+        },
+        {
+            "name": "</qr-code text:1394643470009761952>",
+            "description": "Crée un QR en format texte, mais le message ne pourra pas être long."
+        },
+        {
+            "name": "</settings simplify:1422889319978373162>",
+            "description": "Simplifie l'écriture d'un nombre. Le désactiver donnera une valeur plus précise."
+        },
+        {
+            "name": "</spellcheck:1404369614854553600>",
+            "description": "Vérifie si une phrase est bien orthographiée. Cele ne vérifie pas la grammaire !"
+        },
+        {
+            "name": "</ticket setup:1400399985824104563>",
+            "description": "Pour mettre en place un système de ticket sur le serveur !"
+        },
+        {
+            "name": "</ticket status:1400399985824104563>",
+            "description": "Pour activer ou désactiver temporairement le système."
+        },
+        {
+            "name": "</timer:1402379633596305559>",
+            "description": "Pour lancer un chronomètre, tout simplement !"
+        },
+        {
+            "name": "</todo:1394643470509146257>",
+            "description": "Permet de créer une to-do list."
+        },
+        {
+            "name": "</translate:1404402197415989289>",
+            "description": "Pour traduire un texte dans une autre langue !"
+        },
+        {
+            "name": "</typing-test:1402345466771013702>",
+            "description": "Permet d'évaluer ta rapidité à écrire en WPM (word per minute) !"
+        },
+        {
+            "name": "</upload emoji:1398025212288827523>",
+            "description": "Permet d'ajouter un émoji sur le serveur."
+        },
+        {
+            "name": "</upload sound:1398025212288827523>",
+            "description": "Permet d'ajouter un son sur le serveur."
+        },
+        {
+            "name": "</upload sticker:1398025212288827523>",
+            "description": "Permet d'ajouter un sticker sur le serveur."
+        },
+        {
+            "name": "</weather:1394643470509146258>",
+            "description": "Donne la météo et des données météorologiques d'un lieu."
+        },
+        {
+            "name": "</whois:1397678351610806374>",
+            "description": "Permet d'obtenir des informations sur un site web."
+        },
+        {
+            "name": "</wikipedia:1404215119847620748>",
+            "description": "Pour avoir des informations sur quelque chose grâce à Wikipédia."
+        }
+    ],
+    "Apprentissage": [
+        {
+            "name": "</learn capitals:1415327998168531125>",
+            "description": "Un pays aléatoire sera donné et tu devras écrire le nom de sa capitale ! * si elle n'existe pas."
+        },
+        {
+            "name": "</learn flags:1415327998168531125>",
+            "description": "Un drapeau aléatoire sera donné et tu devras écrire le nom du pays !"
+        },
+        {
+            "name": "</learn kana:1415327998168531125>",
+            "description": "Pour apprendre les deux syllabaires japonais !"
+        },
+        {
+            "name": "</learn mathematics:1415327998168531125>",
+            "description": "Des calculs seront donné, et il faudra les résoudre le plus rapidemment possible !"
+        },
+        {
+            "name": "</learn outlines:1415327998168531125>",
+            "description": "Un contour de pays aléatoire sera donné et tu devras écrire le nom du pays !"
+        }
+    ],
+    "Social": [
+        {
+            "name": "</social baka:1394643470337183802>",
+            "description": "Pour être baka ou traiter quelqu'un de baka !"
+        },
+        {
+            "name": "</social bang:1394643470337183802>",
+            "description": "Pour tirer sur quelqu'un (de façon fictive bien sûr)."
+        },
+        {
+            "name": "</social beg:1394643470337183802>",
+            "description": "Pour supplier quelqu'un."
+        },
+        {
+            "name": "</social bye:1394643470337183802>",
+            "description": "Pour dire au revoir (à quelqu'un)."
+        },
+        {
+            "name": "</social cook:1394643470337183802>",
+            "description": "Pour cuisiner (quelqu'un (le mettre dans la sauce))."
+        },
+        {
+            "name": "</social cookie:1394643470337183802>",
+            "description": "Pour donner un cookie à quelqu'un."
+        },
+        {
+            "name": "</social dab:1394643470337183802>",
+            "description": "Pour dabber (devant quelqu'un)."
+        },
+        {
+            "name": "</social dance:1394643470337183802>",
+            "description": "Pour dancer (avec quelqu'un)."
+        },
+        {
+            "name": "</social flee:1394643470337183802>",
+            "description": "Pour s'enfuir ou fuire quelqu'un."
+        },
+        {
+            "name": "</social happy-birthday:1394643470337183802>",
+            "description": "Pour souhaiter l'anniversaire de quelqu'un !"
+        },
+        {
+            "name": "</social heal:1394643470337183802>",
+            "description": "Pour soigner quelqu'un !"
+        },
+        {
+            "name": "</social hi:1394643470337183802>",
+            "description": "Pour dire bonjour ou saluer quelqu'un !"
+        },
+        {
+            "name": "</social hug:1394643470337183802>",
+            "description": "Pour faire un câlin à quelqu'un."
+        },
+        {
+            "name": "</social hypnotise:1394643470337183802>",
+            "description": "Pour hypnotiser quelqu'un."
+        },
+        {
+            "name": "</social kiss:1394643470337183802>",
+            "description": "Pour embrasser quelqu'un."
+        },
+        {
+            "name": "</social no-you:1394643470337183802>",
+            "description": "Pour contredire quelqu'un !"
+        },
+        {
+            "name": "</social photo:1394643470337183802>",
+            "description": "Pour prendre quelqu'un en photo en flagrant délit."
+        },
+        {
+            "name": "</social shrug:1394643470337183802>",
+            "description": "Pour être indécis (avec quelqu'un)."
+        },
+        {
+            "name": "</social slap:1394643470337183802>",
+            "description": "Pour taper quelqu'un (de façon fictive toujours)."
+        },
+        {
+            "name": "</social spin:1394643470337183802>",
+            "description": "Pour tourner (devant quelqu'un) !"
+        },
+        {
+            "name": "</social splash:1394643470337183802>",
+            "description": "Pour mouiller quelqu'un !"
+        },
+        {
+            "name": "</social stare:1394643470337183802>",
+            "description": "Pour fixer quelqu'un."
+        },
+        {
+            "name": "</social taida:1394643470337183802>",
+            "description": "Pour être taida ou traîter quelqu'un de taida !"
+        },
+        {
+            "name": "</social pat:1394643470337183802>",
+            "description": "Pour tapoter quelqu'un."
+        },
+        {
+            "name": "</social wasted:1394643470337183802>",
+            "description": "Pour s'achever ou achever quelqu'un à la façon GTA."
+        }
+    ],
+    "Inutile": [
+        {
+            "name": "</useless cat:1394643470337183803>",
+            "description": "Pour avoir un chat d'une hauteur personalisée !"
+        },
+        {
+            "name": "</useless everyone:1394643470337183803>",
+            "description": "Pour... envoyer un @everyone sans permissions ?!"
+        },
+        {
+            "name": "</useless juck:1394643470337183803>",
+            "description": "Affiche Juck en émojis."
+        },
+        {
+            "name": "</useless kyuju:1394643470337183803>",
+            "description": "Affiche un kyuju en émojis."
+        },
+        {
+            "name": "</useless owo:1394643470337183803>",
+            "description": "Affiche un gros OwO en émojis."
+        },
+        {
+            "name": "</useless uwu:1394643470337183803>",
+            "description": "Affiche un gros UwU en émojis."
+        },
+        {
+            "name": "</useless no-you:1394643470337183803>",
+            "description": "Envoie un émoji \"no you\" aléatoire."
+        },
+        {
+            "name": "</useless pop:1394643470337183803>",
+            "description": "Simule du papier bulle !"
+        },
+        {
+            "name": "</useless time:1394643470337183803>",
+            "description": "Permet de connaître l'heure exacte."
+        },
+        {
+            "name": "</useless tokinomp4:1394643470337183803>",
+            "description": "Affiche en lecteur MP4 créé avec un embed."
+        }
+    ],
+    "Serveur": [
+        {
+            "name": "</experiments random-letters:1421801028130701342>",
+            "description": "Pour obtenir des lettres aléatoires de l'alphabet... qui dancent !"
+        },
+        {
+            "name": "</experiments tsukinotoki:1421801028130701342>",
+            "description": "Une méthode d'encodage personalisée."
+        },
+        {
+            "name": "</xp:1421801028130701343>",
+            "description": "Pour voir ton XP et ton niveau !"
+        }
+    ]
+}

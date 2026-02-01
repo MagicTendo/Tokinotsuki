@@ -1,0 +1,1464 @@
+{
+    "alternative-names": {
+        "countries": {
+            "ae": [
+                "eau",
+                "uae"
+            ],
+            "bn": [
+                "brunei"
+            ],
+            "cd": [
+                "drc",
+                "rdc",
+                "republiquedemocratiquecongo"
+            ],
+            "cf": [
+                "car",
+                "rca"
+            ],
+            "cg": [
+                "congo",
+                "congobrazzaville"
+            ],
+            "ci": [
+                "coteivoire"
+            ],
+            "cn": [
+                "chine"
+            ],
+            "eh": [
+                "sahara"
+            ],
+            "fm": [
+                "micronesie"
+            ],
+            "gb": [
+                "gb",
+                "ru",
+                "uk"
+            ],
+            "ir": [
+                "iran"
+            ],
+            "kp": [
+                "coréedunord"
+            ],
+            "kr": [
+                "coréedusud"
+            ],
+            "md": [
+                "moldavie"
+            ],
+            "mh": [
+                "marshall"
+            ],
+            "ru": [
+                "russie"
+            ],
+            "us": [
+                "amerique",
+                "usa"
+            ],
+            "va": [
+                "saintsiege"
+            ]
+        },
+        "capitals": {
+            "us": [
+                "washington"
+            ]
+        }
+    },
+    "continents": [
+        "africa",
+        "asia",
+        "europe",
+        "islands",
+        "north-america",
+        "oceania",
+        "south-america",
+        "usa-states"
+    ],
+    "africa": {
+        "ao": {
+            "capital": "Luanda",
+            "name": "Angola",
+            "onu": true
+        },
+        "bf": {
+            "capital": "Ouagadougou",
+            "name": "Burkina Faso",
+            "onu": true
+        },
+        "bi": {
+            "capital": "Gitega",
+            "name": "Burundi",
+            "onu": true
+        },
+        "bj": {
+            "capital": "Porto-Novo",
+            "name": "Bénin",
+            "onu": true
+        },
+        "bw": {
+            "capital": "Gaborone",
+            "name": "Botswana",
+            "onu": true
+        },
+        "cd": {
+            "capital": "Kinshasa",
+            "name": "République Démocratique du Congo",
+            "onu": true
+        },
+        "cf": {
+            "capital": "Bangui",
+            "name": "République Centrafricaine",
+            "onu": true
+        },
+        "cg": {
+            "capital": "Brazzaville",
+            "name": "République du Congo",
+            "onu": true
+        },
+        "ci": {
+            "capital": "Yamoussoukro",
+            "name": "Côte d'Ivoire",
+            "onu": true
+        },
+        "cm": {
+            "capital": "Yaoundé",
+            "name": "Cameroun",
+            "onu": true
+        },
+        "cv": {
+            "capital": "Praia",
+            "name": "Cap-Vert",
+            "onu": true
+        },
+        "dj": {
+            "capital": "Djibouti",
+            "name": "Djibouti",
+            "onu": true
+        },
+        "dz": {
+            "capital": "Alger",
+            "name": "Algérie",
+            "onu": true
+        },
+        "eg": {
+            "capital": "Le Caire",
+            "name": "Égypte",
+            "onu": true
+        },
+        "eh": {
+            "capital": "El Aaiún",
+            "name": "Sahara Occidental",
+            "onu": false
+        },
+        "er": {
+            "capital": "Asmara",
+            "name": "Érythrée",
+            "onu": true
+        },
+        "et": {
+            "capital": "Addis-Abeba",
+            "name": "Éthiopie",
+            "onu": true
+        },
+        "ga": {
+            "capital": "Libreville",
+            "name": "Gabon",
+            "onu": true
+        },
+        "gh": {
+            "capital": "Accra",
+            "name": "Ghana",
+            "onu": true
+        },
+        "gm": {
+            "capital": "Banjul",
+            "name": "Gambie",
+            "onu": true
+        },
+        "gn": {
+            "capital": "Conakry",
+            "name": "Guinée",
+            "onu": true
+        },
+        "gq": {
+            "capital": "Malabo",
+            "name": "Guinée Équatoriale",
+            "onu": true
+        },
+        "gw": {
+            "capital": "Bissau",
+            "name": "Guinée-Bissau",
+            "onu": true
+        },
+        "ke": {
+            "capital": "Nairobi",
+            "name": "Kenya",
+            "onu": true
+        },
+        "km": {
+            "capital": "Moroni",
+            "name": "Comores",
+            "onu": true
+        },
+        "lr": {
+            "capital": "Monrovia",
+            "name": "Liberia",
+            "onu": true
+        },
+        "ls": {
+            "capital": "Maseru",
+            "name": "Lesotho",
+            "onu": true
+        },
+        "ly": {
+            "capital": "Tripoli",
+            "name": "Libye",
+            "onu": true
+        },
+        "ma": {
+            "capital": "Rabat",
+            "name": "Maroc",
+            "onu": true
+        },
+        "mg": {
+            "capital": "Antananarivo",
+            "name": "Madagascar",
+            "onu": true
+        },
+        "ml": {
+            "capital": "Bamako",
+            "name": "Mali",
+            "onu": true
+        },
+        "mr": {
+            "capital": "Nouakchott",
+            "name": "Mauritanie",
+            "onu": true
+        },
+        "mu": {
+            "capital": "Port-Louis",
+            "name": "Maurice",
+            "onu": true
+        },
+        "mw": {
+            "capital": "Lilongwe",
+            "name": "Malawi",
+            "onu": true
+        },
+        "mz": {
+            "capital": "Maputo",
+            "name": "Mozambique",
+            "onu": true
+        },
+        "na": {
+            "capital": "Windhoek",
+            "name": "Namibie",
+            "onu": true
+        },
+        "ne": {
+            "capital": "Niamey",
+            "name": "Niger",
+            "onu": true
+        },
+        "ng": {
+            "capital": "Abuja",
+            "name": "Nigéria",
+            "onu": true
+        },
+        "rw": {
+            "capital": "Kigali",
+            "name": "Rwanda",
+            "onu": true
+        },
+        "sc": {
+            "capital": "Victoria",
+            "name": "Seychelles",
+            "onu": true
+        },
+        "sd": {
+            "capital": "Khartoum",
+            "name": "Soudan",
+            "onu": true
+        },
+        "sl": {
+            "capital": "Freetown",
+            "name": "Sierra Leone",
+            "onu": true
+        },
+        "sn": {
+            "capital": "Dakar",
+            "name": "Sénégal",
+            "onu": true
+        },
+        "so": {
+            "capital": "Mogadiscio",
+            "name": "Somalie",
+            "onu": true
+        },
+        "ss": {
+            "capital": "Djouba",
+            "name": "Soudan du Sud",
+            "onu": true
+        },
+        "st": {
+            "capital": "São Tomé",
+            "name": "Sao Tomé-et-Principe",
+            "onu": true
+        },
+        "sz": {
+            "capital": "Mbabane",
+            "name": "Eswatini",
+            "onu": true
+        },
+        "td": {
+            "capital": "N'Djamena",
+            "name": "Tchad",
+            "onu": true
+        },
+        "tg": {
+            "capital": "Lomé",
+            "name": "Togo",
+            "onu": true
+        },
+        "tn": {
+            "capital": "Tunis",
+            "name": "Tunisie",
+            "onu": true
+        },
+        "tz": {
+            "capital": "Dodoma",
+            "name": "Tanzanie",
+            "onu": true
+        },
+        "ug": {
+            "capital": "Kampala",
+            "name": "Ouganda",
+            "onu": true
+        },
+        "za": {
+            "capital": "Pretoria",
+            "name": "Afrique du Sud",
+            "onu": true
+        },
+        "zm": {
+            "capital": "Lusaka",
+            "name": "Zambie",
+            "onu": true
+        },
+        "zw": {
+            "capital": "Harare",
+            "name": "Zimbabwe",
+            "onu": true
+        }
+    },
+    "asia": {
+        "ae": {
+            "capital": "Abou Dabi",
+            "name": "Émirats Arabes Unis",
+            "onu": true
+        },
+        "af": {
+            "capital": "Kaboul",
+            "name": "Afghanistan",
+            "onu": true
+        },
+        "am": {
+            "capital": "Erevan",
+            "name": "Arménie",
+            "onu": true
+        },
+        "az": {
+            "capital": "Bakou",
+            "name": "Azerbaïdjan",
+            "onu": true
+        },
+        "bd": {
+            "capital": "Dacca",
+            "name": "Bangladesh",
+            "onu": true
+        },
+        "bn": {
+            "capital": "Bandar Seri Begawan",
+            "name": "Brunei Darussalam",
+            "onu": true
+        },
+        "bt": {
+            "capital": "Thimphou",
+            "name": "Bhoutan",
+            "onu": true
+        },
+        "cn": {
+            "capital": "Pékin",
+            "name": "République populaire de Chine",
+            "onu": true
+        },
+        "ge": {
+            "capital": "Tbilissi",
+            "name": "Géorgie",
+            "onu": true
+        },
+        "hk": {
+            "capital": "*",
+            "name": "Hong Kong",
+            "onu": false
+        },
+        "id": {
+            "capital": "Jakarta",
+            "name": "Indonésie",
+            "onu": true
+        },
+        "il": {
+            "capital": "Jérusalem",
+            "name": "Israël",
+            "onu": true
+        },
+        "in": {
+            "capital": "New Delhi",
+            "name": "Inde",
+            "onu": true
+        },
+        "iq": {
+            "capital": "Bagdad",
+            "name": "Irak",
+            "onu": true
+        },
+        "ir": {
+            "capital": "Téhéran",
+            "name": "République Islamique d'Iran",
+            "onu": true
+        },
+        "jo": {
+            "capital": "Amman",
+            "name": "Jordanie",
+            "onu": true
+        },
+        "jp": {
+            "capital": "Tokyo",
+            "name": "Japon",
+            "onu": true
+        },
+        "kg": {
+            "capital": "Bichkek",
+            "name": "Kirghizistan",
+            "onu": true
+        },
+        "kh": {
+            "capital": "Phnom Penh",
+            "name": "Cambodge",
+            "onu": true
+        },
+        "kp": {
+            "capital": "Pyongyang",
+            "name": "République populaire démocratique de Corée",
+            "onu": true
+        },
+        "kr": {
+            "capital": "Séoul",
+            "name": "République de Corée",
+            "onu": true
+        },
+        "kw": {
+            "capital": "Koweït",
+            "name": "Koweït",
+            "onu": true
+        },
+        "kz": {
+            "capital": "Astana",
+            "name": "Kazakhstan",
+            "onu": true
+        },
+        "la": {
+            "capital": "Vientiane",
+            "name": "Laos",
+            "onu": true
+        },
+        "lb": {
+            "capital": "Beyrouth",
+            "name": "Liban",
+            "onu": true
+        },
+        "lk": {
+            "capital": "Sri Jayawardenepura Kotte",
+            "name": "Sri Lanka",
+            "onu": true
+        },
+        "mm": {
+            "capital": "Naypyidaw",
+            "name": "Birmanie",
+            "onu": true
+        },
+        "mn": {
+            "capital": "Oulan-Bator",
+            "name": "Mongolie",
+            "onu": true
+        },
+        "mv": {
+            "capital": "Malé",
+            "name": "Maldives",
+            "onu": true
+        },
+        "my": {
+            "capital": "Kuala Lumpur",
+            "name": "Malaisie",
+            "onu": true
+        },
+        "np": {
+            "capital": "Katmandou",
+            "name": "Népal",
+            "onu": true
+        },
+        "ph": {
+            "capital": "Manille",
+            "name": "Philippines",
+            "onu": true
+        },
+        "pk": {
+            "capital": "Islamabad",
+            "name": "Pakistan",
+            "onu": true
+        },
+        "sg": {
+            "capital": "Singapour",
+            "name": "Singapour",
+            "onu": true
+        },
+        "sy": {
+            "capital": "Damas",
+            "name": "Syrie",
+            "onu": true
+        },
+        "th": {
+            "capital": "Bangkok",
+            "name": "Thaïlande",
+            "onu": true
+        },
+        "tj": {
+            "capital": "Douchanbé",
+            "name": "Tadjikistan",
+            "onu": true
+        },
+        "tl": {
+            "capital": "Dili",
+            "name": "Timor-Leste",
+            "onu": true
+        },
+        "tm": {
+            "capital": "Achgabat",
+            "name": "Turkménistan",
+            "onu": true
+        },
+        "uz": {
+            "capital": "Tachkent",
+            "name": "Ouzbékistan",
+            "onu": true
+        },
+        "vn": {
+            "capital": "Hanoï",
+            "name": "Vietnam",
+            "onu": true
+        },
+        "ye": {
+            "capital": "Sanaa",
+            "name": "Yémen",
+            "onu": true
+        }
+    },
+    "europe": {
+        "ad": {
+            "capital": "Andorre-la-Vieille",
+            "name": "Andorre",
+            "onu": true
+        },
+        "al": {
+            "capital": "Tirana",
+            "name": "Albanie",
+            "onu": true
+        },
+        "at": {
+            "capital": "Vienne",
+            "name": "Autriche",
+            "onu": true
+        },
+        "ba": {
+            "capital": "Sarajevo",
+            "name": "Bosnie-Herzégovine",
+            "onu": true
+        },
+        "be": {
+            "capital": "Bruxelles",
+            "name": "Belgique",
+            "onu": true
+        },
+        "bg": {
+            "capital": "Sofia",
+            "name": "Bulgarie",
+            "onu": true
+        },
+        "by": {
+            "capital": "Minsk",
+            "name": "Biélorussie",
+            "onu": true
+        },
+        "ch": {
+            "capital": "Berne",
+            "name": "Suisse",
+            "onu": true
+        },
+        "cy": {
+            "capital": "Nicosie",
+            "name": "Chypre",
+            "onu": true
+        },
+        "cz": {
+            "capital": "Prague",
+            "name": "République Tchèque",
+            "onu": true
+        },
+        "de": {
+            "capital": "Berlin",
+            "name": "Allemagne",
+            "onu": true
+        },
+        "dk": {
+            "capital": "Copenhague",
+            "name": "Danemark",
+            "onu": true
+        },
+        "ee": {
+            "capital": "Tallinn",
+            "name": "Estonie",
+            "onu": true
+        },
+        "es": {
+            "capital": "Madrid",
+            "name": "Espagne",
+            "onu": true
+        },
+        "fi": {
+            "capital": "Helsinki",
+            "name": "Finlande",
+            "onu": true
+        },
+        "fr": {
+            "capital": "Paris",
+            "name": "France",
+            "onu": true
+        },
+        "gb": {
+            "capital": "Londres",
+            "name": "Royaume-Uni",
+            "onu": true
+        },
+        "gb-eng": {
+            "capital": "Londres",
+            "name": "Angleterre",
+            "onu": false
+        },
+        "gb-nir": {
+            "capital": "Belfast",
+            "name": "Irlande du Nord",
+            "onu": false
+        },
+        "gb-sct": {
+            "capital": "Édimbourg",
+            "name": "Écosse",
+            "onu": false
+        },
+        "gb-wls": {
+            "capital": "Cardiff",
+            "name": "Pays de Galles",
+            "onu": false
+        },
+        "gr": {
+            "capital": "Athènes",
+            "name": "Grèce",
+            "onu": true
+        },
+        "hr": {
+            "capital": "Zagreb",
+            "name": "Croatie",
+            "onu": true
+        },
+        "hu": {
+            "capital": "Budapest",
+            "name": "Hongrie",
+            "onu": true
+        },
+        "ie": {
+            "capital": "Dublin",
+            "name": "Irlande",
+            "onu": true
+        },
+        "is": {
+            "capital": "Reykjavik",
+            "name": "Islande",
+            "onu": true
+        },
+        "it": {
+            "capital": "Rome",
+            "name": "Italie",
+            "onu": true
+        },
+        "li": {
+            "capital": "Vaduz",
+            "name": "Liechtenstein",
+            "onu": true
+        },
+        "lt": {
+            "capital": "Vilnius",
+            "name": "Lituanie",
+            "onu": true
+        },
+        "lu": {
+            "capital": "Luxembourg",
+            "name": "Luxembourg",
+            "onu": true
+        },
+        "lv": {
+            "capital": "Riga",
+            "name": "Lettonie",
+            "onu": true
+        },
+        "mc": {
+            "capital": "Monaco",
+            "name": "Monaco",
+            "onu": true
+        },
+        "md": {
+            "capital": "Chisinau",
+            "name": "République de Moldavie",
+            "onu": true
+        },
+        "me": {
+            "capital": "Podgorica",
+            "name": "Monténégro",
+            "onu": true
+        },
+        "mk": {
+            "capital": "Skopje",
+            "name": "Macédoine",
+            "onu": true
+        },
+        "mt": {
+            "capital": "La Valette",
+            "name": "Malte",
+            "onu": true
+        },
+        "nl": {
+            "capital": "Amsterdam",
+            "name": "Pays-Bas",
+            "onu": true
+        },
+        "no": {
+            "capital": "Oslo",
+            "name": "Norvège",
+            "onu": true
+        },
+        "pl": {
+            "capital": "Varsovie",
+            "name": "Pologne",
+            "onu": true
+        },
+        "pt": {
+            "capital": "Lisbonne",
+            "name": "Portugal",
+            "onu": true
+        },
+        "ro": {
+            "capital": "Bucarest",
+            "name": "Roumanie",
+            "onu": true
+        },
+        "rs": {
+            "capital": "Belgrade",
+            "name": "Serbie",
+            "onu": true
+        },
+        "ru": {
+            "capital": "Moscou",
+            "name": "Fédération de Russie",
+            "onu": true
+        },
+        "se": {
+            "capital": "Stockholm",
+            "name": "Suède",
+            "onu": true
+        },
+        "si": {
+            "capital": "Ljubljana",
+            "name": "Slovénie",
+            "onu": true
+        },
+        "sk": {
+            "capital": "Bratislava",
+            "name": "Slovaquie",
+            "onu": true
+        },
+        "sm": {
+            "capital": "Saint-Marin",
+            "name": "Saint-Marin",
+            "onu": true
+        },
+        "ua": {
+            "capital": "Kiev",
+            "name": "Ukraine",
+            "onu": true
+        },
+        "va": {
+            "capital": "Cité du Vatican",
+            "name": "Vatican",
+            "onu": true
+        },
+        "xk": {
+            "capital": "Pristina",
+            "name": "Kosovo",
+            "onu": true
+        }
+    },
+    "islands": {
+        "ai": {
+            "capital": "The Valley",
+            "name": "Anguilla",
+            "onu": false
+        },
+        "aw": {
+            "capital": "Oranjestad",
+            "name": "Aruba",
+            "onu": false
+        },
+        "ax": {
+            "capital": "Mariehamn",
+            "name": "Îles Åland",
+            "onu": false
+        },
+        "bl": {
+            "capital": "Gustavia",
+            "name": "Saint-Barthélemy",
+            "onu": false
+        },
+        "bm": {
+            "capital": "Hamilton",
+            "name": "Bermudes",
+            "onu": false
+        },
+        "bq": {
+            "capital": "Kralendijk",
+            "name": "Bonaire, Saint-Eustache et Saba",
+            "onu": false
+        },
+        "cc": {
+            "capital": "West Island",
+            "name": "Îles Cocos",
+            "onu": false
+        },
+        "ck": {
+            "capital": "Avarua",
+            "name": "Îles Cook",
+            "onu": false
+        },
+        "cw": {
+            "capital": "Willemstad",
+            "name": "Curaçao",
+            "onu": false
+        },
+        "cx": {
+            "capital": "Flying Fish Cove",
+            "name": "Île Christmas",
+            "onu": false
+        },
+        "fo": {
+            "capital": "Tórshavn",
+            "name": "Îles Féroé",
+            "onu": false
+        },
+        "gf": {
+            "capital": "Cayenne",
+            "name": "Guyane Française",
+            "onu": false
+        },
+        "gg": {
+            "capital": "Saint-Pierre-Port",
+            "name": "Guernesey",
+            "onu": false
+        },
+        "gp": {
+            "capital": "Basse-Terre",
+            "name": "Guadeloupe",
+            "onu": false
+        },
+        "hm": {
+            "capital": "*",
+            "name": "Îles Heard-et-MacDonald",
+            "onu": false
+        },
+        "im": {
+            "capital": "Douglas",
+            "name": "Île de Man",
+            "onu": false
+        },
+        "je": {
+            "capital": "Saint-Hélier",
+            "name": "Jersey",
+            "onu": false
+        },
+        "mq": {
+            "capital": "Fort-de-France",
+            "name": "Martinique",
+            "onu": false
+        },
+        "ms": {
+            "capital": "Plymouth",
+            "name": "Montserrat",
+            "onu": false
+        },
+        "nf": {
+            "capital": "Kingston",
+            "name": "Île Norfolk",
+            "onu": false
+        },
+        "pm": {
+            "capital": "Saint-Pierre",
+            "name": "Saint-Pierre-et-Miquelon",
+            "onu": false
+        },
+        "pn": {
+            "capital": "Adamstown",
+            "name": "Pitcairn",
+            "onu": false
+        },
+        "re": {
+            "capital": "Saint-Denis",
+            "name": "Réunion",
+            "onu": false
+        },
+        "sx": {
+            "capital": "Philipsburg",
+            "name": "Saint-Martin",
+            "onu": false
+        },
+        "tc": {
+            "capital": "Cockburn Town",
+            "name": "Îles Turks-et-Caïcos",
+            "onu": false
+        },
+        "vg": {
+            "capital": "Road Town",
+            "name": "Îles Vierges Britanniques",
+            "onu": false
+        },
+        "vi": {
+            "capital": "Charlotte Amalie",
+            "name": "Îles Vierges des États-Unis",
+            "onu": false
+        },
+        "wf": {
+            "capital": "Mata-Utu",
+            "name": "Wallis-et-Futuna",
+            "onu": false
+        },
+        "yt": {
+            "capital": "Mamoudzou",
+            "name": "Mayotte",
+            "onu": false
+        }
+    },
+    "north-america": {
+        "bs": {
+            "capital": "Nassau",
+            "name": "Bahamas",
+            "onu": true
+        },
+        "bz": {
+            "capital": "Belmopan",
+            "name": "Belize",
+            "onu": true
+        },
+        "ca": {
+            "capital": "Ottawa",
+            "name": "Canada",
+            "onu": true
+        },
+        "cr": {
+            "capital": "San José",
+            "name": "Costa Rica",
+            "onu": true
+        },
+        "cu": {
+            "capital": "La Havane",
+            "name": "Cuba",
+            "onu": true
+        },
+        "dm": {
+            "capital": "Roseau",
+            "name": "Dominique",
+            "onu": true
+        },
+        "do": {
+            "capital": "Saint-Domingue",
+            "name": "République Dominicaine",
+            "onu": true
+        },
+        "gt": {
+            "capital": "Guatemala City",
+            "name": "Guatemala",
+            "onu": true
+        },
+        "hn": {
+            "capital": "Tegucigalpa",
+            "name": "Honduras",
+            "onu": true
+        },
+        "jm": {
+            "capital": "Kingston",
+            "name": "Jamaïque",
+            "onu": true
+        },
+        "kn": {
+            "capital": "Basseterre",
+            "name": "Saint-Christophe-et-Niévès",
+            "onu": true
+        },
+        "lc": {
+            "capital": "Castries",
+            "name": "Sainte-Lucie",
+            "onu": true
+        },
+        "mx": {
+            "capital": "Mexico City",
+            "name": "Mexique",
+            "onu": true
+        },
+        "pa": {
+            "capital": "Panama City",
+            "name": "Panama",
+            "onu": true
+        },
+        "tt": {
+            "capital": "Port of Spain",
+            "name": "Trinité-et-Tobago",
+            "onu": true
+        },
+        "us": {
+            "capital": "Washington, D.C",
+            "name": "États-Unis",
+            "onu": true
+        },
+        "vc": {
+            "capital": "Kingstown",
+            "name": "Saint-Vincent-et-les-Grenadines",
+            "onu": true
+        }
+    },
+    "oceania": {
+        "au": {
+            "capital": "Canberra",
+            "name": "Australie",
+            "onu": true
+        },
+        "fj": {
+            "capital": "Suva",
+            "name": "Fidji",
+            "onu": true
+        },
+        "fm": {
+            "capital": "Palikir",
+            "name": "États Fédérés de Micronésie",
+            "onu": true
+        },
+        "gu": {
+            "capital": "Hagåtña",
+            "name": "Guam",
+            "onu": false
+        },
+        "ki": {
+            "capital": "Tarawa",
+            "name": "Kiribati",
+            "onu": true
+        },
+        "mh": {
+            "capital": "Majuro",
+            "name": "Îles Marshall",
+            "onu": true
+        },
+        "mp": {
+            "capital": "Saipan",
+            "name": "Îles Mariannes du Nord",
+            "onu": false
+        },
+        "na": {
+            "capital": "Windhoek",
+            "name": "Namibie",
+            "onu": true
+        },
+        "nc": {
+            "capital": "Nouméa",
+            "name": "Nouvelle-Calédonie",
+            "onu": false
+        },
+        "nr": {
+            "capital": "Yaren",
+            "name": "Nauru",
+            "onu": true
+        },
+        "nz": {
+            "capital": "Wellington",
+            "name": "Nouvelle-Zélande",
+            "onu": true
+        },
+        "pf": {
+            "capital": "Papeete",
+            "name": "Polynésie Française",
+            "onu": false
+        },
+        "pg": {
+            "capital": "Port Moresby",
+            "name": "Papouasie-Nouvelle-Guinée",
+            "onu": true
+        },
+        "sb": {
+            "capital": "Honiara",
+            "name": "Îles Salomon",
+            "onu": true
+        },
+        "to": {
+            "capital": "Nuku'alofa",
+            "name": "Tonga",
+            "onu": true
+        },
+        "tv": {
+            "capital": "Funafuti",
+            "name": "Tuvalu",
+            "onu": true
+        },
+        "vu": {
+            "capital": "Port-Vila",
+            "name": "Vanuatu",
+            "onu": true
+        },
+        "wf": {
+            "capital": "Mata-Utu",
+            "name": "Wallis-et-Futuna",
+            "onu": true
+        }
+    },
+    "south-america": {
+        "ar": {
+            "capital": "Buenos Aires",
+            "name": "Argentine",
+            "onu": true
+        },
+        "bo": {
+            "capital": "Sucre",
+            "name": "Bolivie",
+            "onu": true
+        },
+        "br": {
+            "capital": "Brasília",
+            "name": "Brésil",
+            "onu": true
+        },
+        "cl": {
+            "capital": "Santiago",
+            "name": "Chili",
+            "onu": true
+        },
+        "co": {
+            "capital": "Bogotá",
+            "name": "Colombie",
+            "onu": true
+        },
+        "ec": {
+            "capital": "Quito",
+            "name": "Équateur",
+            "onu": true
+        },
+        "gy": {
+            "capital": "Georgetown",
+            "name": "Guyana",
+            "onu": true
+        },
+        "pe": {
+            "capital": "Lima",
+            "name": "Pérou",
+            "onu": true
+        },
+        "py": {
+            "capital": "Asunción",
+            "name": "Paraguay",
+            "onu": true
+        },
+        "sr": {
+            "capital": "Paramaribo",
+            "name": "Suriname",
+            "onu": true
+        },
+        "uy": {
+            "capital": "Montevideo",
+            "name": "Uruguay",
+            "onu": true
+        },
+        "ve": {
+            "capital": "Caracas",
+            "name": "Venezuela",
+            "onu": true
+        }
+    },
+    "usa-states": {
+        "us-ak": {
+            "capital": "Juneau",
+            "name": "Alaska",
+            "onu": false
+        },
+        "us-al": {
+            "capital": "Montgomery",
+            "name": "Alabama",
+            "onu": false
+        },
+        "us-ar": {
+            "capital": "Little Rock",
+            "name": "Arkansas",
+            "onu": false
+        },
+        "us-az": {
+            "capital": "Phoenix",
+            "name": "Arizona",
+            "onu": false
+        },
+        "us-ca": {
+            "capital": "Sacramento",
+            "name": "Californie",
+            "onu": false
+        },
+        "us-co": {
+            "capital": "Denver",
+            "name": "Colorado",
+            "onu": false
+        },
+        "us-ct": {
+            "capital": "Hartford",
+            "name": "Connecticut",
+            "onu": false
+        },
+        "us-de": {
+            "capital": "Dover",
+            "name": "Delaware",
+            "onu": false
+        },
+        "us-fl": {
+            "capital": "Tallahassee",
+            "name": "Floride",
+            "onu": false
+        },
+        "us-ga": {
+            "capital": "Atlanta",
+            "name": "Géorgie",
+            "onu": false
+        },
+        "us-hi": {
+            "capital": "Honolulu",
+            "name": "Hawaï",
+            "onu": false
+        },
+        "us-ia": {
+            "capital": "Des Moines",
+            "name": "Iowa",
+            "onu": false
+        },
+        "us-id": {
+            "capital": "Boise",
+            "name": "Idaho",
+            "onu": false
+        },
+        "us-il": {
+            "capital": "Springfield",
+            "name": "Illinois",
+            "onu": false
+        },
+        "us-in": {
+            "capital": "Indianapolis",
+            "name": "Indiana",
+            "onu": false
+        },
+        "us-ks": {
+            "capital": "Topeka",
+            "name": "Kansas",
+            "onu": false
+        },
+        "us-ky": {
+            "capital": "Frankfort",
+            "name": "Kentucky",
+            "onu": false
+        },
+        "us-la": {
+            "capital": "Baton Rouge",
+            "name": "Louisiane",
+            "onu": false
+        },
+        "us-ma": {
+            "capital": "Boston",
+            "name": "Massachusetts",
+            "onu": false
+        },
+        "us-md": {
+            "capital": "Annapolis",
+            "name": "Maryland",
+            "onu": false
+        },
+        "us-me": {
+            "capital": "Augusta",
+            "name": "Maine",
+            "onu": false
+        },
+        "us-mi": {
+            "capital": "Lansing",
+            "name": "Michigan",
+            "onu": false
+        },
+        "us-mn": {
+            "capital": "Saint Paul",
+            "name": "Minnesota",
+            "onu": false
+        },
+        "us-mo": {
+            "capital": "Jefferson City",
+            "name": "Missouri",
+            "onu": false
+        },
+        "us-ms": {
+            "capital": "Jackson",
+            "name": "Mississippi",
+            "onu": false
+        },
+        "us-mt": {
+            "capital": "Helena",
+            "name": "Montana",
+            "onu": false
+        },
+        "us-nc": {
+            "capital": "Raleigh",
+            "name": "Caroline du Nord",
+            "onu": false
+        },
+        "us-nd": {
+            "capital": "Bismarck",
+            "name": "Dakota du Nord",
+            "onu": false
+        },
+        "us-ne": {
+            "capital": "Lincoln",
+            "name": "Nebraska",
+            "onu": false
+        },
+        "us-nh": {
+            "capital": "Concord",
+            "name": "New Hampshire",
+            "onu": false
+        },
+        "us-nj": {
+            "capital": "Trenton",
+            "name": "New Jersey",
+            "onu": false
+        },
+        "us-nm": {
+            "capital": "Santa Fe",
+            "name": "Nouveau-Mexique",
+            "onu": false
+        },
+        "us-nv": {
+            "capital": "Carson City",
+            "name": "Nevada",
+            "onu": false
+        },
+        "us-ny": {
+            "capital": "Albany",
+            "name": "New York",
+            "onu": false
+        },
+        "us-oh": {
+            "capital": "Columbus",
+            "name": "Ohio",
+            "onu": false
+        },
+        "us-ok": {
+            "capital": "Oklahoma City",
+            "name": "Oklahoma",
+            "onu": false
+        },
+        "us-or": {
+            "capital": "Salem",
+            "name": "Oregon",
+            "onu": false
+        },
+        "us-pa": {
+            "capital": "Harrisburg",
+            "name": "Pennsylvanie",
+            "onu": false
+        },
+        "us-ri": {
+            "capital": "Providence",
+            "name": "Rhode Island",
+            "onu": false
+        },
+        "us-sc": {
+            "capital": "Columbia",
+            "name": "Caroline du Sud",
+            "onu": false
+        },
+        "us-sd": {
+            "capital": "Pierre",
+            "name": "Dakota du Sud",
+            "onu": false
+        },
+        "us-tn": {
+            "capital": "Nashville",
+            "name": "Tennessee",
+            "onu": false
+        },
+        "us-tx": {
+            "capital": "Austin",
+            "name": "Texas",
+            "onu": false
+        },
+        "us-ut": {
+            "capital": "Salt Lake City",
+            "name": "Utah",
+            "onu": false
+        },
+        "us-va": {
+            "capital": "Richmond",
+            "name": "Virginie",
+            "onu": false
+        },
+        "us-vt": {
+            "capital": "Montpelier",
+            "name": "Vermont",
+            "onu": false
+        },
+        "us-wa": {
+            "capital": "Olympia",
+            "name": "Washington",
+            "onu": false
+        },
+        "us-wi": {
+            "capital": "Madison",
+            "name": "Wisconsin",
+            "onu": false
+        },
+        "us-wv": {
+            "capital": "Charleston",
+            "name": "Virginie-Occidentale",
+            "onu": false
+        },
+        "us-wy": {
+            "capital": "Cheyenne",
+            "name": "Wyoming",
+            "onu": false
+        }
+    }
+}
