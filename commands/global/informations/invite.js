@@ -13,7 +13,7 @@ module.exports = {
             const inviteEmbed = new EmbedBuilder()
                 .setColor([255, 85, 0])
                 .setTitle("Clique ici pour m'inviter dans ton monde !")
-                .setURL("https://discord.com/oauth2/authorize?client_id=847932006389252158")
+                .setURL("https://discord.com/oauth2/authorize?client_id=791437575642152982")
                 .setImage("attachment://qr-code.png")
                 .setTimestamp()
                 .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });

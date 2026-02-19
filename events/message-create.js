@@ -1,7 +1,7 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType, MessageFlags } = require("discord.js");
 const { readFileSync } = require("fs");
 const { getValue, hasValue, updateValue } = require("../tools/database.js");
-const { isLink } = require("../tools/modules.js");
+const { getCurrencySymbol, isLink } = require("../tools/modules.js");
 const { levelsXP, specialLevels, rolesLevel } = require("../tools/xp-levels.js");
 
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
             await message.reply("Oh, salut ! :D\nJe fonctionne essentiellement avec les commandes slashs, à quelques exceptions près. Pour en savoir plus, regarde mes commandes avec le `/help`, ou consulte ma documentation sur [Tokinotsuki.rf.gd](https://tokinotsuki.rf.gd) !");
         }
 
-        if (message.guild.id === process.env.GUILD_COMMANDS_ID) {
+        if (message.guildId === process.env.GUILD_COMMANDS_ID) {
             const maximum = 150;
             const minimum = 2;
             const rawBonus = message.content.length / 4;
@@ -121,7 +121,7 @@ module.exports = {
 
                     await updateValue(userID, "users", "cookie", 1);
 
-                    await message.channel.send({ content: `<@${userID}> as obtenu 1 ${getCurrencySymbol("cookie")} !`, flags: MessageFlags.Ephemeral });
+                    await message.channel.send({ content: `<@${userID}> a obtenu 1 ${getCurrencySymbol("cookie")} !` });
 
                     await cookieCollector?.stop();
                 });

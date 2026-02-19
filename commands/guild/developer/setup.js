@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 const { readFileSync, writeFileSync } = require("fs");
 const { sendError } = require("../../../tools/error-catcher.js");
 const { updateMemberCounts } = require("../../../tools/modules.js");
+const { levelMessages } = require("../../../tools/xp-levels.js");
 
 module.exports = {
     category: "Serveur",
@@ -12,6 +13,10 @@ module.exports = {
         .addSubcommand(subcommand => subcommand
             .setName("baka-button")
             .setDescription("Pour créer un bouton inutile qui compte le nombre de clique."))
+
+        .addSubcommand(subcommand => subcommand
+            .setName("level-message")
+            .setDescription("Liste les rôles de niveaux avec leur avantages."))
 
         .addSubcommand(subcommand => subcommand
             .setName("update-member-counts")
@@ -52,7 +57,23 @@ module.exports = {
 
                     await interaction.channel.send({ embeds: [bakaEmbed], components: [bakaButton] });
 
-                    await interaction.reply({ content: "✅ Le boutton a bien été envoyé !", flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: "✅ Le bouton a bien été envoyé !", flags: [MessageFlags.Ephemeral] });
+                    break;
+
+                case "level-message":
+                    const levelEmbed = new EmbedBuilder()
+                        .setColor([255, 85, 0])
+                    	.setDescription("## 🌟 Explications du système des niveaux\n** **\n~~-----------------------------------------------------~~\n\nUn système de niveaux est présent sur le serveur afin de le rendre plus ludique ! Pour chaque message envoyé, un certains nombre de points d'expérience est attribué en fonction de sa longueur. Il y a 150 niveaux actuellement, demandant un nombre exponentiel de points d'expérience, et certains paliers donne un rôle avec des avantages ! Ce système est encore en test et peut encore changer.\n\n~~-----------------------------------------------------~~\n\n")
+                        .setTimestamp()
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+
+                    for (let i = 0; i < Object.keys(levelMessages).length; i++) {
+                        levelEmbed.addFields({ name: "‎", value: `**<@&${Object.keys(levelMessages)[i]}>**\n${levelMessages[Object.keys(levelMessages)[i]]}`, inline: true });
+                    }
+
+                    await interaction.channel.send({ embeds: [levelEmbed] });
+
+                    await interaction.reply({ content: "✅ Message envoyé !", flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "update-member-counts":
@@ -67,25 +88,23 @@ module.exports = {
                     const yearCakeYear = interaction.options.getInteger("year");
                     const yearCakeEmoji = interaction.options.getString("year-cake-emoji");
                     const yearCakeRole = interaction.options.getRole("year-cake-role");
-                    const yearCakeRoles = [interaction.guild.id, "750028696290852875", yearCakeRole.id];
                     const currentYearCake = readFileSync("./json/current-year-cake.json", "utf8");
                     const currentYearCakeData = JSON.parse(currentYearCake);
                     const lastYearCakeChannel = yearCakeYear > 1 ? await client.channels.fetch(currentYearCakeData["current-year-cake-channel-id"]) : null;
-                    const yearCakeChannelPermissions = [];
+                    const yearCakeChannelPermissions = [{
+                        id: interaction.guild.id,
+                        type: OverwriteType.Role,
+                        allow: [PermissionsBitField.Flags.ViewChannel],
+                        disallow: [PermissionsBitField.Flags.SendMessages]
+                    }, {
+                        id: yearCakeRole.id,
+                        type: OverwriteType.Role,
+                        allow: [PermissionsBitField.Flags.ViewChannel]
+                    }];
 
-                    for (let i = 0; i < yearCakeRoles.length; i++) {
-                        yearCakeChannelPermissions.push({
-                            id: yearCakeRoles[i],
-                            type: OverwriteType.Role,
-                            allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.ReadMessageHistory]
-                        });
-
-                        if (yearCakeYear > 1 && i !== yearCakeRoles.length - 1)
-                            lastYearCakeChannel.permissionOverwrites.edit(yearCakeRoles[i], {
-                                ViewChannel: false,
-                                ReadMessageHistory: false
-                            });
-                    }
+                    lastYearCakeChannel.permissionOverwrites.edit(interaction.guild.id, {
+                        ViewChannel: false
+                    });
 
                     const yearCakeChannel = await interaction.guild.channels.create({
                         name: `🎂﹥${yearCakeYear}${yearCakeYear % 10 === 1 ? "st" : yearCakeYear % 10 === 2 ? "nd" : yearCakeYear % 10 === 3 ? "rd" : "th"}-year-cake`,

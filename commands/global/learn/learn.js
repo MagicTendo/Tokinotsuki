@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const nerdamer = require("nerdamer/all.min");
 const countryList = require("../../../json/countries.json");
 const hiraganaKatakanaList = require("../../../json/hiragana-katakana.json");
@@ -266,7 +266,7 @@ module.exports = {
                                     if ((continent === "onu" && !country["onu"]) || (continent === "not-onu" && country["onu"]))
                                         continue;
 
-                                    quizType === "capitals" ? questions.push(`${country["name"]}|${country["capital"]}|${countryCode}`) : quizType === "flags" ? questions.push(`https://flagcdn.com/w2560/${countryCode}.png|${country["name"]}|${countryCode}`) : questions.push(`https://img.geonames.org/assets/images/country/250/${countryCode.toUpperCase()}.png|${country["name"]}|${countryCode}`);
+                                    quizType === "capitals" ? questions.push(`${country["name"]}|${country["capital"]}|${countryCode}`) : quizType === "flags" ? questions.push(`https://flagcdn.com/w2560/${countryCode}.png|${country["name"]}|${countryCode}`) : questions.push(`https://img.geonames.org/img/country/250/${countryCode.toUpperCase()}.png|${country["name"]}|${countryCode}`);
                                 }
                             }
                         } else {
@@ -276,7 +276,7 @@ module.exports = {
                                 const countryCode = specificcountryList[i];
                                 const country = countryList[continent][countryCode];
 
-                                quizType === "capitals" ? questions.push(`${country["name"]}|${country["capital"]}|${countryCode}`) : quizType === "flags" ? questions.push(`https://flagcdn.com/w2560/${countryCode}.png|${country["name"]}|${countryCode}`) : questions.push(`https://img.geonames.org/assets/images/country/250/${countryCode.toUpperCase()}.png|${country["name"]}|${countryCode}`);
+                                quizType === "capitals" ? questions.push(`${country["name"]}|${country["capital"]}|${countryCode}`) : quizType === "flags" ? questions.push(`https://flagcdn.com/w2560/${countryCode}.png|${country["name"]}|${countryCode}`) : questions.push(`https://img.geonames.org/img/country/250/${countryCode.toUpperCase()}.png|${country["name"]}|${countryCode}`);
                             }
                         }
 
@@ -361,6 +361,7 @@ module.exports = {
                     const question = questions[0].split("|")[0];
                     const answer = questions[0].split("|")[1];
                     const countryCode = questions[0].split("|")[2];
+                    const quizImage = [];
                     isCorrect = false;
                     currentRound++;
 
@@ -371,9 +372,17 @@ module.exports = {
                         .setTimestamp()
                         .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
 
-                    quizType === "capitals" || quizType === "kana" || quizType === "mathematics" ? "" : learnEmbed.setImage(question);
+                    if (quizType !== "capitals" && quizType !== "kana" && quizType !== "mathematics") {
+                        learnEmbed.setImage("attachment://question.png");
 
-                    await interaction.editReply({ embeds: [learnEmbed] });
+                        const questionImageResponse = await fetch(question);
+                        const questionImageBuffer = await questionImageResponse.arrayBuffer();
+                        const questionImage = new AttachmentBuilder(new Buffer.from(questionImageBuffer), { name: "question.png" });
+
+                        quizImage.push(questionImage);
+                    }
+
+                    await interaction.editReply({ embeds: [learnEmbed], files: quizImage });
 
                     const collector = await interaction.channel.createMessageCollector({ filter: message => message.author.id === interaction.user.id && !message.author.bot, time: roundDuration });
                     const cleanRealAnswer = await cleanAnswer(answer);
@@ -390,7 +399,7 @@ module.exports = {
 
                         const cleanUserAnswer = await cleanAnswer(userGuess);
 
-                        if (cleanUserAnswer === cleanRealAnswer || countryList["alternative-names"][quizType === "capitals" ? quizType : "countryList"]?.[countryCode]?.includes(cleanUserAnswer) || nerdamer(cleanUserAnswer).eq(cleanRealAnswer)) {
+                        if (cleanUserAnswer === cleanRealAnswer || countryList["alternative-names"][quizType === "flags" ? "countries" : "capitals"]?.[countryCode].includes(cleanUserAnswer) || nerdamer(cleanUserAnswer).eq(cleanRealAnswer)) {
                             points += 1;
                             isCorrect = true;
 
@@ -467,7 +476,7 @@ module.exports = {
                         .setTimestamp()
                         .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
 
-                    await interaction.editReply({ embeds: [finishedLearnEmbed] });
+                    await interaction.editReply({ embeds: [finishedLearnEmbed], files: [] });
                 }
 
                 await generateQuestions();

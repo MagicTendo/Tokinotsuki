@@ -270,7 +270,7 @@ module.exports = {
                         if (randomDelay < 60_000) {
                             timeApproximation = "moins d'une minute";
                         } else if (randomDelay >= 60_000 && randomDelay < 200_000) {
-                            timeApproximation = "2 minute ou plus";
+                            timeApproximation = "2 minutes ou plus";
                         } else {
                             timeApproximation = "5 minutes ou moins";
                         }
@@ -638,12 +638,12 @@ module.exports = {
                                     return await message.reply({ content: "Hmmm, selon tes indications, cela n'est pas possible ! Partie terminée..." });
                                 }
 
-                                if (message.content === "plus")
+                                if (message.content.toLowerCase() === "plus" || message.content === "+")
                                     guessRange = [lastGuess + 1, guessRange[1]];
-                                if (message.content === "moins")
+                                if (message.content.toLowerCase() === "moins" || message.content === "-")
                                     guessRange = [guessRange[0], lastGuess - 1];
 
-                                if (message.content === "exact") {
+                                if (message.content.toLowerCase() === "exact" || message.content.toLowerCase() === "oui" || message.content.toLowerCase() === "ok" || message.content.toLowerCase() === "gg" || message.content === "=") {
                                     if (lastGuess === randomNumber) {
                                         hasFound = true;
 
@@ -1077,16 +1077,16 @@ module.exports = {
 
                     case "roulette":
                         const userRouletteTokiCoins = await getValue(userID, "users", "toki-coin");
+                        const rouletteWinningTeam = await getWinningTeam(userID);
+                        const isUserTeamWinning = rouletteWinningTeam["isUserTeamWinning"];
 
-                        if (betAmount > userRouletteTokiCoins)
+                        if ((isUserTeamWinning && betAmount * 2 > userRouletteTokiCoins) || betAmount > userRouletteTokiCoins)
                             return await interaction.reply({ content: "❌ Tu n'as pas autant d'argent à miser !", flags: MessageFlags.Ephemeral });
 
                         const betColor = interaction.options.getString("color");
                         const colors = { "red": ["🟥", "rouge"], "black": ["⚫", "noire"] };
                         const randomColorIndex = Math.floor(Math.random() * Object.keys(colors).length);
                         const randomColor = Object.keys(colors)[randomColorIndex];
-                        const rouletteWinningTeam = await getWinningTeam(userID);
-                        const isUserTeamWinning = rouletteWinningTeam["isUserTeamWinning"];
 
                         if (betColor === randomColor) {
                             const gain = isUserTeamWinning ? betAmount * 3 : betAmount * 2;

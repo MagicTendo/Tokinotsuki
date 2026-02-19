@@ -40,6 +40,7 @@ async function deckToValue(deck) {
 
     for (let i = 0; i < deck.length; i++) {
         const cardValue = deck[i].slice(0, -2);
+
         total += cardNumberValues[cardValue] ?? Number(cardValue);
     }
 

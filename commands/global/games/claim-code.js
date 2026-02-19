@@ -26,7 +26,7 @@ module.exports = {
                 const codeOwner = codes[code]["owner"];
                 const codeExpiration = codes[code]["expiration"];
 
-                if ((codeOwner === 0 || codeOwner == client.user.id) && !codes[code]["used"].includes(userID)) {
+                if ((codeOwner === 0 || codeOwner === userID) && !codes[code]["used"]?.includes(userID)) {
                     if (codeExpiration === 0 || Date.now() <= codeExpiration) {
                         const prizes = Object.keys(codes[code]);
                         let prizelist = "";
@@ -41,13 +41,15 @@ module.exports = {
 
                             await updateValue(userID, "users", prizeName, prizeAmount);
 
-                            prizelist += `${await simplify(userID, prizeAmount)} ${prizeName}(s), `;
+                            prizelist += `${await simplify(userID, prizeAmount)} ${prizeName === "toki-coin" ? "Toki Coin" : `${prizeName}(s)`}, `;
                         }
 
                         prizelist = prizelist.slice(0, -2).replace(/,([^,]*)$/, " et$1");
 
                         if (codeOwner === 0)
                             codes[code]["used"].push(userID);
+                        else
+                            delete codes[code];
 
                         await interaction.reply({ content: `Tu as gagné ${prizelist} !` });
                     } else {

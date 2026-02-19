@@ -1,10 +1,9 @@
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 const { CronJob } = require("cron");
-const { exec } = require("child_process");
 const { readFileSync, writeFileSync } = require("fs");
 const Parser = require("rss-parser");
 const { keyvUsers, getValue } = require("../tools/database.js");
-const { sendCriticalError, sendLog } = require("../tools/error-catcher.js");
+const { sendLog } = require("../tools/error-catcher.js");
 const { getRandomStatus } = require("../tools/statuses.js");
 
 const parser = new Parser();
@@ -36,7 +35,6 @@ module.exports = {
                 "youtube-otomadan": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDwOADtlYqiOnk5bw9ODaJw",
                 "youtube-splakatoon": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgkGbVuCpagDAJG5gjIQpjA",
                 "youtube-bakarchive": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmafRLbKesLu_aEOMWwDU4g",
-                "youtube-myuji": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGlaKldYgAe54JDVzrPXfWA",
                 "youtube-olivier": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnNS9mYZhSspxC9ejyHIBCw",
                 "twitch": "https://twitchrss.com/feeds/?username=bakataida&feed=streams",
                 "bluesky": "https://bsky.app/profile/did:plc:5xp53iakukfbfxdpgftptggr/rss"
@@ -75,7 +73,7 @@ module.exports = {
                             writeFileSync("./json/social-media-last-updates.json", JSON.stringify(socialMediaLastUpdateList, null, 4));
                         }
                     }
-                });
+                }, null, true, "Europe/Paris");
 
                 socialMediaNotificationJob.start();
             }
@@ -92,17 +90,17 @@ module.exports = {
             const supportID = "827879505884348456";
 
             const dates = {
-                "* * 8 1 *": [yunayunoriID, "🎴 MagikuTendō Bideogēmu", "yunayunori/magictendo"],
-                "* * 1 2 *": [yunayunoriID, "🍰 Yunayunori", "yunayunori/year-cake"],
-                "* * 15 2 *": [yunayunoriID, "🌋 Yunranopikuseru", "yunayunori/shutanopikuseru"],
-                "* * 1 4 *": [yunayunoriID, "🎴 Yunayunori", "yunayunori/april-fools"],
-                "* * 5 6 *": [yunayunoriID, "🎴 Yunayunori", "yunayunori/blurple"],
-                "* * 5 9 *": [yunayunoriID, "🍊 Yunrano 95", "yunayunori/kyujugopiku"],
-                "* * * 10 *": [yunayunoriID, "🎃 Yunayunori", "yunayunori/halloween"],
-                "* * * 12 *": [yunayunoriID, "❄️ Yunayunori", "yunayunori/christmas"],
-                "* * 12 5 *": [supportID, "🧊 Support Cirno", "tokinotsuki/cirno"],
-                "* * * 10 *": [supportID, "🎃 TokinoSupport", "tokinotsuki/halloween"],
-                "* * * 12 *": [supportID, "❄️ TokinoSupport", "tokinotsuki/christmas"]
+                "0 * 8 1 *": [yunayunoriID, "🎴 MagikuTendō Bideogēmu", "yunayunori/magictendo"],
+                "0 * 1 2 *": [yunayunoriID, "🍰 Yunayunori", "yunayunori/year-cake"],
+                "0 * 15 2 *": [yunayunoriID, "🌋 Yunranopikuseru", "yunayunori/shutanopikuseru"],
+                "0 * 1 4 *": [yunayunoriID, "🎴 Yunayunori", "yunayunori/april-fools"],
+                "0 * 5 6 *": [yunayunoriID, "🎴 Yunayunori", "yunayunori/blurple"],
+                "0 * 5 9 *": [yunayunoriID, "🍊 Yunrano 95", "yunayunori/kyujugopiku"],
+                "0 * * 10 *": [yunayunoriID, "🎃 Yunayunori", "yunayunori/halloween"],
+                "0 * * 12 *": [yunayunoriID, "❄️ Yunayunori", "yunayunori/christmas"],
+                "0 * 12 5 *": [supportID, "🧊 Support Cirno", "tokinotsuki/cirno"],
+                "0 * * 10 *": [supportID, "🎃 TokinoSupport", "tokinotsuki/halloween"],
+                "0 * * 12 *": [supportID, "❄️ TokinoSupport", "tokinotsuki/christmas"]
             };
 
             for (const [date, data] of Object.entries(dates)) {
@@ -113,7 +111,7 @@ module.exports = {
                         await server.setName(data[1]);
                         await server.setIcon(`./assets/images/server-icons/${data[2]}.png`);
                     }
-                });
+                }, null, true, "Europe/Paris");
 
                 profilePictureManagerJob.start();
             }
@@ -126,7 +124,7 @@ module.exports = {
                         await server.setName(originalYunayunoriName);
                         await server.setIcon("./assets/images/server-icons/yunayunori/classic.png");
                     }
-                });
+                }, null, true, "Europe/Paris");
 
                 yunayunoriProfilePictureResetJob.start();
             }
@@ -139,7 +137,7 @@ module.exports = {
                         await server.setName(originalSupportName);
                         await server.setIcon("./assets/images/server-icons/tokinotsuki/classic.png");
                     }
-                });
+                }, null, true, "Europe/Paris");
 
                 tokinoSupportProfilePictureResetJob.start();
             }

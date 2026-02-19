@@ -12,14 +12,15 @@ module.exports = {
             switch (buttonContent[1]) {
                 case "sell":
                     const price = buttonContent[2];
+                    const currency = price <= 25 ? "cookie" : "toki-coin";
                     originalOwner = buttonContent[4];
 
-                    await updateValue(userID, "users", "toki-coin", Number(price));
+                    await updateValue(userID, "users", currency, Number(price));
 
                     if (buttonContent.includes("arkeology") && userID !== originalOwner) {
-                        await interaction.update({ content: `<@${userID}> a gagné ${await simplify(userID, price)} ${getCurrencySymbol("toki-coin")} en volant la trouvaille de <@${originalOwner}> !`, embeds: [], components: [], files: [] });
+                        await interaction.update({ content: `<@${userID}> a gagné ${await simplify(userID, price)} ${getCurrencySymbol(currency)} en volant la trouvaille de <@${originalOwner}> !`, embeds: [], components: [], files: [] });
                     } else {
-                        await interaction.update({ content: `Tu as gagné ${await simplify(userID, price)} ${getCurrencySymbol("toki-coin")} !`, embeds: [], components: [], files: [] });
+                        await interaction.update({ content: `Tu as gagné ${await simplify(userID, price)} ${getCurrencySymbol(currency)} !`, embeds: [], components: [], files: [] });
                     }
                     break;
 

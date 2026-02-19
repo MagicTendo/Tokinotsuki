@@ -28,6 +28,7 @@ module.exports = {
             let dealerTotal = await deckToValue(dealerCards);
             let playerTotal = await deckToValue(playerCards);
             let blackjackButtons = [];
+            let hasFinished = false;
             let gameStatus;
             let profit;
 
@@ -41,9 +42,7 @@ module.exports = {
                     playerTotal += card[1];
 
                     if (playerTotal > 21) {
-                        gameStatus = "lost";
-                    } else if (dealerTotal > 21) {
-                        gameStatus = "win";
+                        hasFinished = true;
                     } else {
                         blackjackButtons = [new ActionRowBuilder().addComponents(interaction.message.components[0].components)];
                         blackjackButtons[0].components[0].data.custom_id = `blackjack_hit_${deckID}_${dealerCards.join("-")}_${playerCards.join("-")}_${betAmount}_${interaction.user.id}`;
@@ -56,26 +55,24 @@ module.exports = {
                     break;
 
                 case "stand":
-                    if (playerTotal > 21 || (dealerTotal > playerTotal && dealerTotal <= 21)) {
-                        gameStatus = "lost";
-                    } else if (playerTotal === dealerTotal) {
-                        gameStatus = "push";
-                    } else {
-                        gameStatus = "win";
-                    }
-
-                    blackjackEmbed.setFields(
-                        { name: "🟠 __Tokinotsuki__", value: `${dealerCards.join(" | ")} | ?? (**${dealerTotal}**)`, inline: true },
-                        { name: `🔵 __${interaction.user.globalName}__`, value: `${playerCards.join(" | ")} (**${playerTotal}**)`, inline: true });
+                    hasFinished = true;
                     break;
             }
 
-            if (gameStatus !== undefined) {
+            if (hasFinished) {
                 while (dealerTotal < 17) {
                     const card = await drawCard(deckID);
 
                     dealerCards.push(card[0]);
                     dealerTotal += card[1];
+                }
+
+                if ((playerTotal > 21 || dealerTotal > playerTotal) && dealerTotal <= 21) {
+                    gameStatus = "lost";
+                } else if (playerTotal === dealerTotal) {
+                    gameStatus = "push";
+                } else {
+                    gameStatus = "win";
                 }
 
                 blackjackEmbed.setFields(

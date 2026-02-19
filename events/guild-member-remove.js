@@ -6,7 +6,7 @@ module.exports = {
     async execute(member, client) {
         const userID = member.id;
 
-        if (member.user.flags.bitfield === 0 && member.user.username.startsWith("deleted_user_") && member.user.username === null && member.user.avatar === null && member.user.accentColor === null)
+        if (member.user.username.startsWith("deleted_user_") && member.user.username === null && member.user.avatar === null && member.user.accentColor === null)
             await deleteKey(userID, "users");
 
         if (member.guild.id === process.env.GUILD_COMMANDS_ID) {

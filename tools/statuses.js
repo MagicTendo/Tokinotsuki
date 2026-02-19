@@ -249,7 +249,7 @@ function getRandomStatus(client) {
             break;
     }
 
-    randomStatusType === "custom" ? activityIndex = new Date().getHours() : activityIndex = Math.floor(Math.random() * status[randomStatusType].length);
+    randomStatusType === "custom" ? activityIndex = (new Date().getUTCHours() + 1) % 24 : activityIndex = Math.floor(Math.random() * status[randomStatusType].length);
 
     const finalActivity = activityPrefix + status[randomStatusType][activityIndex];
 

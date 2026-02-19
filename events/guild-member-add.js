@@ -15,7 +15,7 @@ module.exports = {
             if (member.guild.id === process.env.GUILD_COMMANDS_ID) {
                 const welcomeKoruSticker = await member.guild.stickers.fetch("1008095948938936352");
 
-                await member.roles.add("872571888356974624");
+                await member.roles.add("805878889725165578");
                 await member.guild.channels.cache.find(channel => channel.id === "882258016160858122").send({ content: `> ➜ **${member.user.username}** a rejoint le serveur Yunayunori, bienvenue~~♪ ! :D\n** **`, stickers: [welcomeKoruSticker] });
                 await updateMemberCounts(client);
             } else if (member.guild.id === "827879505884348456") {

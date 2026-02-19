@@ -485,7 +485,7 @@ module.exports = {
                         "pin-cirno": "<:CirnoPin:1462200543127670976>",
                         "pin-retro": "<:RetroToki:1467442122482253896>",
                         "pin-beta-tester": "<:BetaTester:1462199245632311493>",
-                        "pin-bug": "<:Bug:1462199247322747036>",
+                        "pin-bug-hunter": "<:Bug:1462199247322747036>",
                         "graniti": "🍧",
                         "pimentes": "🫑",
                         "mentis": "<:Mentis:1462199254813507869>",

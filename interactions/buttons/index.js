@@ -12,10 +12,11 @@ const shopActions = require("./src/games/shop-actions.js");
 const taskActions = require("./src/games/task-actions.js");
 const tictactoeActions = require("./src/games/tictactoe-actions.js");
 const teamActions = require("./src/games/team-actions.js");
+const bakaButtonActions = require("./src/guild/baka-button-actions.js");
+const rulesButtonActions = require("./src/guild/rules-actions.js");
 const clearChannelActions = require("./src/utility/clear-channel-actions.js");
 const ticketActions = require("./src/utility/ticket-actions.js");
 const todoActions = require("./src/utility/todo-actions.js");
-const bakaButtonActions = require("./src/guild/baka-button-actions.js");
 
 buttonList = {
     "ping": pingActions,
@@ -32,10 +33,11 @@ buttonList = {
     "task": taskActions,
     "tictactoe": tictactoeActions,
     "team": teamActions,
+    "rules": rulesButtonActions,
+    "baka-button": bakaButtonActions,
     "clear-channel": clearChannelActions,
     "ticket": ticketActions,
-    "todo": todoActions,
-    "baka-button": bakaButtonActions
+    "todo": todoActions
 }
 
 module.exports = { buttonList };

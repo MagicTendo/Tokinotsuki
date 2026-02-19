@@ -53,7 +53,7 @@ async function sendResult(item, gameType, interaction, userID, hasPickaxe = fals
         imageFiles.push(`./assets/images/money/${item.currency ?? "toki-coin"}.png`);
     }
 
-    imageFiles.push(`./assets/images/${gameType === "fish" ? "fishes": gameType === "pikpik" ? "ores" : gameType === "arkelogy" ? "artefacts" : "birds"}/${item.shortName}.png`);
+    imageFiles.push(`./assets/images/${gameType === "fish" ? "fishes": gameType === "pikpik" ? "ores" : gameType === "arkeology" ? "artefacts" : "birds"}/${item.shortName}.png`);
 
     gameType === "bird" ? itemEmbed.setImage(imageLink) : itemEmbed.setThumbnail(imageLink);
 

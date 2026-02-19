@@ -99,7 +99,7 @@ module.exports = {
                     break;
 
                 case "juck":
-                    const juck = "⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬜⬜⬜⬜⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛";
+                    const juck = "⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜⬛\n⬛⬜⬛⬛⬛⬛⬛⬛⬛⬛⬜⬜⬛\n⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛\n⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛";
 
                     await interaction.reply({ content: juck });
                     break;
@@ -133,7 +133,7 @@ module.exports = {
                     break;
 
                 case "time":
-                    const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+                    const time = new Date().toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" });
                     const timeArray = time.split(":");
 
                     await interaction.reply({ content: `🕰️ Il est ${timeArray[0]} heures, ${timeArray[1]} minutes et ${timeArray[2]} secondes !`, flags: MessageFlags.Ephemeral });
