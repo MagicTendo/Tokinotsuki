@@ -1,7 +1,7 @@
 const { writeFileSync } = require("fs");
 const { capitalize } = require("./modules.js");
 
-const commandByCategory = { "count": 0, "Informations": [], "Fun": [], "Jeux": [], "Modération": [], "Utilitaire": [], "Apprentissage": [], "Social": [], "Inutile": [], "Serveur": [] };
+const commandByCategory = { "count": 0, "Informations": { "emoji": "📄", "commands": [] }, "Fun": { "emoji": "🎉", "commands": [] }, "Jeux": { "emoji": "🎮", "commands": [] }, "Modération": { "emoji": "🛡️", "commands": [] }, "Utilitaire": { "emoji": "🛠️", "commands": [] }, "Musique": { "emoji": "🎶", "commands": [] }, "Apprentissage": { "emoji": "📖", "commands": [] }, "Social": { "emoji": "💬", "commands": [] }, "Inutile": { "emoji": "🫠", "commands": [] }, "Serveur": { "emoji": "🎴", "commands": [] } };
 let commandInformations = [];
 let topGGCommandList = [];
 let commandsCount = 0;
@@ -33,7 +33,7 @@ function generateHelp(client, commands, ids) {
         const commandsCategory = capitalize(command.category);
 
         for (let i = 0; i < commandInformations.length; i++) {
-            commandByCategory[commandsCategory].push(commandInformations[i]);
+            commandByCategory[commandsCategory]["commands"].push(commandInformations[i]);
             commandsCount += 1;
         }
 

@@ -5,8 +5,8 @@
 This project was made with these technologies:
 
 - Node.js v24.18.0
-- PNPM v11.9.0
-- Discord.js v14.26.4
+- PNPM v12.4.2
+- Discord.js v14.27.0
 - PostgreSQL v18.4
 
 

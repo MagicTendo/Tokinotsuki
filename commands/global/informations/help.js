@@ -11,17 +11,16 @@ module.exports = {
         .setContexts([0, 1, 2]),
     async execute(interaction, client) {
         try {
-            const categoryEmojis = ["📄", "🎉", "🎮", "🛡️", "🛠️", "📖", "💬", "🫠", "🎴"];
             const commandsCount = commandList["count"];
             let categoryCount = Object.keys(commandList).length - 1;
 
             if (process.env.GUILD_COMMANDS_ID !== interaction.guild.id)
                 categoryCount--;
 
-            const dropdownOptions = Object.keys(commandList).filter(category => category !== "count" && (process.env.GUILD_COMMANDS_ID === interaction.guild.id || category !== "Serveur")).map((folder, i) => ({
+            const dropdownOptions = Object.keys(commandList).filter(category => category !== "count" && (process.env.GUILD_COMMANDS_ID === interaction.guild.id || category !== "Serveur")).map((category, i) => ({
                 page: `Page ${i + 1}`,
-                name: folder,
-                emoji: categoryEmojis[i]
+                name: category,
+                emoji: commandList[category]["emoji"]
             }));
 
             const helpMenu = new ActionRowBuilder().addComponents(
@@ -30,7 +29,7 @@ module.exports = {
                     .addOptions(...dropdownOptions.map(category => ({
                         emoji: { name: category.emoji },
                         label: category.page,
-                        description: category.name.toLowerCase() === "serveur" ? "Commandes uniquement pour le serveur Yunayunori" : category.name,
+                        description: category.name === "Serveur" ? "Commandes pour le serveur Yunayunori" : category.name,
                         value: category.name
                     })))
                     .setCustomId(`help_${interaction.user.id}`));

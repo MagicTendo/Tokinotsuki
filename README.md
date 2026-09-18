@@ -24,7 +24,9 @@ The main purpose of Tokinotsuki is to offer as much features as possible while b
 - 🎮 Games (blackjack, minesweeper, custom games, etc.).
 - 🛡️ Moderation (kick, ban, server security, etc.).
 - 🛠️ Utility (calculator with graphic mode, units converter, QR code, etc.).
+- 🎶 Music (radios only (lofi, vocaloid, video games, etc.)).
 - 📖 Learning (flags, Japanese syllabaries, mental arithmetic, etc.).
+- 💬 Social (interactions, cookies, etc.).
 - 🫠 Useless (dumb commands with no purpose).
 - 🎴 Server (only for [Yunayunori's Discord server](https://discord.gg/DYQutQvbSu), like the XP system for example).
 
@@ -43,7 +45,7 @@ There is now two ways you can try Tokinotsuki! By clicking **[this link](https:/
 
 Here's a little guide explaining how to self-host Tokinotsuki.
 
-First, clone or download the repository. Then, type `nvm use`, this should installs Node.js v24.18.0 if you don't have it. After that, install PNPM (version 11.9.0 was used for this project), and type `pnpm install --frozen-lockfile`, this should install every dependencies on the correct version. Next, copy the [.env.example](./.env.example) file, rename it to `.env`, and fill it. You probably don't need everything the file is asking for, in that case, remove the part in the code asking the keys you don't need. If you didn't already, create an application on the [Discord Developer Portal](https://discord.com/developers/applications/), and make it as a bot. You'll be able to get the bot's token from the Bot section. Finally, when the `.env` is ready, you can launch the bot with `node .` ! It is as easy as that, thank you JavaScript !
+First, clone the repository. Then, type `nvm use`, this should installs Node.js v24.18.0 if you don't have it. After that, install PNPM, and type `pnpm install --frozen-lockfile`, this should install every dependencies on the correct version. Next, copy the [.env.example](./.env.example) file, rename it to `.env`, and fill it. You probably don't need everything the file is asking for, in that case, remove the part in the code asking the keys you don't need. If you didn't already, create an application on the [Discord Developer Portal](https://discord.com/developers/applications/), and make it as a bot. You'll be able to get the bot's token from the Bot section. Finally, when the `.env` is ready, you can launch the bot with `node .` ! It is as easy as that, thank you JavaScript !
 
 
 ## 🎫 Help

@@ -1,4 +1,5 @@
 overrides:
+  adm-zip: ^0.6.1
   form-data: ^4.0.6
   tar: ^7.5.16
   tmp: ^0.2.6
@@ -6,18 +7,13 @@ overrides:
   uuid: ^11.1.1
   ws: ^8.21.0
 
-onlyBuiltDependencies:
-  - "@discordjs/opus"
-  - ffmpeg-static
-  - node-opus
-  - ref
-  - sqlite3
-
 allowBuilds:
   bufferutil: true
-  core-js: true
-  es5-ext: true
-  esbuild: true
-  puppeteer: true
+  node-opus: false
+  ref: false
   sqlite3: true
   utf-8-validate: true
+
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+minimumReleaseAge: 10080

@@ -150,11 +150,10 @@ module.exports = {
                         if (adventureStatus === adventureFlags.failed) {
                             const adventureBackTime = await getValue(userID, "users", "adventure-time") + await getValue(userID, "users", "adventure-duration");
 
-                            if (adventureBackTime <= Date.now()) {
+                            if (adventureBackTime <= Date.now())
                                 await updateValue(userID, "users", "adventure-status", adventureFlags.none, false);
-                            } else {
+                            else
                                 return await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire une expédition <t:${Math.round(adventureBackTime / 1_000)}:R> !`, flags: [MessageFlags.Ephemeral] });
-                            }
                         }
 
                         if (adventureStatus > adventureFlags.none) {
@@ -275,13 +274,12 @@ module.exports = {
                         const randomDelay = Math.floor(Math.random() * 270_000) + 30_000;
                         let timeApproximation;
 
-                        if (randomDelay < 60_000) {
+                        if (randomDelay < 60_000)
                             timeApproximation = "moins d'une minute";
-                        } else if (randomDelay >= 60_000 && randomDelay < 200_000) {
+                        else if (randomDelay >= 60_000 && randomDelay < 200_000)
                             timeApproximation = "2 minutes ou plus";
-                        } else {
+                        else
                             timeApproximation = "5 minutes ou moins";
-                        }
 
                         await interaction.reply({ content: `${uniqueItemEmojis[`brush${hasBrushUpgrade ? "-upgrade" : ""}`]} Fouille de ${username} en cours ! Le temps est estimé à environ ${timeApproximation}...` });
 

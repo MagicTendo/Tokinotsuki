@@ -38,40 +38,60 @@ module.exports = {
                 "youtube-yunayunori": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYMc2Rt2ZplrPS7dwLMP8AQ",
                 "youtube-olivier": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnNS9mYZhSspxC9ejyHIBCw",
                 "twitch": "https://twitchrss.com/feeds/?username=bakataida&feed=streams",
-                "bluesky": "https://bsky.app/profile/did:plc:5xp53iakukfbfxdpgftptggr/rss"
+                "instagram": "https://rss.bloat.cat/?action=display&bridge=InstagramBridge&context=Username&u=bakataida&media_type=all&format=Atom",
+                "pixiv": "https://rss-bridge.lewd.tech/?action=display&bridge=PixivBridge&context=User&userid=87601725&posts=1&mode=illustrations%2F&format=Atom",
+                "bluesky": "https://bsky.app/profile/did:plc:5xp53iakukfbfxdpgftptggr/rss",
+                "bandcamp": "http://wtf.roflcopter.fr/rss-bridge/?action=display&bridge=BandcampBridge&context=By+band&band=bakataida&type=releases&limit=1&format=Atom",
+                "github": "https://github.com/MagicTendo.atom"
             };
 
             const socialMediaAlerts = {
                 "youtube": "## <@&1028062134292185158> Une nouvelle vidéo est sortie sur [CHANNEL_NAME] !",
                 "twitch": "## <@&1467462732281413684> BakaTaida vient de commencer un nouveau live !",
-                "bluesky": "## <@&1467463259664941160> BakaTaida vient de poster un nouveau dessin sur Bluesky !"
+                "instagram": "## <@&1538630700700536922> BakaTaida vient de poster un nouveau dessin sur Instagram !",
+                "pixiv": "## <@&1538630720132489317> BakaTaida vient de poster un nouveau dessin sur pixiv !",
+                "bluesky": "## <@&1467463259664941160> BakaTaida vient de poster un nouveau dessin sur Bluesky !",
+                "bandcamp": "## <@&1538630594391707718> BakaTaida vient de publier un nouvel album sur Bandcamp !",
+                "github": "## <@&1548106606451892296> BakaTaida vient de [ACTION] [REPOSITORY] !"
             };
 
             for (let i = 0; i < Object.keys(socialMediaRoutes).length; i++) {
                 const socialMediaID = Object.keys(socialMediaRoutes)[i];
                 const socialMediaRoute = socialMediaRoutes[socialMediaID];
 
-                const socialMediaNotificationJob = new CronJob("*/15 9-20 * * *", async () => {
+                const socialMediaNotificationJob = new CronJob("*/20 * * * *", async () => {
                     const socialMediaFeed = await parser.parseURL(socialMediaRoute);
                     const socialMediaLastUpdates = readFileSync("./json/social-media-last-updates.json", "utf-8");
                     const socialMediaLastUpdateList = JSON.parse(socialMediaLastUpdates);
 
-                    if (socialMediaFeed.items.length > 1) {
-                        const socialMediaLastPublicationDateRaw = socialMediaFeed.items[0].pubDate;
+                    if (socialMediaFeed.items.length > 0) {
+                        const socialMediaLastPublicationDateRaw = socialMediaFeed.items[0]?.pubDate ?? socialMediaFeed.items[0]?.published ?? socialMediaFeed.items[0]?.date_modified;
                         const socialMediaLastPublicationDate = new Date(socialMediaLastPublicationDateRaw).getTime();
 
                         if (socialMediaLastPublicationDate > socialMediaLastUpdateList[socialMediaID]) {
-                            const socialMediaChannelName = socialMediaFeed.title;
-                            const socialMediaChannelLink = socialMediaFeed.items[0].link;
-                            const postMessage = `${socialMediaAlerts[socialMediaID.split("-")[0]].replace("[CHANNEL_NAME]", `\`${socialMediaChannelName}\``)}\n** **\n${socialMediaChannelLink}`;
+                            const socialMediaTitleTag = socialMediaFeed?.title;
+                            const postTitle = socialMediaFeed.items[0]?.title;
+                            const postLink = socialMediaFeed.items[0]?.link ?? socialMediaFeed.items[0]?.url;
 
-                            await client.channels.fetch(process.env.SOCIAL_MEDIAS_CHANNEL_ID).then(async channel => {
-                                await channel.send({ content: postMessage });
-                            });
+                            if (!socialMediaTitleTag.includes("has stopped streaming") && !postTitle?.includes("Bridge returned error") && postLink !== socialMediaRoute) {
+                                const githubRepositoryName = postTitle?.split(" ")?.[2];
+                                const socialMediaChannelLink = socialMediaID === "github" ? `https://github.com/MagicTendo/${githubRepositoryName}` : postLink;
+                                const githubRepositoryAction = postTitle?.includes("pushed") ? "mettre à jour" : postTitle?.toLowerCase()?.includes("Initial commit") ? "publier" : null;
 
-                            socialMediaLastUpdateList[socialMediaID] = socialMediaLastPublicationDate;
+                                if (socialMediaID === "github" && githubRepositoryAction || socialMediaID !== "github") {
+                                    const postMessage = `${socialMediaAlerts[socialMediaID.split("-")[0]].replace("[CHANNEL_NAME]", `\`${socialMediaTitleTag}\``).replace("[ACTION]", githubRepositoryAction).replace("[REPOSITORY]", githubRepositoryName)}\n** **\n${socialMediaChannelLink}`;
 
-                            writeFileSync("./json/social-media-last-updates.json", JSON.stringify(socialMediaLastUpdateList, null, 4));
+                                    await client.channels.fetch(process.env.SOCIAL_MEDIAS_CHANNEL_ID).then(async channel => {
+                                        await channel.send({ content: postMessage });
+                                    });
+
+                                    socialMediaLastUpdateList[socialMediaID] = socialMediaLastPublicationDate;
+
+                                    writeFileSync("./json/social-media-last-updates.json", JSON.stringify(socialMediaLastUpdateList, null, 4));
+                                }
+                            } else {
+                                await sendLog(client, "Broken RSS feed!", `The [${socialMediaID}](${socialMediaRoute}) RSS feed no longer works!`, "error");
+                            }
                         }
                     }
                 }, null, true, "Europe/Paris");

@@ -12,15 +12,16 @@ module.exports = {
             .setName("version")
             .setDescription("Choisis la version.")
             .addChoices(
-                { name: "v4.0.1", value: "4.0.1" },
+                { name: "v4.2.0", value: "4.2.0" },
+                { name: "v4.1.0", value: "4.1.0" },
                 { name: "v4.0.0", value: "4.0.0" },
                 { name: "v3.0.0", value: "3.0.0" },
                 { name: "v2.0.0", value: "2.0.0" },
+                { name: "v1.5.0", value: "1.5.0" },
+                { name: "v1.4.0", value: "1.4.0" },
+                { name: "v1.3.0", value: "1.3.0" },
+                { name: "v1.2.1", value: "1.2.1" },
                 { name: "v1.2.0", value: "1.2.0" },
-                { name: "v1.1.4", value: "1.1.4" },
-                { name: "v1.1.3", value: "1.1.3" },
-                { name: "v1.1.2", value: "1.1.2" },
-                { name: "v1.1.1", value: "1.1.1" },
                 { name: "v1.1.0", value: "1.1.0" })
             .setRequired(true)),
     async execute(interaction, client) {
@@ -29,7 +30,11 @@ module.exports = {
             let patchNotesContent;
 
             switch (version) {
-                case "4.0.1":
+                case "4.2.0":
+                    patchNotesContent = "➜ Ajout du module musique avec la commande `/radio` permettant d'avoir une radio dans un salon vocal !\n➜ Suppression de la commande `/tenor` car j'avais oublié que l'API allait disparaître !\n➜ Ajout de nouveaux flux RSS pour le serveur [Yunayunori](https://discord.gg/DYQutQvbSu).\n➜ Quelques petites optimisations de code.\n➜ Changement de la nomenclature des versions.";
+                    break;
+
+                case "4.1.0":
                     patchNotesContent = "➜ Ajout de la commande `/getting-started`, expliquant comment les fonctionnalités majeures de Tokinotsuki fonctionne.\n➜ Ajout de la commande `/tenor`, permettant de prévisualiser des GIFs provenant de Tenor, afin d'en découvrir de nouveaux pour les mettre en favori !\n➜ Refonte complète de `/game fight`, mieux optimisé et avec plus d'options.\n➜ Ajout de machines pour `/game jackpot`.\n➜ Ajout de bouttons pour voir l'inventaire et donner un cookie sur un profil affiché avec `/info user`.\n➜ Ajout d'un nouvel objet dans le magasin de Tokinotsuki, le contrat de mutation d'équipe, permettant de changer d'équipe.\n➜ Ajout d'une image sur `/tokinotsuki`.\n➜ Possibilité de voler des cookies avec le `/rob`.\n➜ Codes enfin utilisables avec `/claim-code`.\n➜ Nouveaux statuts, optimisation de leur gestion, et ajouts de statuts pour Halloween et Noël.\n➜ Suppression des commandes `/dev-news`, `/support` et `/random baka-wiki`.\n➜ Quelques optimisations de code et bugs réglés.";
                     break;
 
@@ -45,23 +50,23 @@ module.exports = {
                     patchNotesContent = "➜ Ajout de nouveaux mini jeux comme `>tictactoe`, `>snake` ou encore de `>pikpik {infos}` et de `>fight` qui sont achetable dans le `>retro pixel center` !\n➜ Ajout de deux nouveaux shops ! Le `>cookieshop` et le `>fightshop` !\n➜ Ajout de commandes pour la catégorie modération et social.\n➜ Ajout de `>uwu`, `>wat`, `>choice [Choix 1, choix 2]`, `>mixnames [@Utilisateur]`, `>wikihow`, `>sell all`, `>yt {Message}`, `>poker {Message}` et `>chess {Message}`.\n➜ Ajout de `>pay [@Utilisateur, Montant]` pour donner des Watozans aux autres mais aussi ajout de `>rob [@Utilisateur]` pour voler de l'argent à quelqu'un et de `>money` pour voir son nombre de Watozans !\n➜ Pleins de nouveaux statuts !\n➜ Le pixel art des poissons est un plagiat de Minecraft, oui j’avoue ._. mais plus maintenant UwU.\n➜ Quelques modifications mineures et bugs réglés.\n➜ Ajout d'un easter egg, plus compliqué que celui de la version 1.1.1 si vous voulez arriver au bout (◔◡◔).\n\nNote: pour le `>fish` il ne faut plus une canne à pêche mais faut acheter le jeu sur le `>retro pixel center` et il est au même prix que la canne à pêche et si vous avez déjà une canne à pêche vous aurez quand même le jeu !";
                     break;
 
-                case "1.2.0":
+                case "1.5.0":
                     patchNotesContent = "➜ Nouveaux articles dans `>kerusunashop` :D.\n➜ Petite modification avec `>fish`, quand vous pêcher un poisson, vous avez deux réactions, une pour garder le poisson et l'autre pour directement le vendre.\n➜ Quand un nombre de Watozans et généré aléatoirement, le bot choisis maintenant un nombre minimum à un nombre maximum et plus de 0 au nombre maximum (du coup plus de 0 ou 1 Watozan pour les malchanceux xD) et `>daily` peut donner jusqu'à 750 Watozans maintenant !\n➜ Vous pouvez maintenant consulter l'inventaire des autres avec `>inventory` @Utilisateur. \n➜ Petite modification sur certains embeds !";
                     break;
 
-                case "1.1.4":
+                case "1.4.0":
                     patchNotesContent = "➜ Ajout de `>vote` qui donne des Watozans si vous votez pour le bot sur Top.gg.\n➜ Ajout de la nouvelle fonctionnalité de bouton sur `>botinfo`.";
                     break;
 
-                case "1.1.3":
+                case "1.3.0":
                     patchNotesContent = "➜ Ajout de `>uselesswebsites` qui montre des sites inutiles x).\n➜ Petite modification sur `>gtn` (le bot répond avec le \"nouveau\" système de réponse de Discord).\n➜ Ajout de `>mp` (commande uniquement disponible pour le développeur).";
                     break;
 
-                case "1.1.2":
+                case "1.2.1":
                     patchNotesContent = "➜ `>userinfo` marche si on mentionne quelqu'un.\n➜ `>cookie` et `>chifoumi` remarche !\n➜ Nouvelle URL du site du bot (http://tokinotsuki.rf.gd/), l'ancienne URL redirige vers la nouvelle :p.\n➜ Suppression de tous les `message.delete()` qui permettent d'effacer la commande entrer par l'utilisateur.";
                     break;
 
-                case "1.1.1":
+                case "1.2.0":
                     patchNotesContent = "➜ Ajout de la commande `>fautereport` car je ne sais pas écrire :p.\n➜ Plus de cooldowns pour `>bugreport`, `>suggestion` et `>fautereport` pour les bêta testeurs !\n➜ Réglage de quelques bugs mineurs.\n➜ Ajout d'un easter egg 0w0.";
                     break;
 

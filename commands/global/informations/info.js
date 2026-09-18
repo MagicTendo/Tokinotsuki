@@ -427,15 +427,16 @@ module.exports = {
                     const numberUsers = client.users.cache.size;
                     const ram = Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 10) / 10;
                     const numberNPMPackages = String(Object.keys(dependencies).length);
-                    const tokiBanner = client.user.bannerURL({ extension: "png", size: 4_096, dynamic: true });
-
+                    const fetchToki = await client.user.fetch();
+                    const tokiBanner = fetchToki.bannerURL({ extension: "png", size: 4_096, dynamic: true });
+                        
                     const infoBotEmbed = new EmbedBuilder()
                         .setColor([255, 85, 0])
                         .setDescription(`## __Informations sur moi !__\n** **\nJe suis connectée depuis **${uptimeDays}** jours, **${uptimeHours}** heures, **${uptimeMinutes}** minutes, et **${uptimeSeconds}** secondes !\n-# *Encore merci à [Hasuko](https://www.youtube.com/@ohanashihasuko6535) (créateur du bot [Hasu](https://top.gg/bot/353949197571194890)) et à YuriSensei pour les tout débuts du projet, ainsi qu'à [Ninjdai](https://github.com/Ninjdai1) pour la suite et la première documentation !*\n\n** **`)
                         .setFields(
-                            { name: "📁 __Version__", value: "v4.0.1", inline: true },
+                            { name: "📁 __Version__", value: "v4.2.0", inline: true },
+                            { name: "⌚ __Dernière mise à jour__", value: "<t:1789682400:D>", inline: true },
                             { name: "💾 __Commandes__", value: numberCommands, inline: true },
-                            { name: "⌚ __Dernière MàJ__", value: "<t:1647817200:f>", inline: true },
                             { name: "🔧 __Développeur__", value: "<@610493430325313549>", inline: true },
                             { name: "🗺️ __Serveurs__", value: `${numberGuilds} serveurs`, inline: true },
                             { name: "🧍 __Utilisateurs__", value: `${numberUsers} utilisateurs`, inline: true },

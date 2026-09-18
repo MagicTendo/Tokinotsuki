@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
-const dotenv = require("dotenv").config({ path: ".env", quiet: true });
+const dotenv = require("dotenv").config({ path: ".env.local", quiet: true });
 const { readdirSync } = require("fs");
 const process = require("node:process");
 const { deployCommands } = require("./tools/commands-loader.js");

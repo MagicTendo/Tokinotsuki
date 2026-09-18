@@ -9,7 +9,7 @@ module.exports = {
             const commandByCategoryList = JSON.parse(helpJSON);
             const selectedCategory = interaction.values[0];
             const categoryName = selectedCategory.toLowerCase();
-            const categoryCommands = commandByCategoryList[selectedCategory];
+            const categoryCommands = commandByCategoryList[selectedCategory]["commands"];
             let helpDescription = "";
 
             categoryCommands.forEach(command => {
