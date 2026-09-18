@@ -1,2 +1,23 @@
+overrides:
+  form-data: ^4.0.6
+  tar: ^7.5.16
+  tmp: ^0.2.6
+  undici: ^6.27.0
+  uuid: ^11.1.1
+  ws: ^8.21.0
+
 onlyBuiltDependencies:
+  - "@discordjs/opus"
+  - ffmpeg-static
+  - node-opus
+  - ref
   - sqlite3
+
+allowBuilds:
+  bufferutil: true
+  core-js: true
+  es5-ext: true
+  esbuild: true
+  puppeteer: true
+  sqlite3: true
+  utf-8-validate: true

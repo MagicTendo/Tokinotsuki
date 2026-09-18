@@ -16,14 +16,10 @@ module.exports = {
                 const codesJSON = readFileSync("./json/codes.json", "utf-8");
                 const codeList = JSON.parse(codesJSON);
 
-                if (userID in codeList) {
-                    if (codeList[userID][0] in codeList) {
-                        await message.reply(`Oh, salut ${message.author.globalName}, ça fait longtemps ! :D\nMerci d'avoir joué avec moi dans la version précédante ! Pour te remercier, voici ton code pour avoir finit ${userCodes[userID][1]} dans le classement ${userCodes[userID][2]} !\n> # \`${userCodes[userID][0]}\``);
-                    } else {
-                        await message.reply("Tu as déjà récupéré ton code ! :D");
-                    }
+                if (Object.values(codeList).some(code => code["owner"] === userID)) {
+                    await message.reply(`Oh, salut ${message.author.globalName}, ça fait longtemps ! :D\nMerci d'avoir joué avec moi dans la version précédante ! Pour te remercier, voici ton code :\n> # \`${Object.keys(codeList).find(key => codeList[key]["owner"] === userID)}\``);
                 } else {
-                    await message.reply("Salut ! Désolé, mais non, tu n'es malheureusement pas éligible pour avoir un code D:");
+                    await message.reply("Salut ! Désolé, mais non, soit tu n'es malheureusement pas éligible pour avoir un code, soit tu l'as déjà récupéré D:");
                 }
             } else if (message.content.toLowerCase().includes("cirno")) {
                 await fetch("https://img.paulzzh.com/touhou/random?type=json&tag=cirno").then(function (response) {
@@ -89,7 +85,7 @@ module.exports = {
                     .setTitle(`${username} a gagné un niveau !`)
                     .setThumbnail(userProfilePicture)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 if (specialLevels.includes(newLevel)) {
                     const levelUpRoleID = rolesLevel[newLevel];
@@ -121,7 +117,7 @@ module.exports = {
 
                     await updateValue(userID, "users", "cookie", 1);
 
-                    await message.channel.send({ content: `<@${userID}> a obtenu 1 ${getCurrencySymbol("cookie")} !` });
+                    await message.channel.send({ content: `<@${userID}> as obtenu 1 ${getCurrencySymbol("cookie")} !` });
 
                     await cookieCollector?.stop();
                 });

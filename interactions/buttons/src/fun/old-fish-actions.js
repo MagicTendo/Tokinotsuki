@@ -22,11 +22,11 @@ module.exports = {
 
                     if (ranndomOldFishIndex === 1)
                         if (await completeQuest(interaction.user.id, "fish"))
-                            await interaction.reply({ content: "📜 En obtenant ce poisson, tu as terminé la quête `Poisson de nuit` !", flags: MessageFlags.Ephemeral })
+                            await interaction.reply({ content: "📜 En obtenant ce poisson, tu as terminé la quête `Poisson de nuit` !", flags: [MessageFlags.Ephemeral] })
                     break;
 
                 case "no-catch":
-                    await interaction.reply({ content: "❌ Le poisson n'a pas mordu !", flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: "❌ Le poisson n'a pas mordu !", flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

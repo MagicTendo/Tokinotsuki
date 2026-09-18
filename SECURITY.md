@@ -1,22 +1,20 @@
-# Security Policy
+# 🔒 Security Policy
 
 ## 📋️ Versions
 
-This project was made with updated, locked and LTS versions.
+This project was made with these technologies:
 
-- Node.js : 20.19.6
-- PNPM : 10.17.1
-- PNPM packages : latest and locked
+- Node.js v24.18.0
+- PNPM v11.9.0
+- Discord.js v14.26.4
+- PostgreSQL v18.4
 
 
 ## ❗️ Reporting a vulnerability
 
-If you discover a vulnerability on this project, contact me privately on Discord (@bakataida), or use the `/report` command. You can also use the issue feature to report it privately, but I don't know how it works because I'm very bad at using Github. After reporting it, depending on the severity, I will try my best to resolve it as fast as possible.
+If you discover a vulnerability on this project, contact me privately on Discord (@bakataida), or use the `/report` command. You can also use the issue feature on the repository, but keep in mind that I'm very bad at using Github, so it may not be the best solution. After reporting it, depending on the severity, I will try my best to resolve it as fast as possible.
 
 
-## 🚨 Known vulnerabilities (1)
+## 🚨 Known vulnerabilities (0)
 
-### Package simple-spellchecker
-
-- Problem : dependency tmp <= 0.2.3
-- Severity : low
+No known vulnerabilities found!

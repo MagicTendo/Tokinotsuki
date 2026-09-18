@@ -24,7 +24,7 @@ module.exports = {
                     const isNSFW = articleCategories.some(category => category.toLowerCase().includes("pornographie") || category.toLowerCase().includes("sexuel") || category.toLowerCase().includes("hentai") || category.toLowerCase().includes("suicide"));
 
                     if (isNSFW && !interaction.channel.nsfw)
-                        return await interaction.reply({ content: "❌ Tu dois être dans un salon NSFW pour celui là !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu dois être dans un salon NSFW pour celui là !", flags: [MessageFlags.Ephemeral] });
 
                     await interaction.deferReply();
 
@@ -43,11 +43,11 @@ module.exports = {
                         .setThumbnail(articleThumbnail)
                         .setImage(articleImage)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.editReply({ embeds: [wikipediaEmbed] });
                 }).catch(async error => {
-                    await interaction.replied ? await interaction.editReply({ content: "❌ Aucun article n'a été trouvé à ce sujet !" }) : await interaction.reply({ content: "❌ Aucun article n'a été trouvé à ce sujet !", flags: MessageFlags.Ephemeral });
+                    interaction.replied ? await interaction.editReply({ content: "❌ Aucun article n'a été trouvé à ce sujet !" }) : await interaction.reply({ content: "❌ Aucun article n'a été trouvé à ce sujet !", flags: [MessageFlags.Ephemeral] });
                 });
         } catch (error) {
             await sendError(interaction, client, error);

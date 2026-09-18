@@ -186,26 +186,26 @@ module.exports = {
             };
 
             if (!interaction.member.permissions.has(actions[actionType][0]))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion requise !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion requise !", flags: [MessageFlags.Ephemeral] });
             if (!interaction.guild.members.me.permissions.has(actions[actionType][0]))
-                return await interaction.reply({ content: "❌ Je n'ai pas la permission requise !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Je n'ai pas la permission requise !", flags: [MessageFlags.Ephemeral] });
 
             if (actionType !== "lock" && actionType !== "unban") {
                 if (typeof interaction.guild.members.cache.get(user.id) === "undefined" || !user)
-                    return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: [MessageFlags.Ephemeral] });
                 if (user.user.id === interaction.user.id && actionType !== "clean-username")
-                    return await interaction.reply({ content: "❌ Je ne veux pas le faire sur toi !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Je ne veux pas le faire sur toi !", flags: [MessageFlags.Ephemeral] });
                 if (!user.bannable)
-                    return await interaction.reply({ content: "❌ Je ne peux pas faire cette action sur cette personne, probablement à cause des permissions (permission manquante, rôle supérieur ou égal,  fondateur, etc.) !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Je ne peux pas faire cette action sur cette personne, probablement à cause des permissions (permission manquante, rôle supérieur ou égal,  fondateur, etc.) !", flags: [MessageFlags.Ephemeral] });
 
                 const userRoleRawPosition = user.roles.highest.rawPosition;
                 const memberRoleRawPosition = interaction.member.roles.highest.rawPosition;
 
                 if (userRoleRawPosition >= memberRoleRawPosition)
-                    return await interaction.reply({ content: "❌ Tu ne peux pas faire ça, cet utilisateur a un rôle superieur à toi !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Tu ne peux pas faire ça, cet utilisateur a un rôle superieur à toi !", flags: [MessageFlags.Ephemeral] });
             } else if (actionType === "lock") {
                 if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageRoles))
-                    return await interaction.reply({ content: "❌ J'ai besoin de la permission de gérer les rôles !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ J'ai besoin de la permission de gérer les rôles !", flags: [MessageFlags.Ephemeral] });
             }
 
             switch (actionType) {
@@ -228,7 +228,7 @@ module.exports = {
                         await interaction.guild.bans.fetch(user.id);
                         await interaction.guild.members.unban(user);
                     } catch {
-                        return await interaction.reply({ content: "❌ Cet utilisateur n'est pas banni !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Cet utilisateur n'est pas banni !", flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -237,7 +237,7 @@ module.exports = {
                     const newUsername = await clean(username);
 
                     if (username === newUsername)
-                        return await interaction.reply({ content: "❌ Le nom de l'utilisateur ne contient pas de caractère spécial !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Le nom de l'utilisateur ne contient pas de caractère spécial !", flags: [MessageFlags.Ephemeral] });
 
                     await user.setNickname(newUsername);
                     break;
@@ -258,11 +258,11 @@ module.exports = {
                     }
 
                     if (typeof timeoutDurationMilliseconds === "undefined" || isNaN(timeoutDurationMilliseconds))
-                        return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h`, `d` et `w`, et s'utilisent avec un nombre, `9d` pour 9 jours, `3h 14m` pour 3 heures et 14 minutes, etc.", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h`, `d` et `w`, et s'utilisent avec un nombre, `9d` pour 9 jours, `3h 14m` pour 3 heures et 14 minutes, etc.", flags: [MessageFlags.Ephemeral] });
                     if (timeoutDurationMilliseconds < 1)
-                        return await interaction.reply({ content: "❌ La valeur doit être strictement positive et non nulle !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ La valeur doit être strictement positive et non nulle !", flags: [MessageFlags.Ephemeral] });
                     if (timeoutDurationMilliseconds > 2_332_800_000)
-                        return await interaction.reply({ content: "❌ Tu ne peux pas exclure quelqu'un pendant plus de 27 jours !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu ne peux pas exclure quelqu'un pendant plus de 27 jours !", flags: [MessageFlags.Ephemeral] });
 
                     actions["timeout"][2] = actions["timeout"][2].replace("[time]", timeoutDurationString.trim());
 
@@ -285,7 +285,7 @@ module.exports = {
                     switch (lockOrUnlock) {
                         case "lock":
                             if (String(channelNameLock).startsWith("🔒") && String(channelNameLock).endsWith("🔒"))
-                                return await interaction.reply({ content: "❌ Le salon est déjà bloqué, ou alors c'est que tu as mis `🔒` au début et à la fin du nom du salon !", flags: MessageFlags.Ephemeral });
+                                return await interaction.reply({ content: "❌ Le salon est déjà bloqué, ou alors c'est que tu as mis `🔒` au début et à la fin du nom du salon !", flags: [MessageFlags.Ephemeral] });
 
                             await interaction.channel.permissionOverwrites.set([{
                                 id: roleLockID,
@@ -315,7 +315,7 @@ module.exports = {
                     .setColor([112, 7, 7])
                     .setDescription(`### ${lockOrUnlock === "lock" ? "🔒" : "🔓"} Le salon (**${interaction.channel.id}**) a bien été ${lockOrUnlock === "lock" ? "" : "dé"}bloqué pour le rôle **<@&${roleLockID}>** !\n\n**__Raison__**\n> *${reason}*`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await logChannel.send({ embeds: [unlockEmbed] });
             } else {
@@ -323,12 +323,12 @@ module.exports = {
                     .setColor([112, 7, 7])
                     .setDescription(`### ${actions[actionType][1]} L'utilisateur **${user.nickname ?? user.user?.globalName ?? user.user?.username}** (**${user.user?.id ?? user.id}**) a bien ${actions[actionType][2]} par **<@${interaction.user.id}>** !\n\n**__Raison__**\n> *${reason}*`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await logChannel.send({ embeds: [modEmbed] });
             }
 
-            await interaction.reply({ content: "✅ L'action a bien été effectuée !", flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: "✅ L'action a bien été effectuée !", flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

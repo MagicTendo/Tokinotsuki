@@ -156,7 +156,7 @@ module.exports = {
                     break;
             }
 
-            await interaction.reply({ content: (secretText.substring(0, 1997) + (secretText.length > 1997 ? "..." : "")).replaceAll("?``", "? "), flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: (secretText.substring(0, 1997) + (secretText.length > 1997 ? "..." : "")).replaceAll("?``", "? "), flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

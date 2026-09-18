@@ -57,9 +57,9 @@ module.exports = {
                     const emojiURL = await getEmojiURL(emojiID, isAnimated);
 
                     if (emojiURL === null)
-                        return await interaction.reply({ content: "❌ Mets un seul vrai ID d'émoji !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Mets un seul vrai ID d'émoji !", flags: [MessageFlags.Ephemeral] });
 
-                    await interaction.reply({ content: emojiURL, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: emojiURL, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "sticker":
@@ -83,9 +83,9 @@ module.exports = {
                     const stickerURL = await getStickerURL(stickerID);
 
                     if (stickerURL === null)
-                        return await interaction.reply({ content: "❌ Mets un seul vrai ID de sticker ! Si l'identifiant est bien correct, alors c'est un sticker officiel de Discord qui ne peut pas être récupéré !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Mets un seul vrai ID de sticker ! Si l'identifiant est bien correct, alors c'est un sticker officiel de Discord qui ne peut pas être récupéré !", flags: [MessageFlags.Ephemeral] });
 
-                    await interaction.reply({ content: `${stickerURL}\n\n-# Si le sticker est censé être animé et qu'il ne bouge pas, c'est normal, ce n'est pas un PNG mais un APNG, [convertissez-le en GIF](<https://ezgif.com/apng-to-gif>) et ça sera bon !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `${stickerURL}\n\n-# Si le sticker est censé être animé et qu'il ne bouge pas, c'est normal, ce n'est pas un PNG mais un APNG, [convertissez-le en GIF](<https://ezgif.com/apng-to-gif>) et ça sera bon !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "sound":
@@ -103,9 +103,9 @@ module.exports = {
                     const soundURL = await getSoundURL(soundID);
 
                     if (soundURL === null)
-                        return await interaction.reply({ content: "❌ Mets un seul vrai ID de son !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Mets un seul vrai ID de son !", flags: [MessageFlags.Ephemeral] });
 
-                    await interaction.reply({ content: soundURL, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: soundURL, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

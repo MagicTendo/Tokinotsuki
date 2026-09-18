@@ -45,10 +45,16 @@ async function hasCooldownFinished(interaction, dataType, delay) {
     } else {
         const finishTimeSeconds = Math.round((cooldownLastTime + delay) / 1_000);
 
-        await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire cette commande <t:${finishTimeSeconds}:R> !`, flags: MessageFlags.Ephemeral });
+        await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire cette commande <t:${finishTimeSeconds}:R> !`, flags: [MessageFlags.Ephemeral] });
 
         return false;
     }
 }
 
-module.exports = { getCooldownList, hasCooldownFinished };
+async function resetCooldown(userID, cooldownType) {
+    await updateValue(userID, "users", `${cooldownType}-cooldown`, 0, false);
+
+    return true;
+}
+
+module.exports = { getCooldownList, hasCooldownFinished, resetCooldown };

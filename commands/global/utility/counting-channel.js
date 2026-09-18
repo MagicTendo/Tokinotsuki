@@ -23,7 +23,7 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: [MessageFlags.Ephemeral] });
 
             const guildID = interaction.guild.id;
 
@@ -32,7 +32,7 @@ module.exports = {
                     const countingChannel = interaction.options.getChannel("channel");
 
                     if (countingChannel.id === await getValue(guildID, "guilds", "counting"))
-                        return await interaction.reply({ content: "❌ Le jeu du comptage était déjà mis en place dans ce salon !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Le jeu du comptage était déjà mis en place dans ce salon !", flags: [MessageFlags.Ephemeral] });
 
                     await updateValue(guildID, "guilds", "counting", countingChannel.id, false);
 

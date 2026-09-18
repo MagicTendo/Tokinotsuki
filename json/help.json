@@ -2,8 +2,8 @@
     "count": 200,
     "Informations": [
         {
-            "name": "</dev-news:1407097053502509136>",
-            "description": "Pour avoir les dernières informations de mon développeur !"
+            "name": "</getting-started:1520063399730610247>",
+            "description": "Je suis un peu complexe à comprendre au début, alors voici un guide expliquant ce qu'il y a savoir !"
         },
         {
             "name": "</help:1394643470177665033>",
@@ -138,10 +138,6 @@
         {
             "name": "</random anime-holding-a-programming-book:1394643470009761954>",
             "description": "Affiche une image aléatoire d'une fille d'anime tenant un livre de programmation."
-        },
-        {
-            "name": "</random baka-wiki:1394643470009761954>",
-            "description": "Permet d'avoir une page aléatoire du Baka Wiki."
         },
         {
             "name": "</random card:1394643470009761954>",
@@ -359,7 +355,7 @@
         },
         {
             "name": "</team join:1419791638795911199>",
-            "description": "Permet de rejoindre une équipe. Attention, ce choix sera définitif !"
+            "description": "Permet de rejoindre une équipe ! Cela coûtera 10 k Toki Coins."
         },
         {
             "name": "</team rewards:1419791638795911199>",
@@ -463,7 +459,7 @@
         },
         {
             "name": "</clear classic:1394643470509146253>",
-            "description": "Efface un certains nombre (entre 1 et 100) de messages."
+            "description": "Efface des messages."
         },
         {
             "name": "</clear channel:1394643470509146253>",
@@ -471,7 +467,7 @@
         },
         {
             "name": "</clear user:1394643470509146253>",
-            "description": "Efface un certain nombre (entre 1 et 100) de messages d'un utilisateur spécifique."
+            "description": "Efface des messages d'un utilisateur spécifique."
         },
         {
             "name": "</convert area:1394643470509146255>",
@@ -588,6 +584,10 @@
         {
             "name": "</spellcheck:1404369614854553600>",
             "description": "Vérifie si une phrase est bien orthographiée. Cele ne vérifie pas la grammaire !"
+        },
+        {
+            "name": "</tenor:1519822269684121620>",
+            "description": "Permet de chercher des GIFs sur Tenor."
         },
         {
             "name": "</ticket setup:1400399985824104563>",
@@ -806,15 +806,15 @@
     ],
     "Serveur": [
         {
-            "name": "</experiments random-letters:1401910205314240552>",
+            "name": "</experiments random-letters:1421801028130701342>",
             "description": "Pour obtenir des lettres aléatoires de l'alphabet... qui dancent !"
         },
         {
-            "name": "</experiments tsukinotoki:1401910205314240552>",
+            "name": "</experiments tsukinotoki:1421801028130701342>",
             "description": "Une méthode d'encodage personalisée."
         },
         {
-            "name": "</xp:1409965015980834998>",
+            "name": "</xp:1421801028130701343>",
             "description": "Pour voir ton XP et ton niveau !"
         }
     ]

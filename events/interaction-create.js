@@ -34,10 +34,10 @@ module.exports = {
                     if (buttonOwner === userID || buttonOwner === "0" || buttonOwner === null) {
                         await buttonList[buttonID].execute(interaction, client);
                     } else {
-                        await interaction.reply({ content: "❌ Ce n'est pas pour toi !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "❌ Ce n'est pas pour toi !", flags: [MessageFlags.Ephemeral] });
                     }
                 } else {
-                    await interaction.reply({ content: "❌ Interaction introuvable ou trop ancienne !", flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: "❌ Interaction introuvable ou trop ancienne !", flags: [MessageFlags.Ephemeral] });
                 }
             } else if (interaction.isStringSelectMenu()) {
                 const selectMenuContent = interaction.customId;
@@ -48,10 +48,10 @@ module.exports = {
                     if (selectMenuOwner === userID || selectMenuOwner === "0" || selectMenuOwner === null) {
                         await selectMenuList[selectMenuID].execute(interaction, client);
                     } else {
-                        await interaction.reply({ content: "❌ Ce n'est pas pour toi !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "❌ Ce n'est pas pour toi !", flags: [MessageFlags.Ephemeral] });
                     }
                 } else {
-                    await interaction.reply({ content: "❌ Interaction introuvable ou trop ancienne !", flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: "❌ Interaction introuvable ou trop ancienne !", flags: [MessageFlags.Ephemeral] });
                 }
             } else if (interaction.isModalSubmit()) {
                 const modalContent = interaction.customId;

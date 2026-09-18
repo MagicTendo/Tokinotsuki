@@ -52,14 +52,14 @@ module.exports = {
 				.setRequired(false))),
 	async execute(interaction, client) {
 		try {
-			const user = interaction.options.getUser("user") ?? interaction.user;
+			const user = interaction.options?.getUser("user") ?? client.users.cache.get(interaction.customId?.split("_")[2]) ?? interaction.user;
 
 			if (user.bot)
-				return await interaction.reply({ content: "❌ L'utilisateur ne peut pas être un bot !", flags: MessageFlags.Ephemeral });
+				return await interaction.reply({ content: "❌ L'utilisateur ne peut pas être un bot !", flags: [MessageFlags.Ephemeral] });
 
 			await interaction.deferReply();
 
-			const inventoryType = interaction.options.getSubcommand();
+			const inventoryType = interaction.options?.getSubcommand() ?? "items";
 			const inventoryTypeName = inventoryType === "artefacts" ? "d'artéfacts" : inventoryType === "birds" ? "de photos d'oiseaux" : inventoryType === "fishes" ? "de poissons" : inventoryType === "items" ? "d'objets" : "de minerais";
 			const itemList = inventoryType === "artefacts" ? artefacts : inventoryType === "birds" ? birds : inventoryType === "fishes" ? fishes : inventoryType === "items" ? items : ores;
 			const inventoryTable = inventoryType === "artefacts" ? artefactTable : inventoryType === "birds" ? birdTable : inventoryType === "fishes" ? fishTable : inventoryType === "items" ? itemTable : oreTable;
@@ -68,7 +68,7 @@ module.exports = {
 				.setColor([255, 85, 0])
 				.setTitle(`Inventaire ${inventoryTypeName} de ${user.globalName}`)
 				.setTimestamp()
-				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
 			for (let i = 0; i < itemList.length; i++) {
 				const item = itemList[i];

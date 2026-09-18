@@ -42,7 +42,7 @@ module.exports = {
             .setRequired(true)),
     async execute(interaction, client) {
         try {
-            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+            await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
             const text = interaction.options.getString("text");
             const language = interaction.options.getString("language");

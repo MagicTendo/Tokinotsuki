@@ -168,11 +168,11 @@ module.exports = {
                 const antisayRole = await getValue(interaction.guild.id, "guilds", "anti-say-role");
 
                 if (!interaction.member.roles.cache.some(role => role.id === antisayRole))
-                    return await interaction.reply({ content: "❌ Cette fonctionalité est désactivée sur ce serveur !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Cette fonctionalité est désactivée sur ce serveur !", flags: [MessageFlags.Ephemeral] });
             }
 
             if (channelSay !== interaction.channel && !interaction.member.permissions.has(PermissionsBitField.Flags.Administrator))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permission d'envoyer un message dans un salon spécifique !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permission d'envoyer un message dans un salon spécifique !", flags: [MessageFlags.Ephemeral] });
 
             const emoteList = await getEmoteList();
             const rawMessage = interaction.options.getString("message") ?? "";
@@ -183,7 +183,7 @@ module.exports = {
                 finalMessage = finalMessage.replaceAll(Object.keys(emoteList)[i], Object.values(emoteList)[i]);
             }
 
-            await interaction.reply({ content: "⏳ Laisse moi le temps de recopier le message...", flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: "⏳ Laisse moi le temps de recopier le message...", flags: [MessageFlags.Ephemeral] });
 
             switch (sayType) {
                 case "classic":
@@ -193,13 +193,13 @@ module.exports = {
 
                     setTimeout(async function () {
                         await channelSay.send({ content: finalMessage.replaceAll("@", "") });
-                        await interaction.editReply({ content: `✅ Message envoyé ${channelSay === interaction.channel ? "!" : `dans <#${channelSay.id}> !`}`, flags: MessageFlags.Ephemeral });
+                        await interaction.editReply({ content: `✅ Message envoyé ${channelSay === interaction.channel ? "!" : `dans <#${channelSay.id}> !`}`, flags: [MessageFlags.Ephemeral] });
                     }, messageTimeout);
                     break;
 
                 case "embed":
                     if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages))
-                        return await interaction.reply({ content: "❌ Tu n'as pas la permisssion pour envoyer ce type de message !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu n'as pas la permisssion pour envoyer ce type de message !", flags: [MessageFlags.Ephemeral] });
 
                     let colorEmbed = interaction.options.getString("color") ?? [0, 0, 0];
                     const titleEmbed = interaction.options.getString("title");
@@ -227,7 +227,7 @@ module.exports = {
                     const footerImageEmbed = interaction.options.getAttachment("footer-image")?.url;
 
                     if ((urlEmbed !== null && !(await isLink(urlEmbed))) || (authorURLEmbed !== null && !(await isLink(authorURLEmbed))))
-                        return await interaction.editReply({ content: "❌ Au moins une URL est incorrecte !", flags: MessageFlags.Ephemeral });
+                        return await interaction.editReply({ content: "❌ Au moins une URL est incorrecte !", flags: [MessageFlags.Ephemeral] });
                     if (String(colorEmbed).toLowerCase() === "random")
                         colorEmbed = `#${Math.floor(Math.random() * 16_777_215).toString(16)}`;
                     if (typeof titleEmbed === "undefined")
@@ -257,7 +257,7 @@ module.exports = {
                         embedEmbed.setTimestamp();
 
                     await channelSay.send({ embeds: [embedEmbed] });
-                    await interaction.editReply({ content: `✅ Embed envoyé ${channelSay === interaction.channel ? "!" : `dans <#${channelSay.id}> !`}`, flags: MessageFlags.Ephemeral });
+                    await interaction.editReply({ content: `✅ Embed envoyé ${channelSay === interaction.channel ? "!" : `dans <#${channelSay.id}> !`}`, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

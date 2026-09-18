@@ -21,7 +21,7 @@ module.exports = {
                 .setTitle(`Commandes ${categoryName === "serveur" ? "pour le serveur Yunayunori" : categoryName} (${Object.keys(categoryCommands).length})`)
                 .setDescription(helpDescription)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.update({ embeds: [categoryEmbed] });
         } catch (error) {

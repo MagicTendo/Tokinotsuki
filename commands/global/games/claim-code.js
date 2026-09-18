@@ -22,11 +22,11 @@ module.exports = {
             const codeList = readFileSync("./json/codes.json", "utf8");
             const codes = JSON.parse(codeList);
 
-            if (code in codes) {
+            if (Object.keys(codes).includes(code)) {
                 const codeOwner = codes[code]["owner"];
                 const codeExpiration = codes[code]["expiration"];
 
-                if ((codeOwner === 0 || codeOwner === userID) && !codes[code]["used"]?.includes(userID)) {
+                if ((codeOwner === "0" || codeOwner === userID) && !codes[code]["used"]?.includes(userID)) {
                     if (codeExpiration === 0 || Date.now() <= codeExpiration) {
                         const prizes = Object.keys(codes[code]);
                         let prizelist = "";
@@ -55,15 +55,15 @@ module.exports = {
                     } else {
                         delete codes[code];
 
-                        await interaction.reply({ content: "❌ Ce code a expiré ! Il est maintenant supprimé de la base de données !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "❌ Ce code a expiré ! Il est maintenant supprimé de la base de données !", flags: [MessageFlags.Ephemeral] });
                     }
 
                     writeFileSync("./json/codes.json", JSON.stringify(codes, null, 4));
                 } else {
-                    await interaction.reply({ content: "❌ Tu ne peux pas ou plus utiliser ce code !", flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: "❌ Tu ne peux pas ou plus utiliser ce code !", flags: [MessageFlags.Ephemeral] });
                 }
             } else {
-                await interaction.reply({ content: `❌ Le code \`${code}\` est invalide ! Vérifies qu'il soit bien correcte ou qu'il ne soit pas expiré !`, flags: MessageFlags.Ephemeral });
+                await interaction.reply({ content: `❌ Le code \`${code}\` est invalide ! Vérifies qu'il soit bien correcte ou qu'il ne soit pas expiré !`, flags: [MessageFlags.Ephemeral] });
             }
         } catch (error) {
             await sendError(interaction, client, error);

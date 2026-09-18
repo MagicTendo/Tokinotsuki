@@ -61,7 +61,7 @@ module.exports = {
                             .setTitle("Résultats")
                             .setDescription(`🔠 **CPM** : ${cpm}\n⌨️ **Gross WPM** : ${characterBasedGrossWPM}\n💻 **Net WPM** : ${characterBasedNetWPM}\n⏱️ **Temps** : ${Math.round(timeMinutes * 60)} secondes\n❌ **Erreurs** : ${errors}\n🎯 **Précision** : ${accuracy}%`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await message.reply({ embeds: [typingEmbed] });
                     } else {

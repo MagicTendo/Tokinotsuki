@@ -57,16 +57,16 @@ module.exports = {
                 }
 
                 if (errors === 0)
-                    return await interaction.reply({ content: `> ${sentence}\nAucune erreur n'a été trouvée !`, flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: `> ${sentence}\nAucune erreur n'a été trouvée !`, flags: [MessageFlags.Ephemeral] });
 
                 const spellcheck = `> ${sentence}\n**${errors}** erreur(s) trouvée(s) !\n\n${suggestions}`;
 
                 if (spellcheck.length > 2000) {
                     const spellcheckFile = new AttachmentBuilder(new Buffer.from(suggestions), { name: "spellcheck.txt" });
 
-                    await interaction.reply({ content: `> ${sentence}\n**${errors}** erreur(s) trouvée(s) !\n\n-# *La réponse est trop longue et a été mise dans un fichier texte !*`, files: [spellcheckFile], flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `> ${sentence}\n**${errors}** erreur(s) trouvée(s) !\n\n-# *La réponse est trop longue et a été mise dans un fichier texte !*`, files: [spellcheckFile], flags: [MessageFlags.Ephemeral] });
                 } else {
-                    await interaction.reply({ content: spellcheck, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: spellcheck, flags: [MessageFlags.Ephemeral] });
                 }
             });
         } catch (error) {

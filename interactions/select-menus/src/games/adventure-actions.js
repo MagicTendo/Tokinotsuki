@@ -10,7 +10,7 @@ module.exports = {
             const userID = interaction.user.id;
 
             if (await hasValue(userID, "users", "adventure-status"))
-                return await interaction.reply({ content: "🧭 Il y a déjà une expédition en cours !", flags: MessageFlags.Ephemeral })
+                return await interaction.reply({ content: "🧭 Il y a déjà une expédition en cours !", flags: [MessageFlags.Ephemeral] })
 
             const selectedRegionInformations = interaction.values[0].split("_");
             const adventureButtons = new ActionRowBuilder().addComponents(interaction.message.components[0].components).components;
@@ -46,7 +46,7 @@ module.exports = {
                 .setTitle("L'expédition est lancée !")
                 .setDescription(`Miyunira est partie en direction de la région de \`${capitalize(selectedRegionInformations[0])}\` !`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.update({ embeds: [adventureStartEmbed], components: [] });
         } catch (error) {

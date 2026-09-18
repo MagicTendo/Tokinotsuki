@@ -29,7 +29,7 @@ module.exports = {
             const codes = process.env.PUZZLE_CODES.split(",");
 
             if (calculation.toLowerCase() === codes[14])
-                return await interaction.reply({ content: `\`${codes[15]}\``, flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: `\`${codes[15]}\``, flags: [MessageFlags.Ephemeral] });
 
             try {
                 if (graphMode === "yes") {
@@ -56,12 +56,12 @@ module.exports = {
                         .setDescription(`**Calcul**\n\`${calculation}\`\n\n**LaTeX**\n\`\`\`tex\n${resultLaTeX}\`\`\`\n\n**Résultat précis**\n\`\`\`mathematica\n${preciseResult === "9" ? "⑨" : preciseResult}\`\`\`${preciseResult !== result ? `\n**Représentation décimale**\n\`\`\`mathematica\n${result}\`\`\`\n` : "\n"}> [Voir la liste complète des formules](https://nerdamer.com/documentation.html)`)
                         .setImage(latexImage)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [calculateEmbed] });
                 }
             } catch (error) {
-                await interaction.reply({ content: `❌ La syntaxe du calcul \`${calculation}\` semble incorrecte !`, flags: MessageFlags.Ephemeral });
+                await interaction.reply({ content: `❌ La syntaxe du calcul \`${calculation}\` semble incorrecte !`, flags: [MessageFlags.Ephemeral] });
             }
         } catch (error) {
             await sendError(interaction, client, error);

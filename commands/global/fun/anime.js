@@ -44,15 +44,15 @@ module.exports = {
                 return response.json();
             }).then(async function (data) {
                 if (data["data"].length === 0)
-                    return await interaction.reply({ content: `❌ \`${name}\` ne semble pas exister !`, flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: `❌ \`${name}\` ne semble pas exister !`, flags: [MessageFlags.Ephemeral] });
 
                 const animeTag = data["data"][0]?.["genres"];
                 const isHentai = animeTag?.some(tag => tag.name === "Hentai");
 
                 if (interaction?.channel === null)
-                    return await interaction.reply({ content: "❌ Je dois être sur le serveur afin de savoir si le salon est NSFW !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Je dois être sur le serveur afin de savoir si le salon est NSFW !", flags: [MessageFlags.Ephemeral] });
                 if (isHentai && !interaction.channel.nsfw)
-                    return await interaction.reply({ content: "❌ Tu dois être dans un salon NSFW pour celui là !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Tu dois être dans un salon NSFW pour celui là !", flags: [MessageFlags.Ephemeral] });
 
                 await interaction.deferReply();
 
@@ -78,7 +78,7 @@ module.exports = {
                     .setDescription(description)
                     .setThumbnail(image)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 if (searchType !== "characters") {
                     const publishingType = searchType === "manga" ? "published" : "aired";

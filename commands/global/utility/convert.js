@@ -486,6 +486,9 @@ module.exports = {
             const conversion = await Convert().from("EUR").fetch();
 
             list = Object.keys(conversion.rates);
+
+            list.push("OTC");
+
             filteredList = list.filter(element => element.replaceAll("_", " ").toLowerCase().includes(focusedValue)).slice(0, 24);
         } else if (conversionType === "timezone") {
             list = moment.tz.names();
@@ -504,23 +507,34 @@ module.exports = {
             if (conversionType === "money") {
                 const fromCurrency = fromUnit.toUpperCase(), toCurrency = toUnit.toUpperCase();
 
-                await new Converter().convert(value, fromCurrency, toCurrency).then(async result => {
-                    await interaction.reply({ content: `${value} ${fromUnit} = **${result} ${toUnit}** !` });
-                }).catch(async error => {
-                    await interaction.reply({ content: `❌ Une des deux monnaies (ou les deux) (\`${fromCurrency}\` / \`${toCurrency}\`) n'existe pas !`, flags: MessageFlags.Ephemeral });
-                    return;
-                });
+                if (fromCurrency === "OTC" || toCurrency === "OTC") {
+                    const conversion = await Convert().from("EUR").fetch();
+                    const rates = conversion.rates;
+
+                    rates["OTC"] = 0.9;
+
+                    const result = value * (rates[fromUnit] / rates[toUnit]);
+
+                    await interaction.reply({ content: `${value} ${fromUnit.replaceAll("OTC", "🍪")} = **${result} ${toUnit.replaceAll("OTC", "🍪")}** !` });
+                } else {
+                    await new Converter().convert(value, fromCurrency, toCurrency).then(async result => {
+                        await interaction.reply({ content: `${value} ${fromUnit} = **${result} ${toUnit}** !` });
+                    }).catch(async error => {
+                        await interaction.reply({ content: `❌ Une des deux monnaies (ou les deux) (\`${fromCurrency}\` / \`${toCurrency}\`) n'existe pas !`, flags: [MessageFlags.Ephemeral] });
+                        return;
+                    });
+                }
             } else if (conversionType === "timezone") {
                 if (!moment.tz.zone(fromUnit))
-                    return await interaction.reply({ content: `❌ La timezone \`${fromUnit}\` n'existe pas !`, flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: `❌ La timezone \`${fromUnit}\` n'existe pas !`, flags: [MessageFlags.Ephemeral] });
                 if (!moment.tz.zone(toUnit))
-                    return await interaction.reply({ content: `❌ La timezone \`${toUnit}\` n'existe pas !`, flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: `❌ La timezone \`${toUnit}\` n'existe pas !`, flags: [MessageFlags.Ephemeral] });
 
                 const timezoneValue = moment(value.replaceAll(/am|pm/gi, "").trim(), "HH:mm").format("HH:mm");
                 const currentTime = `${moment().format().split("T")[0]} ${timezoneValue}`;
 
                 if (!moment(currentTime, "YYYY-MM-DD HH:mm").isValid() || !moment(timezoneValue, "HH:mm").isValid())
-                    return await interaction.reply({ content: "❌ L'heure n'est pas correcte !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ L'heure n'est pas correcte !", flags: [MessageFlags.Ephemeral] });
 
                 const fromTimezone = moment.tz(currentTime, fromUnit);
                 const toTimezone = fromTimezone.clone().tz(toUnit);

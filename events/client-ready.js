@@ -1,9 +1,10 @@
 const { ActivityType, PresenceUpdateStatus } = require("discord.js");
 const { CronJob } = require("cron");
+const { exec } = require("child_process");
 const { readFileSync, writeFileSync } = require("fs");
 const Parser = require("rss-parser");
 const { keyvUsers, getValue } = require("../tools/database.js");
-const { sendLog } = require("../tools/error-catcher.js");
+const { sendCriticalError, sendLog } = require("../tools/error-catcher.js");
 const { getRandomStatus } = require("../tools/statuses.js");
 
 const parser = new Parser();
@@ -30,18 +31,18 @@ module.exports = {
             console.log(`\n\x1b[30m➔  Startind to fetch RSS feeds... 📶\x1b[0m`);
 
             const socialMediaRoutes = {
-                "youtube-yunayunori": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYMc2Rt2ZplrPS7dwLMP8AQ",
                 "youtube-bakataida": "https://www.youtube.com/feeds/videos.xml?channel_id=UCIyeTq7DcQlJUIP8CKf1zOw",
                 "youtube-otomadan": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDwOADtlYqiOnk5bw9ODaJw",
-                "youtube-splakatoon": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgkGbVuCpagDAJG5gjIQpjA",
-                "youtube-bakarchive": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmafRLbKesLu_aEOMWwDU4g",
+                "youtube-vowod": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4lxauFU0Ayb2uDsJJ4LnnA",
+                "youtube-team-pik": "https://www.youtube.com/feeds/videos.xml?channel_id=UCWcEymGkHNF73QM9KbzS_7w",
+                "youtube-yunayunori": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYMc2Rt2ZplrPS7dwLMP8AQ",
                 "youtube-olivier": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnNS9mYZhSspxC9ejyHIBCw",
                 "twitch": "https://twitchrss.com/feeds/?username=bakataida&feed=streams",
                 "bluesky": "https://bsky.app/profile/did:plc:5xp53iakukfbfxdpgftptggr/rss"
             };
 
             const socialMediaAlerts = {
-                "youtube": "## <@&1028062134292185158> La chaîne [CHANNEL_NAME] a postée une nouvelle vidéo !",
+                "youtube": "## <@&1028062134292185158> Une nouvelle vidéo est sortie sur [CHANNEL_NAME] !",
                 "twitch": "## <@&1467462732281413684> BakaTaida vient de commencer un nouveau live !",
                 "bluesky": "## <@&1467463259664941160> BakaTaida vient de poster un nouveau dessin sur Bluesky !"
             };
@@ -78,12 +79,12 @@ module.exports = {
                 socialMediaNotificationJob.start();
             }
 
-            console.log(`\n\x1b[32m➔  RSS feeds initialized ! ✅\x1b[0m`);
+            console.log(`\n\x1b[32m➔  RSS feeds initialised ! ✅\x1b[0m`);
         }
 
         async function updateProfilePictures() {
-            const yunayunoriEndDates = ["* * 9 1 *", "* * 2 2 *", "* * 16 2 *", "* * 2 4 *", "* * 6 6 *", "* * 6 9 *", "* * * 11 *", "* * * 1 *"];
-            const supportEndDates = ["* * 13 5 *", "* * * 11 *", "* * * 1 *"];
+            const yunayunoriEndDates = ["0 * 9 1 *", "0 * 2 2 *", "0 * 16 2 *", "0 * 2 4 *", "0 * 6 6 *", "0 * 6 9 *", "0 * * 11 *", "0 * * 1 *"];
+            const supportEndDates = ["0 * 13 5 *", "0 * * 11 *", "0 * * 1 *"];
             const originalYunayunoriName = "🎴 Yunayunori";
             const originalSupportName = "🟠 TokinoSupport";
             const yunayunoriID = process.env.GUILD_COMMANDS_ID;

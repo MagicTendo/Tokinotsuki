@@ -29,11 +29,11 @@ module.exports = {
             }
 
             if (typeof timerDurationMilliseconds === "undefined" || isNaN(timerDurationMilliseconds))
-                return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m` et `h`, et s'utilisent avec un nombre, `9h` pour 9 heures, `3m 14s` pour 3 minutes et 14 secondes, etc.", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m` et `h`, et s'utilisent avec un nombre, `9h` pour 9 heures, `3m 14s` pour 3 minutes et 14 secondes, etc.", flags: [MessageFlags.Ephemeral] });
             if (timerDurationMilliseconds < 1_000)
-                return await interaction.reply({ content: "❌ La valeur doit être strictement positive, non nulle et être supérieur à une seconde !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ La valeur doit être strictement positive, non nulle et être supérieur à une seconde !", flags: [MessageFlags.Ephemeral] });
             if (timerDurationMilliseconds > 86_400_000)
-                return await interaction.reply({ content: "❌ Le maximum du chronomètre est de 24 heures !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Le maximum du chronomètre est de 24 heures !", flags: [MessageFlags.Ephemeral] });
 
             const currentDate = Date.now();
             const timerTimestamp = Math.round((currentDate + timerDurationMilliseconds) / 1_000)
@@ -43,7 +43,7 @@ module.exports = {
                 .setTitle(timerReason ?? "Chronomètre")
                 .setDescription(`## > <t:${timerTimestamp}:R>`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [timerEmbed] });
 
@@ -55,7 +55,7 @@ module.exports = {
                     .setTitle(timerReason ?? "Chronomètre")
                     .setDescription(`## > Terminé !`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await interaction.editReply({ embeds: [timerEndEmbed] });
             }, timerDurationMilliseconds);

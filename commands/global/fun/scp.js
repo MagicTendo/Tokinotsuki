@@ -37,7 +37,7 @@ module.exports = {
             switch (interaction.options.getSubcommand()) {
                 case "english":
                     if (scpID === "SCP-001")
-                        return await interaction.editReply({ content: "❌ Impossible de récupérer SCP-001 à cause de ses diverses versions !", flags: MessageFlags.Ephemeral });
+                        return await interaction.editReply({ content: "❌ Impossible de récupérer SCP-001 à cause de ses diverses versions !", flags: [MessageFlags.Ephemeral] });
                     if (typeof scpID === "undefined")
                         scpID = `SCP-${String(Math.floor(Math.random() * 998) + 2).padStart(3, "0")}`;
 
@@ -70,7 +70,7 @@ module.exports = {
                                 let cleanContent = splitContent?.replace(/\[\[footnote\]\](.*?)\[\[\/footnote\]\]/g, "").replace(/\[\(\(bibcite [^\s]+\)\)\]/g, "").replace(/\n.{1}\n/g, "\n\n").replace(/\n\n\n/g, "\n").replace(/(?<!:)\/\//g, "*").replace(/\n\[\[tabview\]\]/g, "").replace(/\n\n\[\[tab (.*?)\]\]/g, "").replace(/\n\n\[\[include ([\s\S]*?)\]\]/g, "").replace(/\n\n\[\[div (.*?)\]\]/g, "").replace(/\n\[\[image (.*?)\]\]/g, "").replace(/\[\[=\]\]([\s\S]*?)\[\[\/=\]\]/g, "").replace(/\[\[<\]\]([\s\S]*?)\[\[\/<\]\]/g, "").replace(/\n\n\[!(.*?)\]/g, "").replace(/\n\[\[\/div\]\]\n/g, "").replace(/\n\nImage of (.*?)\./g, "").replace(/# \s/g, "").replace(/# /g, "- ").replace(/,,/g, "").replace(/# /g, "").replace(/\s_\s/g, "").replace(/~~\*\*~~--/g, "").replace(/(sic)/g, "").replace(/(?:\s(?![\n\r\v])){2,}/g, " ").trim();
 
                                 if (typeof cleanContent === "undefined")
-                                    return await interaction.editReply({ content: `❌ Impossible de formatter correctement ${scpID}...`, flags: MessageFlags.Ephemeral });
+                                    return await interaction.editReply({ content: `❌ Impossible de formatter correctement ${scpID}...`, flags: [MessageFlags.Ephemeral] });
 
                                 while (cleanContent.length > 2000) {
                                     const parts = cleanContent.split("\n");
@@ -96,12 +96,12 @@ module.exports = {
                                     .setThumbnail(`attachment://${scpClassImage}.png`)
                                     .setImage(scpImageProxy)
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await interaction.editReply({ embeds: [scpEmbed], files: [`./assets/images/scp/classes/${scpClassImage}.png`] });
                             });
                         } else {
-                            await interaction.editReply({ content: `❌ Impossible de trouver l'article concernant ${scpID.toUpperCase()} !`, flags: MessageFlags.Ephemeral });
+                            await interaction.editReply({ content: `❌ Impossible de trouver l'article concernant ${scpID.toUpperCase()} !`, flags: [MessageFlags.Ephemeral] });
                         }
                     });
                     break;
@@ -125,7 +125,7 @@ module.exports = {
                                     .setDescription("Classe: Sûr\n\nSCP-404-JP est un rapport enregistré dans la base de données de la Fondation. Le texte de SCP-404-JP se modifie de façon à ce que les lecteurs soient convaincus que le document n'existe pas, et détruit toute information de SCP-404-JP lui-même, de tout autre support ou encore de la mémoire biologique humaine.\n\nLa façon dont SCP-404-JP a obtenu ses propriétés est inconnue, et comment la Fondation a découvert les dites propriétés est aussi inexpliqué.")
                                     .setThumbnail("attachment://scp-404-jp.png")
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await message?.edit({ embeds: [scp404], files: ["./assets/images/scp/scp-404-jp.png"] });
                             }, 5_000);
@@ -140,14 +140,14 @@ module.exports = {
                                 .setURL(scp["url"])
                                 .setImage(scp["image"])
                                 .setTimestamp()
-                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                             if (scp["description"] !== "")
                                 scpEmbed.setDescription(scp["description"]);
 
                             await interaction.editReply({ embeds: [scpEmbed], files: [`./assets/images/scp/${scpID.toLowerCase()}.png`] });
                         } else {
-                            return await interaction.editReply({ content: `❌ Impossible de trouver l'article concernant ${scpID.toUpperCase()} !`, flags: MessageFlags.Ephemeral });
+                            return await interaction.editReply({ content: `❌ Impossible de trouver l'article concernant ${scpID.toUpperCase()} !`, flags: [MessageFlags.Ephemeral] });
                         }
                     }
                     break;
@@ -185,9 +185,9 @@ module.exports = {
                         .setTitle(`Liste des ${Object.keys(scpList).length} SCP enregistrés`)
                         .setDescription("Pour faciliter la lecture, les SCP sont rangés par catégories.\n\n- ⚪ SCP, les plus classiques et connus.\n- 🇫🇷 SCP-FR, d'origines françaises.\n- 🇪🇸 SCP-ES, d'origines hispaniques.\n- 🇯🇵 SCP-JP, d'origines japonaises.\n- 🎭 SCP-J, ayant un côté humoristique.")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                    await interaction.editReply({ embeds: [scpListEmbed], components: [scpListButtons], flags: MessageFlags.Ephemeral })
+                    await interaction.editReply({ embeds: [scpListEmbed], components: [scpListButtons], flags: [MessageFlags.Ephemeral] })
                     break;
             }
         } catch (error) {

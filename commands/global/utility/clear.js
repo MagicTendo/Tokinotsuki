@@ -11,7 +11,7 @@ module.exports = {
         .setContexts([0])
         .addSubcommand(subcommand => subcommand
             .setName("classic")
-            .setDescription("Efface un certains nombre (entre 1 et 100) de messages.")
+            .setDescription("Efface des messages.")
             .addIntegerOption(option => option
                 .setName("amount")
                 .setDescription("Le nombre de messages à supprimer.")
@@ -25,7 +25,7 @@ module.exports = {
 
         .addSubcommand(subcommand => subcommand
             .setName("user")
-            .setDescription("Efface un certain nombre (entre 1 et 100) de messages d'un utilisateur spécifique.")
+            .setDescription("Efface des messages d'un utilisateur spécifique.")
             .addIntegerOption(option => option
                 .setName("amount")
                 .setDescription("Le nombre de messages à supprimer.")
@@ -39,9 +39,9 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer les messages !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer les messages !", flags: [MessageFlags.Ephemeral] });
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageMessages))
-                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les messages !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les messages !", flags: [MessageFlags.Ephemeral] });
 
             const amount = interaction.options.getInteger("amount");
 
@@ -53,14 +53,14 @@ module.exports = {
                         finalAmount = deleted.size;
                     });
 
-                    await interaction.reply({ content: `🗑️ ${finalAmount} message(s) ont bien été supprimé(s) !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `🗑️ ${finalAmount} message(s) ont bien été supprimé(s) !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "channel":
                     if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator))
-                        return await interaction.reply({ content: "❌ Tu n'as pas la permisssion administrateur !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu n'as pas la permisssion administrateur !", flags: [MessageFlags.Ephemeral] });
                     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels))
-                        return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les salons !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les salons !", flags: [MessageFlags.Ephemeral] });
 
                     const channelClearButtons = new ActionRowBuilder().addComponents(
                         new ButtonBuilder()
@@ -79,9 +79,9 @@ module.exports = {
                         .setTitle("Vérification")
                         .setDescription("Es-tu sûr de supprimer tout le contenue de ce salon ?")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                    await interaction.reply({ embeds: [clearEmbed], components: [channelClearButtons], flags: MessageFlags.Ephemeral })
+                    await interaction.reply({ embeds: [clearEmbed], components: [channelClearButtons], flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "user":
@@ -104,7 +104,7 @@ module.exports = {
                         }
                     });
 
-                    await interaction.reply({ content: `🗑️ ${finalUserAmount} messages de <@${user.id}> ont bien été supprimés !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `🗑️ ${finalUserAmount} messages de <@${user.id}> ont bien été supprimés !`, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

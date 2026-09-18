@@ -56,7 +56,7 @@ module.exports = {
                 .setDescription(`> ${answers[answerIndex]}${punctuations[punctuationIndex]}`)
                 .setThumbnail("attachment://9-ball.png")
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [answerEmbed], files: ["./assets/images/fun/9-ball.png"] });
         } catch (error) {

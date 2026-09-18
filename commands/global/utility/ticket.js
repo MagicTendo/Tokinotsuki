@@ -72,7 +72,7 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: [MessageFlags.Ephemeral] });
 
             const ticketChannel = interaction.options.getChannel("channel");
 
@@ -100,10 +100,10 @@ module.exports = {
                         .setThumbnail(ticketThumbnail)
                         .setImage(ticketImage)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await ticketChannel.send({ embeds: [ticketEmbed], components: [ticketButton] });
-                    await interaction.reply({ content: `✅ Le système a bien été mis en place dans <#${ticketChannel.id}> !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `✅ Le système a bien été mis en place dans <#${ticketChannel.id}> !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "status":
@@ -114,17 +114,17 @@ module.exports = {
                     const ticketMessage = await client.guilds.cache.get(interaction.guild.id).channels.cache.get(ticketChannel.id).messages.fetch(ticketMessageID).catch(() => undefined);
 
                     if (ticketMessage === undefined)
-                        return await interaction.reply({ content: "❌ Impossible de trouver le message !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Impossible de trouver le message !", flags: [MessageFlags.Ephemeral] });
                     if (ticketMessage.author.id !== client.user.id)
-                        return await interaction.reply({ content: "❌ Ce message ne m'appartient pas !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Ce message ne m'appartient pas !", flags: [MessageFlags.Ephemeral] });
                     if (!ticketMessage.components[0].components[0].data.custom_id.startsWith("ticket"))
-                        return await interaction.reply({ content: "❌ Ce message n'est pas en rapport avec le système de tickets !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Ce message n'est pas en rapport avec le système de tickets !", flags: [MessageFlags.Ephemeral] });
 
                     const newTicketEmbed = new EmbedBuilder(ticketMessage.embeds[0].data);
                     const newTicketButton = new ActionRowBuilder().addComponents(new ButtonBuilder(ticketMessage.components[0].components[0].data).setDisabled(ticketOptionValue));
 
                     await ticketMessage.edit({ embeds: [newTicketEmbed], components: [newTicketButton] });
-                    await interaction.reply({ content: `✅ Le changement a bien été effectué à https://discord.com/channels/${interaction.guild.id}/${ticketChannel.id}/${ticketMessageID} !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `✅ Le changement a bien été effectué à https://discord.com/channels/${interaction.guild.id}/${ticketChannel.id}/${ticketMessageID} !`, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

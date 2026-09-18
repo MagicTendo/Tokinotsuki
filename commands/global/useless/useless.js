@@ -127,7 +127,7 @@ module.exports = {
                     const tokiMP4Embed = new EmbedBuilder()
                         .setColor([255, 85, 0])
                         .setDescription("⬛⬛⬛🟧🟧🟧⬛⬛⬛\n⬛⬛🟧🟧🟧🟧🟧⬛⬛\n⬛🟧🟧🟧🟧🟧🟧🟧⬛\n⬛🟧🟧🟧🟧🟨🟨🟧🟧\n🟧🟧🟨🟧🟨🟫🟨🟫🟧\n🟧🟧🟨🟧🟨🟫🟨🟫🟧\n🟧🟧🟧🟨🟨🟨🟨🟨🟧\n🟧🟧🟧🟧🟨🟨🟨🟧🟧\n🟧🟧⬜⬜⬜⬜⬜🟧🟧\n\n> **時の月 － タイム**\n➖➖➖➖➖➖――――\n2:14                                   3:09\n⇆       ◁        ❚❚        ▷        ↻")
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [tokiMP4Embed] });
                     break;
@@ -136,18 +136,18 @@ module.exports = {
                     const time = new Date().toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" });
                     const timeArray = time.split(":");
 
-                    await interaction.reply({ content: `🕰️ Il est ${timeArray[0]} heures, ${timeArray[1]} minutes et ${timeArray[2]} secondes !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `🕰️ Il est ${timeArray[0]} heures, ${timeArray[1]} minutes et ${timeArray[2]} secondes !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "no-you":
                     if (Object.keys(interaction.authorizingIntegrationOwners)[0] === "1")
-                        return await interaction.reply({ content: "❌ Je dois être sur le serveur afin d'effectuer cette commande !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Je dois être sur le serveur afin d'effectuer cette commande !", flags: [MessageFlags.Ephemeral] });
 
                     if (await hasValue(interaction.guild.id, "guilds",  "anti-say")) {
                         const antisayRole = await getValue(interaction.guild.id, "guilds", "anti-say-role");
 
                         if (!interaction.member.roles.cache.some(role => role.id === antisayRole))
-                            return await interaction.reply({ content: "❌ Cette fonctionalité est désactivée sur ce serveur !", flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: "❌ Cette fonctionalité est désactivée sur ce serveur !", flags: [MessageFlags.Ephemeral] });
                     }
 
                     const noYouEmojis = ["<:AnimeNoYou:1376673365447807127>", "<:AshidoNoYou:1376673370309001317>", "<:BakugouNoYou:1376673371953303683>", "<:BlobNoYou:1376673373366648902>", "<:CardNoYou:1376673378496155688>", "<:CatNoYou:1376673380283191356>", "<:CirnoNoYou:1376673382044794962>", "<:EmideeNoYou:1376673387207856200>", "<:EmojiNoYou:1376673388541771856>", "<:HaruNoYou:1376673395340607560>", "<:HatCatNoYou:1376673397265793086>", "<:KaguyaNoYou:1376673399471996950>", "<:KirishimaNoYou:1376673402831765614>", "<:KorufuyukiNoYou:1376673406858166292>", "<:LeafeonNoYou:1376673408510591068>", "<:LouiseNoYou:1376673411857649685>", "<:NatsukiNoYou:1376673413703274597>", "<:OdeDuClimatNoYou:1376673415645237309>", "<:PandaNoYou:1376673420871340183>", "<:PepeNoYou:1376673422997848084>", "<:PinkBlobNoYou:1376673424964980737>", "<:PinkNoYou:1376673427561119895>", "<:PurpleNoYou:1376673431793172663>", "<:RedNoYou:1376673434607550585>", "<:RedPandaNoYou:1376673437891825774>", "<:UmbreonNoYou:1376673441154990090>", "<:UnoNoYou:1376673444934058035>", "<a:YugiNoYou:1376673446871961620>", "<:GuraNoYou:1376673795024355438>", "<:SansNoYou:1376674635520802866>", "<:JackNoYou:1376678225387978813>"];
@@ -173,7 +173,7 @@ module.exports = {
                         });
                     }
 
-                    await interaction.reply({ content: bubbleWrap, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: bubbleWrap, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

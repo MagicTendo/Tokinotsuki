@@ -28,11 +28,11 @@ module.exports = {
                     if (settingAction === "activate") {
                         await deleteValue(userID, "users", "unsimplify");
 
-                        await interaction.reply({ content: "✅ Le module `simplify` a bien été activé !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "✅ Le module `simplify` a bien été activé !", flags: [MessageFlags.Ephemeral] });
                     } else {
                         await updateValue(userID, "users", "unsimplify", 1, false);
 
-                        await interaction.reply({ content: "❌ Le module `simplify` a bien été déactivé !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "❌ Le module `simplify` a bien été déactivé !", flags: [MessageFlags.Ephemeral] });
                     }
                     break;
             }

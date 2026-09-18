@@ -41,9 +41,9 @@ module.exports = {
 
             switch (interaction.options.getSubcommand()) {
                 case "characters":
-                    const characterCount = text.split("").length;
+                    const characterCount = text.length;
 
-                    await interaction.reply({ content: `Il y a **${characterCount}** caractère(s) !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `Il y a **${characterCount}** caractère(s) !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "pattern":
@@ -51,13 +51,13 @@ module.exports = {
                     const regexExpression = new RegExp(pattern, "g");
                     const patternCount = text.match(regexExpression)?.length ?? 0
 
-                    await interaction.reply({ content: `\`${pattern}\` est répété **${patternCount}** fois !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `\`${pattern}\` est répété **${patternCount}** fois !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "words":
                     const wordCount = text.split(" ").length;
 
-                    await interaction.reply({ content: `Il y a **${wordCount}** mot(s) !`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `Il y a **${wordCount}** mot(s) !`, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

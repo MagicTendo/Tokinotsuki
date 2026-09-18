@@ -13,7 +13,7 @@ module.exports = {
             const currentXP = await getValue(interaction.user.id, "users", "xp") ?? 0;
             const currentLevel = await getValue(interaction.user.id, "users", "level") ?? 0;
 
-            await interaction.reply({ content: `Tu as **${await simplify(interaction.user.id, currentXP)}** XP <:XP:1462199261792960777> et tu es niveau **${currentLevel + 1}** !`, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: `Tu as **${await simplify(interaction.user.id, currentXP)}** XP <:XP:1462199261792960777> et tu es niveau **${currentLevel + 1}** !`, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

@@ -81,7 +81,7 @@ module.exports = {
             const currentTask = await getValue(userID, "users", "task");
 
             if (currentTask >= taskTotal)
-                return await interaction.reply({ content: "Tu as déjà accomplie toutes les tâches disponibles !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "Tu as déjà accomplie toutes les tâches disponibles !", flags: [MessageFlags.Ephemeral] });
 
             const currentTaskObject = Object.keys(tasks[currentTask]);
             let taskDescription = "";
@@ -109,9 +109,9 @@ module.exports = {
                 .setTitle(`Tâche #${currentTask + 1}`)
                 .setDescription(`${taskDescription}\n-# *Attention, tout ce qui est demandé doit être dans l'inventaire, pas juste simplement obtenu une fois.*`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.reply({ embeds: [taskEmbed], components: [taskButton], flags: MessageFlags.Ephemeral });
+            await interaction.reply({ embeds: [taskEmbed], components: [taskButton], flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

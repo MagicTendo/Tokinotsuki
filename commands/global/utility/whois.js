@@ -19,7 +19,7 @@ module.exports = {
             const startDate = Date.now();
 
             if (!(await isLink(link)))
-                return await interaction.reply({ content: "❌ Tu n'as pas mis un vrai lien !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas mis un vrai lien !", flags: [MessageFlags.Ephemeral] });
             if (!link.startsWith("http"))
                 link = `https://${link}`;
 
@@ -45,7 +45,7 @@ module.exports = {
                     .setDescription(`🌐 **Statut** : ${websiteStatus}\n🏓 **Latence** : ≈ ${websiteLatency}ms\n🗄️ **Serveur web** : ${websiteWebServer}\n📄 **Type de contenu** : ${websiteContentType}\n✏️ **Dernière modification** : ${websiteLastModified}\n↪️ **Est une redirection** : ${websiteRedirection}`)
                     .setImage("attachment://website.png")
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await interaction.editReply({ embeds: [whoisEmbed], files: [websiteImage] });
             }).catch(async error => {

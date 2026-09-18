@@ -12,10 +12,10 @@ module.exports = {
 
             if (reason) {
                 await client.users.cache.get(userID).send({ content: `Salut ! ${isDeny === "1" ? `Ton rapport (\`${reportShortDescription}\`) a été refusé pour la raison suivante :` : `Mon créateur a fait part d'une remarque sur ton rapport (\`${reportShortDescription}\`) :`}\n\`\`\`\n${reason}\n\`\`\`` });
-                return await interaction.reply({ content: "✅ Raison envoyée !", flags: MessageFlags.Ephemeral });
+                await interaction.reply({ content: "✅ Raison envoyée !", flags: [MessageFlags.Ephemeral] });
+            } else {
+                await interaction.reply({ content: "❌ Aucune raison n'a été envoyée !", flags: [MessageFlags.Ephemeral] });
             }
-
-            await interaction.reply({ content: "❌ Aucune raison n'a été envoyée !", flags: MessageFlags.Ephemeral });
         } catch (error) {
             await sendError(interaction, client, error);
         }

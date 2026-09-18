@@ -88,7 +88,7 @@ module.exports = {
                     .setDescription(`-# *${shopDescription}*`)
                     .setImage(`attachment://${shopType}.png`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 shopEmbed.setFields(shopFields);
 

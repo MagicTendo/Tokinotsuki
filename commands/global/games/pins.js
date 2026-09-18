@@ -21,9 +21,9 @@ module.exports = {
                     { name: "🎉 Équipe", value: "Rejoindre l'équipe Graniti, Pimentes, Mentis ou Champiture !", inline: true },
                     { name: "📜 Quest Master", value: "Accomplir toutes les quêtes.", inline: true })
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.reply({ embeds: [pinsEmbed], flags: MessageFlags.Ephemeral });
+            await interaction.reply({ embeds: [pinsEmbed], flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

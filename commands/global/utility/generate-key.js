@@ -26,7 +26,7 @@ module.exports = {
                 key.push(characters[character]);
             }
 
-            await interaction.reply({ content: `\`${key.join("")}\``, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: `\`${key.join("")}\``, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

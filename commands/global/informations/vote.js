@@ -19,7 +19,7 @@ module.exports = {
             const voted = await topgg.hasVoted(userID);
 
             if (!voted)
-                return await interaction.reply({ content: "🗳️ Pour recevoir la récompense, vote moi sur [**Top.gg**](https://top.gg/bot/791437575642152982/vote) !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "🗳️ Pour recevoir la récompense, vote moi sur [**Top.gg**](https://top.gg/bot/791437575642152982/vote) !", flags: [MessageFlags.Ephemeral] });
 
             const cooldownList = await getCooldownList();
 

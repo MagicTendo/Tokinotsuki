@@ -28,7 +28,7 @@ module.exports = {
             const userID = user.id;
 
             if (user.bot)
-                return await interaction.reply({ content: "❌ L'utilisateur ne peut pas être un bot !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ L'utilisateur ne peut pas être un bot !", flags: [MessageFlags.Ephemeral] });
 
             switch (interaction.options.getSubcommand()) {
                 case "collection":
@@ -38,13 +38,13 @@ module.exports = {
                         .setColor([0, 152, 217])
                         .setTitle("Ta collection de cartes personnages")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     const bururuCardsEmbed = new EmbedBuilder()
                         .setColor([0, 152, 217])
                         .setTitle("Ta collection de cartes bururu")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     for (let i = 0; i < Object.keys(cards).length; i++) {
                         const cardFullName = Object.keys(cards)[i];
@@ -63,14 +63,14 @@ module.exports = {
                     if (bururuCardsEmbed.data.fields)
                         collectionEmbeds.push(bururuCardsEmbed);
                     if (collectionEmbeds.length === 0)
-                        return await interaction.reply({ content: userID === interaction.user.id ? "❌ Tu n'as aucune carte !" : `❌ <@${userID}> n'a aucune carte !`, flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: userID === interaction.user.id ? "❌ Tu n'as aucune carte !" : `❌ <@${userID}> n'a aucune carte !`, flags: [MessageFlags.Ephemeral] });
 
                     await interaction.reply({ embeds: collectionEmbeds });
                     break;
 
                 case "drop":
                     if (!(await hasValue(userID, "users", "booster-pack")))
-                        return await interaction.reply({ content: "❌ Tu n'as pas de paquet à ouvrir !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu n'as pas de paquet à ouvrir !", flags: [MessageFlags.Ephemeral] });
 
                     const cardsID = [];
 
@@ -93,7 +93,7 @@ module.exports = {
                         .setColor([0, 152, 217])
                         .setImage("attachment://card-back.png")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [packOpeningEmbed], files: ["./assets/images/cards/card-back.png"], components: [packOpeningButton] });
                     break;

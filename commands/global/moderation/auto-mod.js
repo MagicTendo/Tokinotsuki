@@ -281,9 +281,9 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion requise !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion requise !", flags: [MessageFlags.Ephemeral] });
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Je n'ai pas la permission requise !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Je n'ai pas la permission requise !", flags: [MessageFlags.Ephemeral] });
 
             const autoModSettings = {
                 "block-bad-words": AutoModerationRuleTriggerType.KeywordPreset,
@@ -344,11 +344,11 @@ module.exports = {
                 timeoutDurationSeconds /= 1_000;
 
                 if (typeof timeoutDurationSeconds === "undefined" || isNaN(timeoutDurationSeconds))
-                    return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h`, `d` et `w`, et s'utilisent avec un nombre, `9d` pour 9 jours, `3h 14m` pour 3 heures et 14 minutes, etc.", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h`, `d` et `w`, et s'utilisent avec un nombre, `9d` pour 9 jours, `3h 14m` pour 3 heures et 14 minutes, etc.", flags: [MessageFlags.Ephemeral] });
                 if (timeoutDurationSeconds < 1)
-                    return await interaction.reply({ content: "❌ La valeur doit être strictement positive et non nulle !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ La valeur doit être strictement positive et non nulle !", flags: [MessageFlags.Ephemeral] });
                 if (timeoutDurationSeconds > 2419200)
-                    return await interaction.reply({ content: "❌ Tu ne peux pas exclure quelqu'un pendant plus de 4 semaines !", flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "❌ Tu ne peux pas exclure quelqu'un pendant plus de 4 semaines !", flags: [MessageFlags.Ephemeral] });
             }
 
             if (meantionLimit) logDescription += `🔴 **Limite de mentions** : ${meantionLimit}\n`;
@@ -391,21 +391,21 @@ module.exports = {
                 exemptRoles: roleException === null ? null : [roleException],
                 reason: reason
             }).catch(async error => {
-                if (error.message.includes("BASE_TYPE_BAD_LENGTH")) return await interaction.reply({ content: "❌ Ta configuration n'est pas possible !", flags: MessageFlags.Ephemeral });
-                if (error.message.includes("AUTO_MODERATION_MAX_RULES_OF_TYPE_EXCEEDED")) return await interaction.reply({ content: "❌ Tu ne peux plus créer cette règle car il y en a trop !", flags: MessageFlags.Ephemeral });
-                if (error.message === "Missing Access") return await interaction.reply({ content: "❌ Cette fonctionalité n'est disponible que pour les serveurs communautaires !", flags: MessageFlags.Ephemeral });
+                if (error.message.includes("BASE_TYPE_BAD_LENGTH")) return await interaction.reply({ content: "❌ Ta configuration n'est pas possible !", flags: [MessageFlags.Ephemeral] });
+                if (error.message.includes("AUTO_MODERATION_MAX_RULES_OF_TYPE_EXCEEDED")) return await interaction.reply({ content: "❌ Tu ne peux plus créer cette règle car il y en a trop !", flags: [MessageFlags.Ephemeral] });
+                if (error.message === "Missing Access") return await interaction.reply({ content: "❌ Cette fonctionalité n'est disponible que pour les serveurs communautaires !", flags: [MessageFlags.Ephemeral] });
 
-                return await interaction.reply({ content: `❌ Cela semble être une erreur ! Signale-le à mon créateur avec la commande \`/report\` et ce message : \`\`\`js\n${error.message}\`\`\``, flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: `❌ Cela semble être une erreur ! Signale-le à mon créateur avec la commande \`/report\` et ce message : \`\`\`js\n${error.message}\`\`\``, flags: [MessageFlags.Ephemeral] });
             });
 
             if (rule) {
-                await interaction.reply({ content: `✅ La règle \`${ruleName}\` a bien été créée !`, flags: MessageFlags.Ephemeral });
+                await interaction.reply({ content: `✅ La règle \`${ruleName}\` a bien été créée !`, flags: [MessageFlags.Ephemeral] });
 
                 const automodEmbed = new EmbedBuilder()
                     .setColor([112, 7, 7])
                     .setDescription(`### Nouvelle règle créée : \`${ruleName}\`\n\n📂 **Type de règle** : ${autoModShortRuleNames[autoModSettingTypeRaw]}\n${logDescription.slice(0, -1)}\n🛋️ **Salon exclue** : ${channelException ?? "*aucun*"}\n🏷️ **Rôle exclue** : ${roleException ?? "*aucun*"}\n📝 **Raison** :\n> *${reason}*`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await logChannel.send({ embeds: [automodEmbed] });
             }

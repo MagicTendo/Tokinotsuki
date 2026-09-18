@@ -12,6 +12,7 @@ module.exports = {
             .setName("version")
             .setDescription("Choisis la version.")
             .addChoices(
+                { name: "v4.0.1", value: "4.0.1" },
                 { name: "v4.0.0", value: "4.0.0" },
                 { name: "v3.0.0", value: "3.0.0" },
                 { name: "v2.0.0", value: "2.0.0" },
@@ -28,6 +29,10 @@ module.exports = {
             let patchNotesContent;
 
             switch (version) {
+                case "4.0.1":
+                    patchNotesContent = "➜ Ajout de la commande `/getting-started`, expliquant comment les fonctionnalités majeures de Tokinotsuki fonctionne.\n➜ Ajout de la commande `/tenor`, permettant de prévisualiser des GIFs provenant de Tenor, afin d'en découvrir de nouveaux pour les mettre en favori !\n➜ Refonte complète de `/game fight`, mieux optimisé et avec plus d'options.\n➜ Ajout de machines pour `/game jackpot`.\n➜ Ajout de bouttons pour voir l'inventaire et donner un cookie sur un profil affiché avec `/info user`.\n➜ Ajout d'un nouvel objet dans le magasin de Tokinotsuki, le contrat de mutation d'équipe, permettant de changer d'équipe.\n➜ Ajout d'une image sur `/tokinotsuki`.\n➜ Possibilité de voler des cookies avec le `/rob`.\n➜ Codes enfin utilisables avec `/claim-code`.\n➜ Nouveaux statuts, optimisation de leur gestion, et ajouts de statuts pour Halloween et Noël.\n➜ Suppression des commandes `/dev-news`, `/support` et `/random baka-wiki`.\n➜ Quelques optimisations de code et bugs réglés.";
+                    break;
+
                 case "4.0.0":
                     patchNotesContent = "➜ Mise à jour totale du bot, toutes les commandes et fonctionnalités ont étaient améliorées (nouvelles sous-commandes, optimisations, bugs réglés, etc.) !\n➜ Plus de 100 nouvelles fonctionalités ! Comme entres autres `/anime`, `/game arkeology`, `/encode-text`, `/qr-code`, `/prize`, `/grab` ou encore `/weather`.\n➜ Ajout de nouveaux objets (poissons, minerais, artefacts, etc.) et de plus de jeux (snap bird, arkeology, etc.).\n➜ Lore et noms modifiés (Watozan est devenu Toki Coin, etc.).\n➜ Implémentation de commandes permettant d'ajouter des règles AutoMod.\n➜ Nouvelles actions sociales avec `beg`, `happy-birthday`, `hypnotise`, `no-you`, `photo`, `shrug` et `spin`.\n➜ Nouveau système d'apprentissage avec les commandes `/learn` permettant d'apprendre un peu de géographie, de mathématiques et de japonais.\n➜ Nouveau système de radio permettant d'avoir de la musique dans un salon vocal avec `/radio`.\n➜ Ajout de fonctionalités spécialement pour le serveur Yunayunori, comme un système d'expérience, de notifications de nouvelles publications sur les réseaux sociaux ou même une avant première de certaines fonctionalités.\n➜ J'ai également pris en compte toutes les suggestions qui ont étaient faîtes dans le passé (ombres pour les objets non obtenus, canne à pêche avec appâts, etc.).\n➜ Refonte totale de l'identité visuelle (images, photo de profile, émojis, etc.).\n➜ Les images et les émojis sont maintenant locales, ils devraient maintenant être tout le temps présent et plus rapide à charger.\n➜ Après 4 ans de \"La nouvelle documentation arrive très bientôt !\", elle est enfin là pour de vrai !\n➜ Création d'une petite API publique pour obtenir des statistiques sur le bot en dehors de Discord.\n➜ Un meilleur temps de réponse et de nombreuses optimisations dans tout les sens.\n➜ Deux fois plus de status, ne chageons pas les bonnes traditions !\n➜ Nouveaux statuts et easter eggs bien évidemment !\n➜ Le code du projet est enfin en open source !\n➜ Et pleins d'autres petits détails dans tout les sens !";
                     break;
@@ -70,9 +75,9 @@ module.exports = {
                 .setTitle(`Notes de patch de la version ${version}`)
                 .setDescription(patchNotesContent)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.reply({ embeds: [versionEmbed], flags: MessageFlags.Ephemeral });
+            await interaction.reply({ embeds: [versionEmbed], flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

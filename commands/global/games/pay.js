@@ -27,11 +27,11 @@ module.exports = {
             const userTokiCoins = await getValue(interaction.user.id, "users", "toki-coin");
 
             if (userPay.bot)
-                return await interaction.reply({ content: "❌ Tu ne peux pas donner de l'argent à un bot !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu ne peux pas donner de l'argent à un bot !", flags: [MessageFlags.Ephemeral] });
             if (amount > userTokiCoins)
-                return await interaction.reply({ content: `❌ Tu n'as pas assez d'argent ! Il te manque ${await simplify(userID, amount - userTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: `❌ Tu n'as pas assez d'argent ! Il te manque ${await simplify(userID, amount - userTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: [MessageFlags.Ephemeral] });
             if (userID === userPay.id)
-                return await interaction.reply({ content: "❌ Tu ne peux pas envoyer de l'argent à toi même !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu ne peux pas envoyer de l'argent à toi même !", flags: [MessageFlags.Ephemeral] });
 
             await tryAddingUserToDatabase(interaction, client, userPay.id, "users");
             await updateValue(userID, "users", "toki-coin", -amount);

@@ -30,7 +30,7 @@ module.exports = {
 
                 await interaction.update({ embeds: [adventurePreparationsEmbed], components: [adventurePreparationsButtons, adventurePreparationsMenu] });
             } else {
-                await interaction.reply({ content: "❌ Tu n'as pas cette ressource !", flags: MessageFlags.Ephemeral });
+                await interaction.reply({ content: "❌ Tu n'as pas cette ressource !", flags: [MessageFlags.Ephemeral] });
             }
         } catch (error) {
             await sendError(interaction, client, error);

@@ -73,7 +73,7 @@ module.exports = {
                     const refreshedShopContent = { embeds: [shopEmbed], files: [`./assets/images/shops/${shopType}.png`], components: shopComponents };
 
                     await interaction.update(refreshedShopContent);
-                    await interaction.followUp({ content: `✅ Tu as bien tout vendu pour ${finalSumText} !`, flags: MessageFlags.Ephemeral });
+                    await interaction.followUp({ content: `✅ Tu as bien tout vendu pour ${finalSumText} !`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "sell-all-deny":

@@ -31,11 +31,11 @@ module.exports = {
             const packOpeningEmbed = new EmbedBuilder()
                 .setColor(cardColor)
                 .setTitle(cardFullName)
-                .setImage(`attachment://card-${cardName}.png`)
+                .setImage(`attachment://${cardName}.png`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.update({ embeds: [packOpeningEmbed], files: [`./assets/images/cards/card-${cardName}.png`], components: packOpeningButton, flags: MessageFlags.Ephemeral });
+            await interaction.update({ embeds: [packOpeningEmbed], files: [`./assets/images/cards/${cardName}.png`], components: packOpeningButton, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

@@ -25,7 +25,7 @@ module.exports = {
 			const secondMember = interaction.options.getMember("second-user") ?? interaction.member;
 
 			if (firstUser === secondUser)
-				return await interaction.reply({ content: "💔 Je ne peux pas calculer l'amour propre, désolé D:", flags: MessageFlags.Ephemeral });
+				return await interaction.reply({ content: "💔 Je ne peux pas calculer l'amour propre, désolé D:", flags: [MessageFlags.Ephemeral] });
 
 			const firstUserID = firstUser.id;
 			const secondUserID = secondUser.id;
@@ -46,7 +46,7 @@ module.exports = {
 				.setColor([255, 0, 208])
 				.setDescription(`${firstUserName}    >    **${love}% d'amour**    <    ${secondUserName}`)
 				.setTimestamp()
-				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+				.setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
 			await interaction.reply({ embeds: [loveEmbed] });
 		} catch (error) {

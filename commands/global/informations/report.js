@@ -36,7 +36,7 @@ module.exports = {
             const userID = interaction.user.id;;
 
             if (await hasValue(userID, "users", "blacklist"))
-                return await interaction.reply({ content: "❌ Tu ne peux plus utiliser cette commande car tu as été mis en blacklist. Tu peux rejoindre mon serveur support avec la commande `/support` si tu penses que c'est une erreur.", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu ne peux plus utiliser cette commande car tu as été mis en blacklist. Tu peux rejoindre mon serveur support avec la commande `/support` si tu penses que c'est une erreur.", flags: [MessageFlags.Ephemeral] });
 
             const reportType = interaction.options.getString("type");
             const reportTypeName = reportType === "bug" ? "Bug" : reportType === "suggestion" ? "Suggestion" : reportType === "spelling" ? "Écriture" : "Demande";
@@ -69,11 +69,11 @@ module.exports = {
 
             const reportEmbed = new EmbedBuilder()
                 .setColor(reportColor)
-                .setAuthor({ name: `${interaction.user.globalName} (${userID})`, iconURL: interaction.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) })
+                .setAuthor({ name: `${interaction.user.globalName} (${userID})`, iconURL: interaction.user.displayAvatarURL({ extension: "png", size: 64 }) })
                 .setTitle(`${reportTypeName} - \`${reportCommand}\``)
                 .setDescription(reportContent)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             if (reportImage)
                 reportEmbed.setImage(reportImage);
@@ -83,7 +83,7 @@ module.exports = {
             await channel.send({ embeds: [reportEmbed], components: [reportButtons] });
             await channel.send({ content: "<@610493430325313549>" }).then(message => message.delete());
 
-            await interaction.reply({ content: "✅ Ton rapport a bien été envoyé à mon créateur !", flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: "✅ Ton rapport a bien été envoyé à mon créateur !", flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

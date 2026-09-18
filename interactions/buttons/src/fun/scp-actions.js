@@ -8,7 +8,7 @@ module.exports = {
             let newSCPList = new EmbedBuilder()
                 .setTitle(interaction.message.embeds[0].data.title)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             switch (buttonContent[1]) {
                 case "classic":

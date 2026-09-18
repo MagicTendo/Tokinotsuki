@@ -61,7 +61,7 @@ module.exports = {
                     let isCompleted = false;
 
                     if (userQuest === questFlags.completed)
-                        return await interaction.reply({ content: "❌ Tu as déjà validé cette quête !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu as déjà validé cette quête !", flags: [MessageFlags.Ephemeral] });
 
                     if (quest === "quest-cookie") {
                         if (await getValue(userID, "users", "cookie") >= 999)
@@ -92,10 +92,10 @@ module.exports = {
 
                         await updateValue(userID, "users", quest, 2, false);
                         await updateValue(userID, "users", prize, prizeAmount, false);
-                        await interaction.reply({ content: `✅ Quête validée ! Tu as gagné 1 ${getCurrencySymbol("questshroom")} !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `✅ Quête validée ! Tu as gagné 1 ${getCurrencySymbol("questshroom")} !`, flags: [MessageFlags.Ephemeral] });
                         await addTeamPoints(interaction, userID, 5);
                     } else {
-                        await interaction.reply({ content: "❌ Tu n'as pas terminé la quête !", flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: "❌ Tu n'as pas terminé la quête !", flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -127,9 +127,9 @@ module.exports = {
                             { name: `${questStatus[10]} Task expert 🎯`, value: `Réalise toutes les tâches !\n> ${await simplify(userID, questsPrizes[Object.keys(questsPrizes)[10]][0])} ${getCurrencySymbol("toki-coin")}`, inline: true },
                             { name: `${questStatus[11]} Quest Master 📜`, value: "Réussir toutes les quêtes !\n> Un pin's", inline: true })
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                    await interaction.reply({ embeds: [questsEmbed], flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ embeds: [questsEmbed], flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

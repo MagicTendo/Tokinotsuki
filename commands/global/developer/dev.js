@@ -182,9 +182,9 @@ module.exports = {
             const secretCode = interaction.options.getString("secret-code");
 
             if (interaction.user.id !== "610493430325313549")
-                return await interaction.reply({ content: "❌ Cette commande n'est pas pour toi !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Cette commande n'est pas pour toi !", flags: [MessageFlags.Ephemeral] });
             if (secretCode !== process.env.SECRET_DEV_CODE)
-                return await interaction.reply({ content: "❌ Le code est invalide !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Le code est invalide !", flags: [MessageFlags.Ephemeral] });
 
             switch (interaction.options.getSubcommand()) {
                 case "create-code":
@@ -200,7 +200,7 @@ module.exports = {
                         secondPattern += letters[Math.floor(Math.random() * letters.length)];
                     }
 
-                    await interaction.reply({ content: `${firstPattern}-${secondPattern}-${thirdPattern}`, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: `${firstPattern}-${secondPattern}-${thirdPattern}`, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "eval":
@@ -218,7 +218,7 @@ module.exports = {
 
                     try {
                         if (messageID !== null && !await interaction.channel.messages?.fetch(messageID))
-                            return await interaction.reply({ content: "Can't fetch message !", flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: "Can't fetch message !", flags: [MessageFlags.Ephemeral] });
 
                         let evaled;
                         messageID === null ? isAsync ? evaled = await eval(code) : evaled = eval(code) : evaled = eval(`interaction.channel.messages?.fetch(messageID).then(interaction => { ${code} });`);
@@ -231,17 +231,17 @@ module.exports = {
                             .setColor([29, 245, 0])
                             .setDescription(`## ✅ Success !\n\`${code}\`\n\n\`\`\`js\n${evalFinal}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [devEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [devEmbed], flags: [MessageFlags.Ephemeral] });
                     } catch (error) {
                         const errorDevEmbed = new EmbedBuilder()
                             .setColor([224, 0, 0])
                             .setDescription(`## ❌ Error...\n\`${code}\`\n\n\`\`\`js\n${cleanEval(error)}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [errorDevEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [errorDevEmbed], flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -254,11 +254,11 @@ module.exports = {
                     if (deleteValue) {
                         await deleteTable.query(`UPDATE ${deleteRawTable} SET value = (value::jsonb - '${deleteValue}')::text WHERE key = '${deleteKey}';`);
 
-                        await interaction.reply({ content: `La valeur \`${deleteValue}\` de la clé \`${deleteKey}\` a bien était supprimée de la table \`${deleteRawTable}\` !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `La valeur \`${deleteValue}\` de la clé \`${deleteKey}\` a bien était supprimée de la table \`${deleteRawTable}\` !`, flags: [MessageFlags.Ephemeral] });
                     } else {
                         await deleteTable.delete(deleteKey);
 
-                        await interaction.reply({ content: `La clé \`${deleteKey}\` a bien était supprimée de la table \`${deleteRawTable}\` !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `La clé \`${deleteKey}\` a bien était supprimée de la table \`${deleteRawTable}\` !`, flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -269,7 +269,7 @@ module.exports = {
                     try {
                         switch (fileAction) {
                             case "open":
-                                await interaction.reply({ files: [`./${filePath}`], flags: MessageFlags.Ephemeral });
+                                await interaction.reply({ files: [`./${filePath}`], flags: [MessageFlags.Ephemeral] });
                                 break;
 
                             case "list":
@@ -288,7 +288,7 @@ module.exports = {
 
                                 const finalList = `${folders.join("\n")}\n${files.join("\n")}`;
 
-                                await interaction.reply({ content: `\`\`\`diff\n${finalList}\n\`\`\``, flags: MessageFlags.Ephemeral });
+                                await interaction.reply({ content: `\`\`\`diff\n${finalList}\n\`\`\``, flags: [MessageFlags.Ephemeral] });
                                 break;
 
                             case "reload":
@@ -298,14 +298,14 @@ module.exports = {
                                 const command = interaction.client.commands.get(commandName);
 
                                 if (!command)
-                                    return await interaction.reply({ content: `❌ Il n'y a pas de commande \`/${commandName}\` !`, flags: MessageFlags.Ephemeral });
+                                    return await interaction.reply({ content: `❌ Il n'y a pas de commande \`/${commandName}\` !`, flags: [MessageFlags.Ephemeral] });
 
                                 delete require.cache[require.resolve(`../../${filePath}`)];
 
                                 const newCommand = require(`../../${filePath}`);
 
                                 await interaction.client.commands.set(newCommand.data.name, newCommand);
-                                await interaction.reply({ content: `✅ La commande \`/${newCommand.data.name}\` a bien été rechargée !`, flags: MessageFlags.Ephemeral });
+                                await interaction.reply({ content: `✅ La commande \`/${newCommand.data.name}\` a bien été rechargée !`, flags: [MessageFlags.Ephemeral] });
 
                                 await client.user.setStatus(PresenceUpdateStatus.Online);
                                 break;
@@ -315,9 +315,9 @@ module.exports = {
                             .setColor([224, 0, 0])
                             .setDescription(`## ❌ Error...\n\n\`\`\`js\n${cleanEval(error)}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [errorDevEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [errorDevEmbed], flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -330,21 +330,21 @@ module.exports = {
 
                         await updateValue(giveUserID, "users", giveItem, giveValue, giveIsAdditive);
 
-                        await interaction.reply({ content: `<@${giveUserID}> a bien obtenu ${await simplify(interaction.user.id, giveValue, true)} (${giveValue}) ${giveItem} !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `<@${giveUserID}> a bien obtenu ${await simplify(interaction.user.id, giveValue, true)} (${giveValue}) ${giveItem} !`, flags: [MessageFlags.Ephemeral] });
                     } catch (error) {
                         const errorDevEmbed = new EmbedBuilder()
                             .setColor([224, 0, 0])
                             .setDescription(`## ❌ Error...\n\n\`\`\`js\n${cleanEval(error)}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [errorDevEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [errorDevEmbed], flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
                 case "tesuto":
                     // === Check if accounts existed with a list of IDs ===
-                    // await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+                    // await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
                     // const retroUsers = ["USER_IDS"];
                     // const finalUsers = [];
@@ -379,11 +379,11 @@ module.exports = {
                     //     .setDescription(`[${finalUsers.join(",")}] (${finalUsers.length})`);
 
                     // await interaction.editReply({ embeds: embeds });
-                    // await interaction.followUp({ embeds: [embed], flags: MessageFlags.Ephemeral });
+                    // await interaction.followUp({ embeds: [embed], flags: [MessageFlags.Ephemeral] });
 
 
                     // === Get v3 leaderboards ===
-                    // await interaction.reply({ embeds: [tesutoEmbed], flags: MessageFlags.Ephemeral });
+                    // await interaction.reply({ embeds: [tesutoEmbed], flags: [MessageFlags.Ephemeral] });
 
                     // const oldTokiCoinLeaderboardID = [["719970883938287720", 398534], ["743089421749977109", 366337], ["830313779182567476", 337339], ["286787996940894209", 252880], ["697438073646088194", 198550], ["385772850499420161", 113171], ["448847464884207627", 90202], ["426000385895825408", 70577], ["482897963744624660", 55315], ["730434563360424047", 48012], ["494552404747091969", 46775], ["718456289704804392", 27533], ["610493430325313549", 19813], ["833326528401637376", 19777], ["930832815468216400", 12417], ["526775472885858306", 12345], ["851871020188434492", 11399], ["781443974497435658", 10521], ["809053504030638121", 9004], ["692833570334572554", 8879], ["742438761530654861", 6791], ["723494807569170483", 6292], ["556454400772538388", 4769], ["887639389809819709", 2999], ["689028243256639524", 2557], ["807546731587829770", 2504], ["437504868840898569", 1897], ["1135850277644275732", 1366], ["277136155244232706", 1259], ["575656511691554816", 1180], ["713001105252155473", 1030], ["477485109403058176", 972], ["991024791970537544", 922], ["891610376985260033", 906], ["785591158280814664", 866], ["886353118491721779", 852], ["945376610767491092", 780], ["1026052826658504734", 735], ["916387535314386944", 728], ["767446931499909131", 715], ["826047634757517343", 681], ["827232338039144518", 679], ["576847831940464668", 640], ["419885376027623434", 637], ["763350993512562709", 636], ["784835010263777356", 619], ["587887807284903936", 563], ["615965033683484684", 555], ["458218450393890831", 545], ["928703852167962665", 535], ["919991063177990184", 524], ["922187797169848362", 485], ["638087966715019294", 484], ["629020731862286336", 472], ["447480244207616002", 464], ["708039665189388289", 448], ["726058517001273358", 431], ["1025082642485493870", 413], ["793281583985590302", 413], ["609300543730483201", 384], ["235425276903948289", 314], ["746022329511051324", 311], ["635411133091807254", 296], ["766291588708040734", 247], ["870253081659605002", 240], ["754033387072782396", 225], ["1057243614935261334", 28], ["495278377821798401", 2]];
                     // const oldTokiCoinLeaderboardName = [["Bebaal", 398534], ["Nagano", 366337], ["Arcose 🗣", 337339], ["Ska", 252880], ["Ninjdai", 198550], ["ScoobyBrown", 113171], ["MGW_Zoro", 90202], ["undefined", 70577], ["Richard Pudépié", 55315], ["undefined", 48012], ["undefined", 46775], ["Seaclye", 27533], ["BakaTaida", 19813], ["Leo Le Pik", 19777], ["undefined", 12417], [".", 12345], ["undefined", 11399], ["undefined", 10521], ["kapla", 9004], ["cool kyuju", 8879], ["Shadox", 6791], ["undefined", 6292], [".꧁╭⊱Zelda🌺 ⊱╮꧂", 4769], ["undefined", 2999], ["arno", 2557], ["undefined", 2504], ["Gab", 1897], ["˗ˏˋ 𝐀𝐥𝐢𝐚  ´ˎ˗", 1366], ["Dawn 🍊", 1259], ["ProHartz", 1180], ["Aélizya", 1030], ["Nono Mystica", 972], ["undefined", 922], ["Twentysix - Settings_Server", 906], ["polo3515", 866], ["undefined", 852], ["!   M. ARGOS 🦚", 780], ["undefined", 735], ["Mangaka Émancipé ☆♡☆", 728], ["undefined", 715], ["undefined", 681], ["Arcﾑde", 679], ["undefined", 640], ["[Ancien Compte] F²", 637], ["XinKaoDai", 636], ["undefined", 619], ["undefined", 563], ["undefined", 555], ["undefined", 545], ["Noah_411", 535], ["Adrien™", 524], ["undefined", 485], ["undefined", 484], ["Austcraft", 472], ["gaetan2wiish", 464], ["As(térion)unayo", 448], ["undefined", 431], [".", 413], ["undefined", 413], ["=+=ITHRI=+=", 384], ["Aznum_Shark", 314], ["undefined", 311], ["undefined", 296], ["liamvittoz", 247], ["undefined", 240], ["undefined", 225], ["GBZ team", 28], ["Neramawa", 2]];
@@ -401,15 +401,15 @@ module.exports = {
                     //     .setColor([255, 85, 0])
                     //     .setDescription(description)
 
-                    // await interaction.reply({ embeds: [tesutoEmbed], flags: MessageFlags.Ephemeral });
+                    // await interaction.reply({ embeds: [tesutoEmbed], flags: [MessageFlags.Ephemeral] });
 
 
                     // === Check probabilities ===
-                    // await interaction.reply({ content: String(Object.values(cards).map(item => item.probability).reduce((a, b) => a + b)), flags: MessageFlags.Ephemeral });
+                    // await interaction.reply({ content: String(Object.values(cards).map(item => item.probability).reduce((a, b) => a + b)), flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "simulate":
-                    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+                    await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
                     const simulationIterations = interaction.options.getInteger("amount");
                     const simulationDataSet = interaction.options.getString("data-set");
@@ -483,7 +483,7 @@ module.exports = {
 
                     const pool = new Pool({
                         connectionString: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`,
-                        ssl: { rejectUnauthorized: false }
+                        ssl: process.env.TESTING_MODE === "false" ? { rejectUnauthorized: false } : false
                     });
 
                     try {
@@ -503,17 +503,17 @@ module.exports = {
                             .setColor([14, 207, 0])
                             .setDescription(`## ✅ Success !\n\`${query}\`\n\n\`\`\`sql\n${tableContent.slice(0, 4045)}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [queryEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [queryEmbed], flags: [MessageFlags.Ephemeral] });
                     } catch (error) {
                         const errorQueryEmbed = new EmbedBuilder()
                             .setColor([224, 0, 0])
                             .setDescription(`## ❌ Error...\n\`${query}\`\n\n\`\`\`js\n${cleanEval(error)}\`\`\`\n\n`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        await interaction.reply({ embeds: [errorQueryEmbed], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ embeds: [errorQueryEmbed], flags: [MessageFlags.Ephemeral] });
                     }
                     break;
             }

@@ -85,9 +85,9 @@ module.exports = {
             const settingType = interaction.options.getSubcommand();
 
             if (settingType !== "recap" && interaction.user.id !== interaction.guild.ownerId)
-                return await interaction.reply({ content: "❌ Tu n'es pas le propriétaire du serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'es pas le propriétaire du serveur !", flags: [MessageFlags.Ephemeral] });
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permission requise pour voir le récapitulatif !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permission requise pour voir le récapitulatif !", flags: [MessageFlags.Ephemeral] });
 
             const guildID = interaction.guild.id;
             const settingsWithRole = ["anti-link", "anti-say", "anti-scam"];
@@ -103,13 +103,13 @@ module.exports = {
                         if (settingsWithRole.includes(settingType))
                             await updateValue(guildID, "guilds", `${settingType}-role`, role, false);
 
-                        await interaction.reply({ content: `L'${settingType} a bien été activé ${role !== null ? `sauf pour <@&${role}> !` : "!"}`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `L'${settingType} a bien été activé ${role !== null ? `sauf pour <@&${role}> !` : "!"}`, flags: [MessageFlags.Ephemeral] });
                         break;
 
                     case "desactivate":
                         await deleteValue(guildID, "guilds", settingType);
 
-                        await interaction.reply({ content: `L'${settingType} a bien été désactivé !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `L'${settingType} a bien été désactivé !`, flags: [MessageFlags.Ephemeral] });
                         break;
                 }
             }
@@ -136,9 +136,9 @@ module.exports = {
                             { name: "💬 __Anti-say__", value: configurations[3], inline: true },
                             { name: "💸 __Anti-scam__", value: configurations[4], inline: true })
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                    await interaction.reply({ embeds: [configRecapEmbed], flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ embeds: [configRecapEmbed], flags: [MessageFlags.Ephemeral] });
                     break;
 
                 default:

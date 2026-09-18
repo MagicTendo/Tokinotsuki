@@ -74,9 +74,9 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuildExpressions))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permission de gérer les expressions !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permission de gérer les expressions !", flags: [MessageFlags.Ephemeral] });
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageGuildExpressions))
-                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les expressions !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les expressions !", flags: [MessageFlags.Ephemeral] });
 
             await interaction.deferReply();
 

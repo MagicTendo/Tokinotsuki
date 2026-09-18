@@ -23,16 +23,16 @@ async function refreshShop(itemTable, userID, shopType, mode) {
         const itemSeperatedName = itemKey.split("|");
         const item = itemTable[itemKey];
         const itemPrice = item["price"];
-        const itemName = item["name"];
+        const itemID = item["name"];
         const isItemUnique = item["unique"] ?? false;
 
-        if (fakeItems.includes(itemName) || (isItemUnique && (itemName.includes("upgrade") ? await getValue(userID, "users", itemName.slice(0, -8)) > 1 : await hasValue(userID, "users", itemName))))
+        if (fakeItems.includes(itemID) || (isItemUnique && (itemID.includes("upgrade") ? await getValue(userID, "users", itemID.slice(0, -8)) > 1 : await hasValue(userID, "users", itemID))))
             continue;
 
         const itemPresentationName = capitalize(itemSeperatedName[2]);
-        const itemBoughtName = `${itemSeperatedName[0].toLowerCase()} ${itemSeperatedName[2]}`;
+        const itemName = `${itemSeperatedName[0].toLowerCase()} ${itemSeperatedName[2]}`;
         const itemEmoji = item["emoji"];
-        const canReveal = mode !== "sell" || await getValue(userID, "users", itemName, true) >= 0;
+        const canReveal = mode !== "sell" || await getValue(userID, "users", itemID, true) >= 0;
         const itemFinalPrice = await simplify(userID, itemPrice);
         const itemCurrency = item?.["currency"] ?? "toki-coin";
         const itemCurrencySymbol = getCurrencySymbol(itemCurrency);
@@ -47,7 +47,7 @@ async function refreshShop(itemTable, userID, shopType, mode) {
             emoji: { name: canReveal ? itemEmoji : "❔" },
             label: canReveal ? itemPresentationName : "???",
             description: `${itemFinalPrice} ${itemCurrencySymbol}`,
-            value: `${itemName}${isItemUnique ? `_unique|${itemPrice}|${itemCurrency}|${itemBoughtName}` : ""}_${shopType}`
+            value: `${itemID}_${isItemUnique ? "unique" : ""}_${itemPrice}_${itemCurrency}_${itemName}_${shopType}`
         };
 
         if (!canSellAll && mode === "sell" && canReveal)

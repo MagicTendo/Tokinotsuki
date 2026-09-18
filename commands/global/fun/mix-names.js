@@ -31,7 +31,7 @@ module.exports = {
                 .setColor([255, 85, 0])
                 .setDescription(`### <@${firstUser.id}> + <@${secondUser.id}>\n> ## = ${firstUserHalfName}${secondUserHalfName} !`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [mixNamesEmbed] });
         } catch (error) {

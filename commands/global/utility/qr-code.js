@@ -29,7 +29,7 @@ module.exports = {
             .setDescription("Crée un QR en format texte, mais le message ne pourra pas être long.")
             .addStringOption(option => option
                 .setName("mode")
-                .setDescription(":3")
+                .setDescription("L'apparence du QR code.")
                 .addChoices(
                     { name: "🔲 Carré", value: "square" },
                     { name: "📄 Alongé", value: "stretched" })
@@ -68,9 +68,9 @@ module.exports = {
                     qrCode = `\`\`\`\n${qrCode.join("")}\n\`\`\``
 
                     if (qrCode.length > 2_000)
-                        return await interaction.reply({ content: `❌ Le QR Code dépasse la limite de caractères de Discord de ${qrCode.length - 2_000} characters !`, flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: `❌ Le QR Code dépasse la limite de caractères de Discord de ${qrCode.length - 2_000} characters !`, flags: [MessageFlags.Ephemeral] });
 
-                    await interaction.reply({ content: qrCode, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: qrCode, flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "image":
@@ -94,11 +94,11 @@ module.exports = {
 
                     toDataURL(qrCodeMessage, qrCodeOptions, async function (error, url) {
                         if (error)
-                            return await interaction.reply({ content: "❌ Le message du QR Code est trop long !", flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: "❌ Le message du QR Code est trop long !", flags: [MessageFlags.Ephemeral] });
 
                         const qrCode = new AttachmentBuilder(await new Buffer.from(url.split(",")[1], "base64"), { name: "qr-code.png" });
 
-                        await interaction.reply({ files: [qrCode], flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ files: [qrCode], flags: [MessageFlags.Ephemeral] });
                     });
                     break;
             }

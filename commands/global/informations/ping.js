@@ -31,7 +31,7 @@ module.exports = {
                 .setColor([255, 85, 0])
                 .setDescription(`### 🏓 Pong <@${interaction.user.id}> !\n\n📊 **Score de rapidité** : ${speedAppreciation}\n🛜 **Latence (round-trip latency)** : ${ping}ms\n📶 **Latence du websocket heartbeat (API)** : ${apiPing}ms`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.editReply({ content: "", embeds: [pingEmbed], components: pingComponent });
         } catch (error) {

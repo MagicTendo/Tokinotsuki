@@ -83,7 +83,7 @@ module.exports = {
                             { name: "🛋️ __Type de salon__", value: channelTypeName, inline: true },
                             { name: "🕰️ __Date de création__", value: `<t:${Math.floor(channelCreationDate / 1_000)}:f>`, inline: true })
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     if (channelType !== 11) {
                         const channelPosition = String(channel.position + 1);
@@ -203,11 +203,11 @@ module.exports = {
                                 { name: "💻 __Ansi 256__", value: colorAnsi256, inline: true })
                             .setThumbnail(colorImage)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [infoColorEmbed] });
                     } catch {
-                        await interaction.reply({ content: `❌ \`${colorRaw}\` n'est pas une vraie couleur !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `❌ \`${colorRaw}\` n'est pas une vraie couleur !`, flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -254,11 +254,11 @@ module.exports = {
                             .setThumbnail(guildImage)
                             .setImage(guildBanner)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [infoInviteEmbed] });
                     } catch {
-                        await interaction.reply({ content: `❌ \`${inviteInput}\` ne semble pas être un lien ou code d'invitation valide !`, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: `❌ \`${inviteInput}\` ne semble pas être un lien ou code d'invitation valide !`, flags: [MessageFlags.Ephemeral] });
                     }
                     break;
 
@@ -292,7 +292,7 @@ module.exports = {
                             { name: "🔗 __Rôle lié__", value: roleHasConnections, inline: true },
                             { name: "🔢 __Nombre de membres__", value: roleNumberRoleUsers, inline: true })
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     if (role.icon !== null) {
                         infoRoleEmbed.setThumbnail(role.iconURL({ extension: "png", size: 4_096, dynamic: true }));
@@ -409,7 +409,7 @@ module.exports = {
                         .setThumbnail(guildProfilePicture)
                         .setImage(guildBanner)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [infoServerEmbed] });
                     break;
@@ -431,9 +431,9 @@ module.exports = {
 
                     const infoBotEmbed = new EmbedBuilder()
                         .setColor([255, 85, 0])
-                        .setDescription(`## __Informations sur moi !__\n** **\nJe suis connectée depuis **${uptimeDays}** jours, **${uptimeHours}** heures, **${uptimeMinutes}** minutes, et **${uptimeSeconds}** secondes !\n-# *Encore merci à [Hasuko](https://www.youtube.com/@ohanashihasuko6535) (créateur du bot [Hasu](https://top.gg/bot/353949197571194890)) et à YuriSensei pour les tout débuts du projet, et à [Ninjdai](https://github.com/Ninjdai1) pour la suite et la première documentation !*\n\n** **`)
+                        .setDescription(`## __Informations sur moi !__\n** **\nJe suis connectée depuis **${uptimeDays}** jours, **${uptimeHours}** heures, **${uptimeMinutes}** minutes, et **${uptimeSeconds}** secondes !\n-# *Encore merci à [Hasuko](https://www.youtube.com/@ohanashihasuko6535) (créateur du bot [Hasu](https://top.gg/bot/353949197571194890)) et à YuriSensei pour les tout débuts du projet, ainsi qu'à [Ninjdai](https://github.com/Ninjdai1) pour la suite et la première documentation !*\n\n** **`)
                         .setFields(
-                            { name: "📁 __Version__", value: "v4", inline: true },
+                            { name: "📁 __Version__", value: "v4.0.1", inline: true },
                             { name: "💾 __Commandes__", value: numberCommands, inline: true },
                             { name: "⌚ __Dernière MàJ__", value: "<t:1647817200:f>", inline: true },
                             { name: "🔧 __Développeur__", value: "<@610493430325313549>", inline: true },
@@ -444,7 +444,7 @@ module.exports = {
                             { name: "📦 __Paquets__", value: numberNPMPackages, inline: true })
                         .setImage(tokiBanner)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     const infoBotButtons = new ActionRowBuilder()
                         .addComponents(
@@ -478,7 +478,7 @@ module.exports = {
                     const userID = user.id;
 
                     if (!client.guilds.cache.get(interaction.guild.id).members.cache.get(userID))
-                        return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: [MessageFlags.Ephemeral] });
 
                     const pinsList = ["pin-cirno", "pin-retro", "pin-beta-tester", "pin-bug-hunter", "quest-master"];
                     const pinsEmoji = {
@@ -560,8 +560,9 @@ module.exports = {
                         "ActiveDeveloper": "<:ActiveDeveloperBadge:1397216509503340645>"
                     };
                     const badges = badgesArray.length > 0 ? badgesArray.map(badge => badgeIcons[badge]).join(" ") : "*Aucun*";
-                    const isBotClean = user.bot.valueOf() ? "Oui" : "Non";
-                    const isSystemClean = user.system.valueOf() ? "Oui" : "Non";
+                    const isBotClean = isBot ? "Oui" : "Non";
+                    const isSystem = user.system.valueOf();
+                    const isSystemClean = isSystem ? "Oui" : "Non";
                     const currentStatus = member.presence?.status.replace("online", "En ligne").replace("idle", "Inactif").replace("dnd", "Ne pas déranger") ?? "Hors ligne";
                     const nickname = member.nickname ?? "*Aucun*";
                     const userColorHex = user.accentColor ? Color(userColor).hex() : "*Aucune*";
@@ -570,6 +571,22 @@ module.exports = {
                     const communicationDisabledUntilDateTimestamp = member.communicationDisabledUntilTimestamp != null ? `<t:${Math.floor(member.communicationDisabledUntilTimestamp / 1_000)}:R>` : "*N'est pas exlcue*";
                     const userProfilePicture = user.displayAvatarURL({ extension: "png", size: 4_096, dynamic: true });
                     const userBanner = user.bannerURL({ extension: "png", size: 4_096, dynamic: true });
+
+                    const infoUserComponents = [];
+                    const actionsButton = new ActionRowBuilder().addComponents(
+                        new ButtonBuilder()
+                            .setEmoji({ name: "🎒" })
+                            .setLabel("Ouvrir son inventaire")
+                            .setStyle(ButtonStyle.Secondary)
+                            .setCustomId(`info-user_inventory_${userID}_${interaction.user.id}`),
+                        new ButtonBuilder()
+                            .setEmoji({ name: "🍪" })
+                            .setLabel("Lui donner un cookie")
+                            .setStyle(ButtonStyle.Secondary)
+                            .setCustomId(`info-user_social_${userID}_${interaction.user.id}`));
+
+                    if (!isBot && !isSystem)
+                        infoUserComponents.push(actionsButton);
 
                     const infoUserEmbed = new EmbedBuilder()
                         .setColor(userColor)
@@ -589,12 +606,12 @@ module.exports = {
                             { name: "⏳ __Durée de fin de l'exclusion__ ", value: communicationDisabledUntilDateTimestamp, inline: true })
                         .setThumbnail(userProfilePicture)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     if (userBanner)
                         infoUserEmbed.setImage(userBanner);
 
-                    await interaction.reply({ embeds: [infoUserEmbed] });
+                    await interaction.reply({ embeds: [infoUserEmbed], components: infoUserComponents });
                     break;
             }
         } catch (error) {

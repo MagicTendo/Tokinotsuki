@@ -137,7 +137,7 @@ module.exports = {
 
                     const result = tsukinotoki(action, mode);
 
-                    await interaction.reply({ content: result, flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ content: result, flags: [MessageFlags.Ephemeral] });
                     break;
             }
         } catch (error) {

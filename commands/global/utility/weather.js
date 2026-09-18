@@ -47,7 +47,7 @@ module.exports = {
                         .setDescription(`🌡️ **Température** : ${temperature}°C (ressentie : ${temperatureFeelsLike}°C)\n⛅️ **Le temps est** : ${weatherDescription}\n🕘 **Heure (approximative)** : ${hours}:${minutes} (UTC+0)\n🍃 **Vitesse du vent** : ${windSpeed}km/h\n🗜️ **Pression** : ${pressure}hPa\n💦 **Taux d'humidité** : ${humidity}%\n🌫️ **Visibilité** : ${visibility}km\n🌄 **Levé du soleil** : <t:${sunriseTime}:R>\n🌇 **Couché du soleil** : <t:${sunsetTime}:R>`)
                         .setThumbnail(weatherIcon)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [weatherEmbed] });
                 } catch (error) {

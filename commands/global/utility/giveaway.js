@@ -34,7 +34,7 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild))
-                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu n'as pas la permisssion de gérer le serveur !", flags: [MessageFlags.Ephemeral] });
 
             const giveawayPrize = interaction.options.getString("prize");
             const giveawayDurationRaw = interaction.options.getString("duration");
@@ -49,11 +49,11 @@ module.exports = {
             }
 
             if (typeof giveawayDurationMilliseconds === "undefined" || isNaN(giveawayDurationMilliseconds))
-                return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h` et `d`, et s'utilisent avec un nombre, `9h` pour 9 heures, `3m 14s` pour 3 minutes et 14 secondes, etc.", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ La valeur de temps n'est pas correcte ! Cela doit être un nombre avec une lettre. Les unités disponibles sont `ms`, `s`, `m`, `h` et `d`, et s'utilisent avec un nombre, `9h` pour 9 heures, `3m 14s` pour 3 minutes et 14 secondes, etc.", flags: [MessageFlags.Ephemeral] });
             if (giveawayDurationMilliseconds < 60_000)
-                return await interaction.reply({ content: "❌ La valeur doit être strictement positive, non nulle et être supérieur à une minute !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ La valeur doit être strictement positive, non nulle et être supérieur à une minute !", flags: [MessageFlags.Ephemeral] });
             if (giveawayDurationMilliseconds > 604_800_000)
-                return await interaction.reply({ content: "❌ Le giveaway ne peut pas durer plus d'une semaine !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Le giveaway ne peut pas durer plus d'une semaine !", flags: [MessageFlags.Ephemeral] });
 
             const currentDate = Date.now();
             const giveawayTimestamp = Math.round((currentDate + giveawayDurationMilliseconds) / 1_000)
@@ -62,7 +62,7 @@ module.exports = {
                 .setColor([255, 85, 0])
                 .setDescription(`## Giveaway !\nClique pour tenter de gagner : **${giveawayPrize}** !\n** **\n> ⌚ **Temps restant** : <t:${giveawayTimestamp}:R>\n> 📝 **Inscrits** : 0\n> 🏅 **Nombre de gagnants** : ${giveawayWinnerNumber}`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             const giveawayMessage = await giveawayChannel.send({ embeds: [giveawayEmbed], withResponse: true });
 
@@ -74,7 +74,7 @@ module.exports = {
             }
 
             await giveawayMessage.react("🎉");
-            await interaction.reply({ content: `✅ Le giveaway a bien été envoyé dans <#${giveawayChannel.id}> !`, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: `✅ Le giveaway a bien été envoyé dans <#${giveawayChannel.id}> !`, flags: [MessageFlags.Ephemeral] });
 
             const reactionCollector = giveawayMessage.createReactionCollector({ filter: (reaction, user) => reaction.emoji.name === "🎉" && !user.bot, time: giveawayDurationMilliseconds, dispose: true });
 

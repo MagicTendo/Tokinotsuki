@@ -45,7 +45,7 @@ module.exports = {
             const avatarEmbed = new EmbedBuilder()
                 .setColor([255, 85, 0])
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             if (effect === "none") {
                 avatarEmbed.setImage(avatar);

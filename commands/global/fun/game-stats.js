@@ -97,7 +97,7 @@ module.exports = {
                     cleanUsername = UUIDToNameData["username"];
 
                     if (UUIDToNameData["errorMessage"] || cleanUIID === undefined)
-                        return await interaction.reply({ content: "❌ Ce joueur n'est pas sur Minecraft !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Ce joueur n'est pas sur Minecraft !", flags: [MessageFlags.Ephemeral] });
 
                     const playerHeadResponse = await fetch(`https://crafatar.com/avatars/${cleanUIID}?scale=10&overlay`);
                     const playerBodyResponse = await fetch(`https://crafatar.com/renders/body/${cleanUIID}?scale=10&overlay`);
@@ -116,7 +116,7 @@ module.exports = {
                         .setThumbnail("attachment://player-head.png")
                         .setImage("attachment://player-body.png")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [minecraftPlayerEmbed], files: [playerHead, playerBody] });
                     break;
@@ -130,7 +130,7 @@ module.exports = {
                         const serverStatus = data["status"];
 
                         if (serverStatus === "error")
-                            return await interaction.reply({ content: `❌ L'addresse IP \`${minecraftServerIP}\` ne semble pas être associée à un serveur Minecraft !`, flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: `❌ L'addresse IP \`${minecraftServerIP}\` ne semble pas être associée à un serveur Minecraft !`, flags: [MessageFlags.Ephemeral] });
 
                         const serverName = data["server"]["name"];
                         const serverIsOnline = data["online"] ? "en ligne" : "hors ligne";
@@ -149,7 +149,7 @@ module.exports = {
                             .setTitle(`Serveur Minecraft de ${serverName}`)
                             .setDescription(`🌐 **IP** : ${minecraftServerIP}\n🛜 **Statut** : ${serverIsOnline}\n✏️ **Description** : ${serverDescription}\n👥 **Capacité maximum** : ${serverMaximumPlayers} joueurs\n🟢 **En ligne** : ${serverConnectedPlayers} joueurs\n✨ **Dernière mise à jour** : ${serverLastUpdateTimestamp}`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         if (serverProfilePictureBuffer)
                             minecraftServerEmbed.setThumbnail("attachment://server-icon.png");
@@ -187,7 +187,7 @@ module.exports = {
                     const userData = await profileResponse.json();
 
                     if (userData["error"] === null)
-                        return await interaction.reply({ content: "❌ Cet utilisateur n'est pas sur osu!", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Cet utilisateur n'est pas sur osu!", flags: [MessageFlags.Ephemeral] });
 
                     const userID = userData["id"];
                     const userName = userData["username"];
@@ -238,7 +238,7 @@ module.exports = {
                         .setThumbnail(userAvatar)
                         .setImage(userBanner)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [osuEmbed] });
                     break;
@@ -284,7 +284,7 @@ module.exports = {
                                 .setThumbnail(levelThumbnail)
                                 .setImage(levelBanner)
                                 .setTimestamp()
-                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                             await interaction.reply({ embeds: [oldMarioMakerEmbed] });
                         });
@@ -442,7 +442,7 @@ module.exports = {
                         .setDescription(description)
                         .setThumbnail(dataType === "level" ? "attachment://level-thumbnail.png" : makerData["mii_image"])
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     if (dataType === "level")
                         marioMakerEmbed.setImage("attachment://level-banner.png");
@@ -460,7 +460,7 @@ module.exports = {
                         return response.json();
                     }).then(async function (categoriesData) {
                         if (categoriesData?.["status"] === 404)
-                            return await interaction.editReply({ content: "❌ Ce jeu n'existe pas sur Speedrun.com ! Réessaye en mettant uniquement les initiales du nom du jeu.", flags: MessageFlags.Ephemeral });
+                            return await interaction.editReply({ content: "❌ Ce jeu n'existe pas sur Speedrun.com ! Réessaye en mettant uniquement les initiales du nom du jeu.", flags: [MessageFlags.Ephemeral] });
 
                         const gameID = categoriesData["data"][0]["links"][1]["uri"].slice(-8);
                         const gameLink = categoriesData["data"][0]["weblink"];
@@ -510,7 +510,7 @@ module.exports = {
                             .setThumbnail(gameLogo)
                             .setImage(gameBackground)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.editReply({ embeds: [speedrunEmbed] });
                     });
@@ -527,7 +527,7 @@ module.exports = {
                         const gameLink = data[game]["link"];
                         const gameVersion = data[game]["version"];
                         const gameDate = data[game]["date"];
-                        const gameReadableDate = new Date(gameDate).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" });
+                        const gameReadableDate = new Date(gameDate).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric", timeZone: "Europe/Paris" });
                         const gameTags = data[game]["tags"];
                         const gameFormattedTags = gameTags.map(tag => `\`${tag}\``).join(" ");
                         const gameIsFinished = data[game]["finished"];
@@ -550,7 +550,7 @@ module.exports = {
                             .setDescription(`💾 **Version** : v${gameVersion} \n📅 **Date de sortie** : ${gameReadableDate}\n🏷️ **Tags** : ${gameFormattedTags}\n\n${leaderboard} `)
                             .setImage(gameLogo)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [yunayunoriEmbed] });
                     });

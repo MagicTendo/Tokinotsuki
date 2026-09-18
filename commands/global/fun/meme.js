@@ -34,7 +34,7 @@ module.exports = {
                 .setAuthor({ name: `u/${meme[3]}` })
                 .setImage(meme[4])
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [memeEmbed] });
         } catch (error) {

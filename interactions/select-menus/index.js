@@ -6,6 +6,6 @@ selectMenuList = {
     "help": helpActions,
     "adventure": adventureActions,
     "shop": shopActions,
-}
+};
 
 module.exports = { selectMenuList };

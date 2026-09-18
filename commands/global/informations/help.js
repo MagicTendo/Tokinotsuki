@@ -38,9 +38,9 @@ module.exports = {
             const helpEmbed = new EmbedBuilder()
                 .setColor([255, 85, 0])
                 .setTitle("Liste des commandes")
-                .setDescription(`Tu trouveras dans le menu toutes les commandes réparties en **${categoryCount}** catégories. J'ai au total **${commandsCount}** commandes !\n### Liens utiles\n>>> [**Serveur support**](https://discord.gg/ZNvTCvNGbZ)\n[**Documentation**](https://tokinotsuki.rf.gd)\n[**Page Top.gg**](https://top.gg/bot/791437575642152982)\n[**Conditions générales d'utilisation**](https://tokinotsuki.rf.gd/terms-of-service)\n[**Politique de confidentialité**](https://tokinotsuki.rf.gd/privacy-policy)`)
+                .setDescription(`Tu trouveras dans le menu toutes les commandes réparties en **${categoryCount}** catégories. J'ai au total **${commandsCount}** commandes !\n### Liens utiles\n>>> 🎴 **[Serveur support](https://discord.gg/DYQutQvbSu)**\n🍊 **[Documentation](https://tokinotsuki.rf.gd)**\n🤖 **[Page Top.gg](https://top.gg/bot/791437575642152982)**\n📃 **[Conditions générales d'utilisation](https://tokinotsuki.rf.gd/terms-of-service)**\n🔒 **[Politique de confidentialité](https://tokinotsuki.rf.gd/privacy-policy)**`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [helpEmbed], components: [helpMenu] });
         } catch (error) {

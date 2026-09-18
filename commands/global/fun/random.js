@@ -42,10 +42,6 @@ module.exports = {
             .setDescription("Affiche une image aléatoire d'une fille d'anime tenant un livre de programmation."))
 
         .addSubcommand(subcommand => subcommand
-            .setName("baka-wiki")
-            .setDescription("Permet d'avoir une page aléatoire du Baka Wiki."))
-
-        .addSubcommand(subcommand => subcommand
             .setName("card")
             .setDescription("Donne une carte aléatoire d'un paquet de carte classique."))
 
@@ -116,7 +112,7 @@ module.exports = {
                             .setColor([255, 85, 0])
                             .setImage(animalImage)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [animalEmbed] });
                     });
@@ -130,37 +126,6 @@ module.exports = {
                     const animeGirl = new AttachmentBuilder(new Buffer.from(animeGirlBuffer), { name: "anime-girl-holding-a-programming-book.png" });
 
                     await interaction.editReply({ files: [animeGirl] });
-                    break;
-
-                case "baka-wiki":
-                    return await interaction.editReply({content: "Temporairement indisponible le temps de mettre à jour tout le lore !" });
-
-                    await fetch("https://magictendo.github.io/api/baka-wiki.json").then(function (response) {
-                        return response.json();
-                    }).then(async function (data) {
-                        const randomPageIndex = Math.floor(Math.random() * Number(data.numberOfPages));
-
-                        const pageColorHexadecimal = data["pages"][randomPageIndex]["color"];
-                        const pageColor = Color(pageColorHexadecimal).rgb().array();
-                        const pageType = data["pages"][randomPageIndex]["type"];
-                        const pageName = data["pages"][randomPageIndex]["name"];
-                        const pageIcon = data["pages"][randomPageIndex]["icon"];
-                        const pagePath = data["pages"][randomPageIndex]["path"];
-                        const pageDescription = data["pages"][randomPageIndex]["description"];
-                        const pageImage = data["pages"][randomPageIndex]["img"];
-
-                        const bakawikiEmbed = new EmbedBuilder()
-                            .setColor(pageColor)
-                            .setAuthor({ name: `${pageType} - ${pageName}`, iconURL: pageIcon })
-                            .setTitle(`Lien de la page de ${pageName}`)
-                            .setURL(`https://baka-wiki.rf.gd${pagePath}`)
-                            .setDescription(pageDescription)
-                            .setThumbnail(pageImage)
-                            .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
-
-                        await interaction.reply({ embeds: [bakawikiEmbed] });
-                    })
                     break;
 
                 case "card":
@@ -177,7 +142,7 @@ module.exports = {
                         .setTitle(`${cardValue} de ${cardSymbol} !`)
                         .setImage(`https://deckofcardsapi.com/static/img/${cardAcronym}.png`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [cardEmbed] });
                     break;
@@ -211,7 +176,7 @@ module.exports = {
                         .setTitle(`${coinName} !`)
                         .setImage(`attachment://${coinImageName}.png`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [coinFlipEmbed], files: [`./assets/images/random/coin/${coinImageName}.png`] });
                     break;
@@ -228,7 +193,7 @@ module.exports = {
                         .setTitle(`${diceName} !`)
                         .setImage(`attachment://${diceImageName}.png`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [diceEmbed], files: [`./assets/images/random/dice/${diceImageName}.png`] });
                     break;
@@ -249,7 +214,7 @@ module.exports = {
                         .setTitle(flagName)
                         .setImage(`https://flagcdn.com/w2560/${flagNameCode}.png`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.reply({ embeds: [flagEmbed] });
                     break;
@@ -289,7 +254,7 @@ module.exports = {
                             .setTitle(`Kanji #${kanjiIndex}/${kanjiNumber} - JLPT${kanjiJLPTLevel}`)
                             .setDescription(`> # ${kanji}\n\n| 訓読み：||${kanjiKunyomi}||\n| 音読み：||${kanjiOnyomi}||\n| 英訳：||${kanjiTranslation}||`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [quizKanjiEmbed] });
                     });
@@ -321,7 +286,7 @@ module.exports = {
                             .setDescription(`⚛️ **Symbole** : ${elementSymbol}\n🔢 **Numéro atomique** : ${elementAtomicNumber}\n⚖️ **Masse atomique** : ${elementAtomicMass}\n➡️ **Période** : ${elementPeriod}\n🧪 **Phase** : ${elementTranslatedPhase}\n🔎 **Découvert par** : ${elementDiscover}\n\n> ${elementSummaryTranslated}`)
                             .setThumbnail(elementImage)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.editReply({ embeds: [pokemonEmbed] });
                     });
@@ -344,7 +309,7 @@ module.exports = {
                             .setThumbnail(pokemonShinyImage)
                             .setImage(pokemonImage)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [pokemonEmbed] });
                     });
@@ -352,7 +317,7 @@ module.exports = {
 
                 case "user":
                     if (Object.keys(interaction.authorizingIntegrationOwners)[0] === "1")
-                        return await interaction.reply({ content: "❌ Je dois être sur le serveur afin d'effectuer cette commande !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Je dois être sur le serveur afin d'effectuer cette commande !", flags: [MessageFlags.Ephemeral] });
 
                     const timeRemainingTimestamp = Math.floor((Date.now() + 60_000) / 1_000);
                     const users = [];
@@ -362,7 +327,7 @@ module.exports = {
                         .setTitle("Clique pour être choisi aléatoirement !")
                         .setDescription(`> Temps restant : <t:${timeRemainingTimestamp}:R>`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     const reactedMessage = await interaction.reply({ embeds: [randomUserEmbed], withResponse: true });
 
@@ -416,7 +381,7 @@ module.exports = {
                             .setDescription(`🏵 **Source** : [${source}](${sourceLink})\n🎹 **Musique** : [${music}](${musicLink})`)
                             .setThumbnail(sourceImage)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [ytpmvEmbed] })
                     });

@@ -1,5 +1,7 @@
 _*/
 assets/puzzles
+json/codes.json
+json/puzzles.json
 node_modules
 .env
 .env.local

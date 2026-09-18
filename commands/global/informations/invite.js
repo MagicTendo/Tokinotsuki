@@ -16,7 +16,7 @@ module.exports = {
                 .setURL("https://discord.com/oauth2/authorize?client_id=791437575642152982")
                 .setImage("attachment://qr-code.png")
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [inviteEmbed], files: ["./assets/images/qr-code.png"] });
         } catch (error) {

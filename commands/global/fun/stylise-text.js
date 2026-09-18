@@ -106,11 +106,11 @@ module.exports = {
 
                     const zalgoFile = new AttachmentBuilder(new Buffer.from(processedText), { name: "zalgo.txt" });
 
-                    return await interaction.reply({ content: "-# *Oui c'est un fichier texte, Discord limite et filtre le zalgo, mais pas quand c'est dans un fichier !*", files: [zalgoFile], flags: MessageFlags.Ephemeral });
+                    return await interaction.reply({ content: "-# *Oui c'est un fichier texte, Discord limite et filtre le zalgo, mais pas quand c'est dans un fichier !*", files: [zalgoFile], flags: [MessageFlags.Ephemeral] });
                     break;
             }
 
-            await interaction.reply({ content: processedText, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: processedText, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

@@ -12,7 +12,7 @@ async function addTeamPoints(interaction, userID, points, response = true) {
         await updateValue("toki", "toki", teamName.toLowerCase(), points);
 
         if (response)
-            await interaction.followUp({ content: `🎉 Tu as rapporté ${points} point(s) à ton équipe !`, flags: MessageFlags.Ephemeral });
+            await interaction.followUp({ content: `🎉 Tu as rapporté ${points} point(s) à ton équipe !`, flags: [MessageFlags.Ephemeral] });
     }
 }
 

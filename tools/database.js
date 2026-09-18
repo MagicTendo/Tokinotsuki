@@ -3,9 +3,9 @@ const { KeyvPostgres } = require("@keyv/postgres");
 const { KeyvGzip } = require("@keyv/compress-gzip");
 const { sendError, sendDatabaseError } = require("./error-catcher.js");
 const keyvGzip = new KeyvGzip();
-const keyvUsers = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "users", compression: keyvGzip, ssl: { rejectUnauthorized: false } });
-const keyvGuilds = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "guilds", compression: keyvGzip, ssl: { rejectUnauthorized: false } });
-const keyvToki = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "toki", compression: keyvGzip, ssl: { rejectUnauthorized: false } });
+const keyvUsers = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "users", compression: keyvGzip, ssl: process.env.TESTING_MODE === "false" ? { rejectUnauthorized: false } : false });
+const keyvGuilds = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "guilds", compression: keyvGzip, ssl: process.env.TESTING_MODE === "false" ? { rejectUnauthorized: false } : false });
+const keyvToki = new KeyvPostgres({ uri: `postgresql://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/${process.env.DATABASE_NAME}`, table: "toki", compression: keyvGzip, ssl: process.env.TESTING_MODE === "false" ? { rejectUnauthorized: false } : false });
 
 keyvUsers.on("error", async error => await sendDatabaseError(error, "users"));
 keyvGuilds.on("error", async error => await sendDatabaseError(error, "guilds"));
@@ -28,7 +28,7 @@ async function tryAddingUserToDatabase(interaction, client, id, type) {
                     .setColor([3, 119, 252])
                     .setTitle(`Nouvelle insertion dans la base de données : ${interaction.user.globalName} !`)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 await channel.send({ embeds: [logEmbed] });
             });

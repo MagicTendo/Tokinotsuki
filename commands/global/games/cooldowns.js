@@ -46,9 +46,9 @@ module.exports = {
                     { name: "💰 __Vol__", value: cooldowns[14], inline: true },
                     { name: "🗳️ __Vote__", value: cooldowns[15], inline: true })
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.reply({ embeds: [cooldownsEmbed], flags: MessageFlags.Ephemeral });
+            await interaction.reply({ embeds: [cooldownsEmbed], flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

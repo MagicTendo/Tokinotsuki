@@ -36,7 +36,7 @@ module.exports = {
             const maximumCapacity = 50_000 * (capacityTier + 1);
 
             if (!(await hasValue(userID, "users", "bank")))
-                return await interaction.reply({ content: "❌ Tu dois d'abord avoir un compte Foyllori ! Pour cela, achète-le dans le magasin de Kerusuna !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu dois d'abord avoir un compte Foyllori ! Pour cela, achète-le dans le magasin de Kerusuna !", flags: [MessageFlags.Ephemeral] });
 
             switch (interaction.options.getSubcommand()) {
                 case "account":
@@ -48,9 +48,9 @@ module.exports = {
                         .setTitle("Ton compte Foyllori")
                         .setDescription(`### Toki Coins stockés\n> **${tokiCoinFoyllori}** ${getCurrencySymbol("toki-coin")}\n\n### Capacité maximale\n> **${await simplify(userID, maximumCapacity)}** ${getCurrencySymbol("toki-coin")}\n\n`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                    await interaction.reply({ embeds: [inventoryEmbed], flags: MessageFlags.Ephemeral });
+                    await interaction.reply({ embeds: [inventoryEmbed], flags: [MessageFlags.Ephemeral] });
                     break;
 
                 case "money":
@@ -63,9 +63,9 @@ module.exports = {
                             const bankTokiCoins = await getValue(userID, "users", "bank-toki-coin");
 
                             if (amount > userTokiCoins)
-                                return await interaction.reply({ content: `❌ Tu n'as pas assez d'argent ! Il te manque ${await simplify(userID, amount - userTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: MessageFlags.Ephemeral });
+                                return await interaction.reply({ content: `❌ Tu n'as pas assez d'argent ! Il te manque ${await simplify(userID, amount - userTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: [MessageFlags.Ephemeral] });
                             if (bankTokiCoins >= maximumCapacity)
-                                return await interaction.reply({ content: "❌ Ton compte Foyllori a atteint sa capacité maximale !", flags: MessageFlags.Ephemeral });
+                                return await interaction.reply({ content: "❌ Ton compte Foyllori a atteint sa capacité maximale !", flags: [MessageFlags.Ephemeral] });
                             if (bankTokiCoins + amount > maximumCapacity)
                                 amount = amount - ((bankTokiCoins + amount) - maximumCapacity);
 
@@ -74,17 +74,17 @@ module.exports = {
                             await updateValue(userID, "users", "toki-coin", -amount);
                             await updateValue(userID, "users", "bank-toki-coin", amount);
 
-                            await interaction.reply({ content: `Tu as déposé ${await simplify(userID, amount)} ${getCurrencySymbol("toki-coin")} à ton compte Foyllori !${isFull ? "❌ Ton compte Foyllori a atteint sa capacité maximale ! Tu peux acheter plus d'espace dans le magasin de Kerusuna." : ""}`, flags: MessageFlags.Ephemeral });
+                            await interaction.reply({ content: `Tu as déposé ${await simplify(userID, amount)} ${getCurrencySymbol("toki-coin")} à ton compte Foyllori !${isFull ? "❌ Ton compte Foyllori a atteint sa capacité maximale ! Tu peux acheter plus d'espace dans le magasin de Kerusuna." : ""}`, flags: [MessageFlags.Ephemeral] });
                             break;
 
                         case "withdraw":
                             if (amount > await getValue(userID, "users", "bank-toki-coin"))
-                                return await interaction.reply({ content: "❌ Tu n'as pas assez d'argent dans ton compte Foyllori !", flags: MessageFlags.Ephemeral });
+                                return await interaction.reply({ content: "❌ Tu n'as pas assez d'argent dans ton compte Foyllori !", flags: [MessageFlags.Ephemeral] });
 
                             await updateValue(userID, "users", "toki-coin", amount);
                             await updateValue(userID, "users", "bank-toki-coin", -amount);
 
-                            await interaction.reply({ content: `Tu as retiré ${await simplify(userID, amount)} ${getCurrencySymbol("toki-coin")} de la Foyllori !`, flags: MessageFlags.Ephemeral });
+                            await interaction.reply({ content: `Tu as retiré ${await simplify(userID, amount)} ${getCurrencySymbol("toki-coin")} de la Foyllori !`, flags: [MessageFlags.Ephemeral] });
                             break;
                     }
                     break;

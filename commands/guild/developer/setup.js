@@ -40,7 +40,7 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (interaction.user.id !== "610493430325313549")
-                return await interaction.reply({ content: "❌ Cette commande n'est pas pour toi !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Cette commande n'est pas pour toi !", flags: [MessageFlags.Ephemeral] });
 
             switch (interaction.options.getSubcommand()) {
                 case "baka-button":
@@ -53,7 +53,7 @@ module.exports = {
                     const bakaEmbed = new EmbedBuilder()
                         .setColor([255, 85, 0])
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.channel.send({ embeds: [bakaEmbed], components: [bakaButton] });
 
@@ -65,7 +65,7 @@ module.exports = {
                         .setColor([255, 85, 0])
                     	.setDescription("## 🌟 Explications du système des niveaux\n** **\n~~-----------------------------------------------------~~\n\nUn système de niveaux est présent sur le serveur afin de le rendre plus ludique ! Pour chaque message envoyé, un certains nombre de points d'expérience est attribué en fonction de sa longueur. Il y a 150 niveaux actuellement, demandant un nombre exponentiel de points d'expérience, et certains paliers donne un rôle avec des avantages ! Ce système est encore en test et peut encore changer.\n\n~~-----------------------------------------------------~~\n\n")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     for (let i = 0; i < Object.keys(levelMessages).length; i++) {
                         levelEmbed.addFields({ name: "‎", value: `**<@&${Object.keys(levelMessages)[i]}>**\n${levelMessages[Object.keys(levelMessages)[i]]}`, inline: true });
@@ -77,13 +77,13 @@ module.exports = {
                     break;
 
                 case "update-member-counts":
-                    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+                    await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
                     await updateMemberCounts(client);
                     await interaction.editReply({ content: "✅ Les compteurs ont bien étaient mis à jour !" });
                     break;
 
                 case "year-cake":
-                    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+                    await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
                     const yearCakeYear = interaction.options.getInteger("year");
                     const yearCakeEmoji = interaction.options.getString("year-cake-emoji");

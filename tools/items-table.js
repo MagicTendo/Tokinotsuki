@@ -92,7 +92,8 @@ const kerusunaTable = {
 
 const cookieTable = {
     "Un|Le|cookie": { canSell: true, emoji: "🍪", name: "cookie", price: 90 },
-    "Un|Le|paquet de 4 cartes": { currency: "cookie", emoji: "🎴", name: "booster-pack", price: 999 }
+    "Un|Le|paquet de 4 cartes": { currency: "cookie", emoji: "🎴", name: "booster-pack", price: 100 },
+    "Un|Le|contrat de mutation d'équipe": { currency: "cookie", emoji: "📃", name: "change-team", price: 1_230 }
 };
 
 const upgradeTable = {

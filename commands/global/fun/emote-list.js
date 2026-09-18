@@ -23,9 +23,9 @@ module.exports = {
                 .setTitle("Liste des emotes utilisables")
                 .setDescription(`> Cela fonctionne uniquement pour la commande \`/say\` !\n\n${emotes}`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-            await interaction.reply({ embeds: [emoteListEmbed], flags: MessageFlags.Ephemeral });
+            await interaction.reply({ embeds: [emoteListEmbed], flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

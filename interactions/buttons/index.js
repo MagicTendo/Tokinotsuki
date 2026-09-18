@@ -1,3 +1,4 @@
+const infoUserActions = require("./src/informations/info-user-actions.js");
 const pingActions = require("./src/informations/ping-actions.js");
 const reportActions = require("./src/informations/report-actions.js");
 const oldFishActions = require("./src/fun/old-fish-actions.js");
@@ -19,6 +20,7 @@ const ticketActions = require("./src/utility/ticket-actions.js");
 const todoActions = require("./src/utility/todo-actions.js");
 
 buttonList = {
+    "info-user": infoUserActions,
     "ping": pingActions,
     "report": reportActions,
     "old-fish": oldFishActions,
@@ -38,6 +40,6 @@ buttonList = {
     "clear-channel": clearChannelActions,
     "ticket": ticketActions,
     "todo": todoActions
-}
+};
 
 module.exports = { buttonList };

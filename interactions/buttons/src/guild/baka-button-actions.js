@@ -17,7 +17,7 @@ module.exports = {
                 .setTitle("Ce bouton ne fait absolument rien !")
                 .setDescription(`> **${clicks}** clics l'ont confirmés !`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.update({ embeds: [bakaEmbed], components: [bakaButton] });
         } catch (error) {

@@ -3,13 +3,13 @@ const { getDictionary } = require("simple-spellchecker");
 const puzzleLevels = require("../../../json/puzzles.json");
 const { cardValues, cardSymbols, deckToValue } = require("../../../tools/card.js");
 const { canCreateCollector, endCollector } = require("../../../tools/collectors-manager.js");
-const { getCooldownList, hasCooldownFinished } = require("../../../tools/cooldown.js");
-const { getValue, updateValue } = require("../../../tools/database.js");
+const { getCooldownList, hasCooldownFinished, resetCooldown } = require("../../../tools/cooldown.js");
+const { getValue, updateValue, hasValue } = require("../../../tools/database.js");
 const { sendError } = require("../../../tools/error-catcher.js");
 const { adventureFlags, flagToTeam } = require("../../../tools/flags.js");
 const { getRandomItem, sendResult } = require("../../../tools/game-result.js");
 const { fishTable, birdTable, artefactTable, uniqueItemEmojis } = require("../../../tools/items-table.js");
-const { addTeamPoints, completeQuest, getCurrencySymbol, getPing, getWinningTeam, simplify } = require("../../../tools/modules.js");
+const { addTeamPoints, completeQuest, getCurrencySymbol, getPing, getWinningTeam, simplify, capitalize } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Jeux",
@@ -72,7 +72,15 @@ module.exports = {
 
         .addSubcommand(subcommand => subcommand
             .setName("jackpot")
-            .setDescription("Jouable toutes les heures, si les 3 émojis sont les mêmes, c'est gagné !"))
+            .setDescription("Jouable toutes les heures, si les 3 émojis sont les mêmes, c'est gagné !")
+            .addStringOption(option => option
+                .setName("machine")
+                .setDescription("Choisis ta machine. Le prix en Toki Coin est indiqué entre parenthèses.")
+                .addChoices(
+                    { name: "🪙 Toki Fortune (500)", value: "toki-fortune" },
+                    { name: "🍪 Cookie Deluxe (1 500)", value: "cookie-deluxe" },
+                    { name: "🧭 Gold Adventure (900)", value: "gold-adventure" })
+                .setRequired(true)))
 
         .addSubcommand(subcommand => subcommand
             .setName("minesweeper")
@@ -145,7 +153,7 @@ module.exports = {
                             if (adventureBackTime <= Date.now()) {
                                 await updateValue(userID, "users", "adventure-status", adventureFlags.none, false);
                             } else {
-                                return await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire une expédition <t:${Math.round(adventureBackTime / 1_000)}:R> !`, flags: MessageFlags.Ephemeral });
+                                return await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire une expédition <t:${Math.round(adventureBackTime / 1_000)}:R> !`, flags: [MessageFlags.Ephemeral] });
                             }
                         }
 
@@ -162,7 +170,7 @@ module.exports = {
                                     .setTitle("L'expédition est terminée !")
                                     .setDescription("L'aventure s'est mal passée par manque de ressources... Miyunira sera de nouveau disponible dans 2 jours !")
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await interaction.reply({ embeds: [adventureEmbed] });
                             } else {
@@ -177,7 +185,7 @@ module.exports = {
                                     .setTitle("L'expédition est terminée !")
                                     .setDescription(`Grâce aux découvertes de Miyunira, cela t'as rapporté ${await simplify(userID, prize)} ${getCurrencySymbol("toki-coin")} !`)
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await interaction.reply({ embeds: [adventureEmbed] });
                             }
@@ -250,7 +258,7 @@ module.exports = {
                                 .setTitle("Préparations pour l'aventure !")
                                 .setDescription("### Ressources\n> D'abord, donne autant de **ressources** que nécessaire pour l'aventure, la **quantité dépendra de la difficulté de la localisation**. Une localisation **plus compliquée demandera plus de ressources et de temps**, mais apporte de **meilleurs récompenses**. Les ressources sont achetable depuis **le magasin de Kerusuna**. S'il n'y a pas assez de ressources, **Miyunira ne pourra pas repartir en aventure pendant 2 jours** le temps qu'elle soit rapatriée, s'il en a trop, **tu perderas l'excédent**. Une fois la quantités des ressources choisies, **choisi la région dans laquelle partir**, et l'aventure commencera directement !\n\n### Difficultés des régions\n**Yukidami** : Plutôt dangereuse (≈ 10 🍴 | 15 💧 | 8 🩹 | 5 💤 | 3h 🕰️)\n**Yōgandaichi** : Très dangereuse (≈ 15 🍴 | 25 💧 | 10 🩹 | 5 💤 | 5h 🕰️)\n**Tennenrin** : Très calme (≈ 1 🍴 | 2 💧 | 1 🩹 | 0 💤 | 10m 🕰️)\n**Reidaihōsun** : Dangereux (≈ 10 🍴 | 15 💧 | 8 🩹 | 4 💤 | 2h 🕰️)\n**Iryūjon** : Un peu dangereux (≈ 5 🍴 | 10 💧 | 5 🩹 | 3 💤 | 1h 🕰️)\n**Arkotalan** : Peu dangereux (≈ 3 🍴 | 5 💧 | 5 🩹 | 1 💤 | 30m 🕰️)")
                                 .setTimestamp()
-                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                             await interaction.reply({ embeds: [adventurePreparationEmbed], components: [adventurePreparationButtons, adventurePreparationMenu] });
                         }
@@ -259,8 +267,8 @@ module.exports = {
                     case "arkeology":
                         const userBrush = await getValue(userID, "users", "brush");
 
-                        if (userBrush < 1)
-                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir un pinceau du magasin de Kerusuna !", flags: MessageFlags.Ephemeral });
+                        if (userBrush < 1 && await resetCooldown(userID, "arkeology"))
+                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir un pinceau du magasin de Kerusuna !", flags: [MessageFlags.Ephemeral] });
 
                         const hasBrushUpgrade = userBrush > 1;
                         const username = interaction.user.globalName;
@@ -285,8 +293,8 @@ module.exports = {
                         break;
 
                     case "blackjack":
-                        if (betAmount > await getValue(userID, "users", "toki-coin"))
-                            return await interaction.reply({ content: "❌ Tu n'as pas autant d'argent à miser !", flags: MessageFlags.Ephemeral });
+                        if (betAmount > await getValue(userID, "users", "toki-coin") && await resetCooldown(userID, "blackjack"))
+                            return await interaction.reply({ content: "❌ Tu n'as pas autant d'argent à miser !", flags: [MessageFlags.Ephemeral] });
 
                         await updateValue(userID, "users", "toki-coin", -betAmount);
 
@@ -332,7 +340,7 @@ module.exports = {
                                         { name: "🟠 __Tokinotsuki__", value: `${dealerCards[0]} | ?? (**${dealerTotal}**)`, inline: true },
                                         { name: `🔵 __${interaction.user.globalName}__`, value: `${playerCards.join(" | ")} (**${playerTotal}**)`, inline: true })
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await interaction.reply({ embeds: [cardEmbed], components: [blackjackButtons] });
                             });
@@ -348,7 +356,7 @@ module.exports = {
                             const players = [userID];
                             const previousWords = [];
                             const scores = {};
-                            const partyStaticDescription = `> Les règles sont simples ! Une série de 2 à 3 lettres sera donné. Le but est de trouver le plus de mots français unique ayant cette série de lettre. Si vous arrivez à utiliser toutes les lettres de l'alphabet au moins une fois, vous obtiendrez une vie supplémentaire. Le gagnant est celui qui a trouvé le plus de mots !\n\nPour rejoindre, écrit \`+join\` (ou \`+leave\` pour quitter) ! Début ${timeLeftPartyTimestamp}.`;
+                            const partyStaticDescription = `> Les règles sont simples ! Une série de 2 à 3 lettres sera donnée. Le but est de trouver le plus de mots français unique ayant cette série de lettre. Si vous arrivez à utiliser toutes les lettres de l'alphabet au moins une fois, vous obtiendrez une vie supplémentaire. Le gagnant est celui qui a trouvé le plus de mots !\n\nPour rejoindre, écrit \`+join\` (ou \`+leave\` pour quitter) ! Début ${timeLeftPartyTimestamp}.`;
                             const allLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
                             let letters = allLetters;
                             let lives = 3;
@@ -360,7 +368,7 @@ module.exports = {
                                 .setTitle(`Congelo ${getCurrencySymbol("congelo")}`)
                                 .setDescription(`## Joueurs (${players.length})\n${players.map(player => `<@${player}>`).join(" ")}\n\n${partyStaticDescription}`)
                                 .setTimestamp()
-                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                             await interaction.reply({ embeds: [congeloPartyEmbed] });
 
@@ -371,14 +379,14 @@ module.exports = {
 
                                 if (message.content === "+join") {
                                     if (players.length >= 9)
-                                        return await interaction.followUp({ content: "❌ La partie est au complet !", flags: MessageFlags.Ephemeral });
+                                        return await interaction.followUp({ content: "❌ La partie est au complet !", flags: [MessageFlags.Ephemeral] });
 
                                     if (!players.includes(authorID)) {
                                         players.push(authorID);
 
                                         await interaction.editReply({ embeds: [congeloPartyEmbed] });
                                     } else {
-                                        await interaction.followUp({ content: "❌ Tu es déjà dans la partie !", flags: MessageFlags.Ephemeral });
+                                        await interaction.followUp({ content: "❌ Tu es déjà dans la partie !", flags: [MessageFlags.Ephemeral] });
                                     }
                                 } else if (message.content === "+leave") {
                                     players.splice(players.indexOf(authorID), 1);
@@ -413,7 +421,7 @@ module.exports = {
                                     .setTitle(`Congelo ${getCurrencySymbol("congelo")}`)
                                     .setDescription(`${gameStartStaticDescription}\nLettres non utilisées\n> ${letters.join(" ")}\n\nTemps restant de la manche\n> ${timeLeftTimestamp} ${wordFound ? "✅" : "❌"}\n\n${gameEndStaticDescription}`)
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 await interaction.editReply({ embeds: [congeloGameEmbed] });
 
@@ -442,7 +450,7 @@ module.exports = {
 
                                         await interaction.editReply({ embeds: [congeloGameEmbed] });
                                     } else {
-                                        await interaction.followUp({ content: "❌ Le mot est incorrecte ou a déjà été dit !", flags: MessageFlags.Ephemeral });
+                                        await interaction.followUp({ content: "❌ Le mot est incorrecte ou a déjà été dit !", flags: [MessageFlags.Ephemeral] });
                                     }
                                 });
 
@@ -483,7 +491,7 @@ module.exports = {
                                     .setColor([3, 169, 252])
                                     .setTitle(`Congelo ${getCurrencySymbol("congelo")}`)
                                     .setTimestamp()
-                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                                 if (winnerScore === 0) {
                                     congeloEndEmbed.setDescription("Personne n'a gagné...");
@@ -491,7 +499,7 @@ module.exports = {
                                     let finalLeaderboard = "";
 
                                     for (let i = 0; i < leaderboard.length; i++) {
-                                        await updateValue(leaderboard[i][0], "users", "congelo", leaderboard[i][1], true)
+                                        await updateValue(leaderboard[i][0], "users", "congelo", leaderboard[i][1]);
 
                                         if (await getValue(leaderboard[i][0], "users", "congelo") >= 200)
                                             await completeQuest(leaderboard[i][0], "icy");
@@ -505,7 +513,7 @@ module.exports = {
                                     if (userTeamFlag > 0)
                                         await addTeamPoints(interaction, winnerID, winnerScore, false);
 
-                                    congeloEndEmbed.setDescription(`### <@${winnerID}> à gagné avec ${winnerScore} points !${userTeamFlag > 0 ? ` Il fait gagner autant de points à l'équipe ${userTeamName} !` : ""}\n\n${finalLeaderboard}`);
+                                    congeloEndEmbed.setDescription(`### <@${winnerID}> a gagné avec ${winnerScore} points !${userTeamFlag > 0 ? ` Il fait gagner autant de points à l'équipe ${userTeamName} !` : ""}\n\n${finalLeaderboard}`);
                                 }
 
                                 await interaction.editReply({ embeds: [congeloEndEmbed] });
@@ -515,45 +523,63 @@ module.exports = {
 
                     case "fight":
                         const fightWinningTeam = await getWinningTeam(userID);
+                        const fighters = {
+                            "Suyasomin": {
+                                "emoji": "💫",
+                                "color": ButtonStyle.Success,
+                                "health": 50,
+                                "defense": 10,
+                                "attack": 10,
+                                "available": true
+                            },
+                            "Inosayo": {
+                                "emoji": "🔥",
+                                "color": ButtonStyle.Danger,
+                                "health": 75,
+                                "defense": 40,
+                                "attack": 15,
+                                "available": await hasValue(userID, "users", "inosayo")
+                            },
+                            "Oseitena": {
+                                "emoji": "🌌",
+                                "color": ButtonStyle.Secondary,
+                                "health": 100,
+                                "defense": 25,
+                                "attack": 20,
+                                "available": await hasValue(userID, "users", "oseitena")
+                            },
+                            "Mijilse": {
+                                "emoji": "🎴",
+                                "color": ButtonStyle.Primary,
+                                "health": 50,
+                                "defense": 15,
+                                "attack": 20,
+                                "available": fightWinningTeam["isUserTeamWinning"]
+                            }
+                        };
 
-                        const fightButtons = new ActionRowBuilder().addComponents(
-                            new ButtonBuilder()
-                                .setEmoji({ name: "💫" })
-                                .setLabel("Suyasomin")
-                                .setStyle(ButtonStyle.Success)
-                                .setCustomId(`fight_suyasomin_${userID}`),
-                            new ButtonBuilder()
-                                .setEmoji({ name: "🔥" })
-                                .setLabel("Inosayo")
-                                .setStyle(ButtonStyle.Danger)
-                                .setDisabled(await getValue(userID, "users", "inosayo") ? false : true)
-                                .setCustomId(`fight_inosayo_${userID}`),
-                            new ButtonBuilder()
-                                .setEmoji({ name: "🌌" })
-                                .setLabel("Oseitena")
-                                .setStyle(ButtonStyle.Secondary)
-                                .setDisabled(await getValue(userID, "users", "oseitena") ? false : true)
-                                .setCustomId(`fight_oseitena_${userID}`));
+                        const fightButtons = new ActionRowBuilder();
 
                         const fightEmbed = new EmbedBuilder()
                             .setColor([83, 0, 87])
-                            .setDescription("## Choisi quel personnage faire combattre !")
-                            .setFields(
-                                { name: "💫 Suyasomin", value: "50 ❤️ 10 🛡️ 10 👊", inline: true },
-                                { name: "🔥 Inosayo", value: "75 ❤️ 40 🛡️ 15 👊", inline: true },
-                                { name: "🌌 Oseitena", value: "100 ❤️ 25 🛡️ 20 👊", inline: true })
+                            .setTitle("Choisi quel personnage faire combattre !")
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
-                        if (fightWinningTeam["isUserTeamWinning"]) {
-                            fightButtons.addComponents(
-                                new ButtonBuilder()
-                                    .setEmoji({ name: "🎴" })
-                                    .setLabel("Mijilse")
-                                    .setStyle(ButtonStyle.Primary)
-                                    .setCustomId(`fight_mijilse_${userID}`));
+                        for (let i = 0; i < Object.keys(fighters).length; i++) {
+                            const fighterName = Object.keys(fighters)[i];
+                            const fighter = fighters[fighterName];
 
-                            fightEmbed.addFields({ name: "🎴 Mijilse", value: "50 ❤️ 15 🛡️ 20 👊", inline: true })
+                            if (fighter["available"]) {
+                                fightEmbed.addFields({ name: `${fighter["emoji"]} ${fighterName}`, value: `${fighter["health"]} ❤️ ${fighter["defense"]} 🛡️ ${fighter["attack"]} 👊`, inline: true });
+
+                                fightButtons.addComponents(
+                                    new ButtonBuilder()
+                                        .setEmoji({ name: fighter["emoji"] })
+                                        .setLabel(fighterName)
+                                        .setStyle(fighter["color"])
+                                        .setCustomId(`fight_start_${`${fighter["emoji"]} ${fighterName}`}_${fighter["health"]}_${fighter["defense"]}_${fighter["attack"]}_${userID}`));
+                            }
                         }
 
                         await interaction.reply({ embeds: [fightEmbed], components: [fightButtons] });
@@ -562,8 +588,8 @@ module.exports = {
                     case "fish":
                         const userFishingRod = await getValue(userID, "users", "fishing-rod");
 
-                        if (userFishingRod < 1)
-                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir une canne à pêche du magasin de Kerusuna !", flags: MessageFlags.Ephemeral });
+                        if (userFishingRod < 1 && await resetCooldown(userID, "fish"))
+                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir une canne à pêche du magasin de Kerusuna !", flags: [MessageFlags.Ephemeral] });
 
                         const hasFishingRodUpgrade = userFishingRod > 1;
 
@@ -715,54 +741,68 @@ module.exports = {
                         break;
 
                     case "jackpot":
+                        const machineName = interaction.options.getString("machine");
                         const userJackpotTokiCoins = await getValue(userID, "users", "toki-coin");
+                        const machinePrices = {
+                            "toki-fortune": 500,
+                            "cookie-deluxe": 1_000,
+                            "gold-adventure": 1_500
+                        };
 
-                        if (500 > userJackpotTokiCoins)
-                            return await interaction.reply({ content: `❌ Tu n'as pas autant d'argent pour jouer ! Il te manque ${await simplify(userID, 500 - userJackpotTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: MessageFlags.Ephemeral });
+                        if (machinePrices[machineName] > userJackpotTokiCoins && await resetCooldown(userID, "jackpot"))
+                            return await interaction.reply({ content: `❌ Tu n'as pas autant d'argent pour jouer ! Il te manque ${await simplify(userID, machinePrices[machineName] - userJackpotTokiCoins)} ${getCurrencySymbol("toki-coin")} !`, flags: [MessageFlags.Ephemeral] });
 
-                        await updateValue(userID, "users", "toki-coin", -500);
+                        await updateValue(userID, "users", "toki-coin", -machinePrices[machineName]);
 
-                        const prizes = { "✨": ["toki-coin", 5_000], "🍪": ["cookie", 25], "💎": ["toki-coin", 25_000], "❔": ["toki-coin", 50_000] };
-                        const symbols = ["✨", "🍪", "💎", "❔"];
-                        const firstRow = [];
-                        const secondRow = [];
-                        const thirdRow = [];
-                        let jackpotTitle = "Perdu...";
+                        let prizes;
 
-                        for (let i = 0; i < 3; i++) {
-                            const firstRandomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                            let secondRandomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                            let thirdRandomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                        switch (machineName) {
+                            case "toki-fortune":
+                                prizes = { "🪙": ["toki-coin", 5_000], "💴": ["toki-coin", 9_000], "💰": ["toki-coin", 15_000] };
+                                break;
 
-                            firstRow.push(firstRandomSymbol);
+                            case "cookie-deluxe":
+                                prizes = { "🍴": ["cookie", 9], "☕️": ["cookie", 18], "🍫": ["cookie", 27], "🍪": ["cookie", 36], "🎴": ["booster-pack", 3] };
+                                break;
 
-                            while (firstRandomSymbol === secondRandomSymbol) {
-                                secondRandomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                            }
-
-                            secondRow.push(secondRandomSymbol);
-
-                            while (firstRandomSymbol === thirdRandomSymbol || secondRandomSymbol === thirdRandomSymbol) {
-                                thirdRandomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                            }
-
-                            thirdRow.push(thirdRandomSymbol);
+                            case "gold-adventure":
+                                prizes = { "🍽️": ["food-provision", 9], "💧": ["water-provision", 9], "⛑️": ["care-kit", 9], "💤": ["sleep-kit", 9] };
+                                break;
                         }
 
-                        if (secondRow.every(symbol => symbol == secondRow[0])) {
-                            const prizeData = prizes[secondRow[0]];
+                        const rows = [[], [], []];
+                        let jackpotStatus = "*Perdu...*";
+                        let prizeList = "";
+
+                        for (let i = 0; i < 3; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                do {
+                                    rows[i][j] = Object.keys(prizes)[Math.floor(Math.random() * Object.keys(prizes).length)];
+                                } while ((i === 1 && rows[0][j] === rows[i][j]) || (i === 2 && (rows[0][j] === rows[i][j] || rows[1][j] === rows[i][j])));
+                            }
+                        }
+
+                        for (let i = 0; i < Object.keys(prizes).length; i++) {
+                            const prizeEmoji = Object.keys(prizes)[i];
+                            const prize = prizes[prizeEmoji];
+
+                            prizeList += `-# ${prizeEmoji} ➔ **${await simplify(userID, prize[1])}** ${prize[0].replaceAll("-", " ").replace("toki coin", "Toki Coin")}s\n`;
+                        }
+
+                        if (rows[1].every(symbol => symbol === rows[1][0])) {
+                            const prizeData = prizes[rows[1][0]];
 
                             await updateValue(userID, "users", prizeData[0], prizeData[1]);
 
-                            jackpotTitle = `Tu as gagné ${prizeData[1]} ${getCurrencySymbol(prizeData[0])} !`;
+                            jackpotStatus = `Tu as gagné ${await simplify(userID, prizeData[1])} ${getCurrencySymbol(prizeData[0])} !`;
                         }
 
                         const jackpotEmbed = new EmbedBuilder()
                             .setColor([255, 85, 0])
-                            .setTitle(jackpotTitle)
-                            .setDescription(`\`\`\`\n    ${firstRow.join(" | ")}\n  > ${secondRow.join(" | ")}\n    ${thirdRow.join(" | ")}\n\`\`\``)
+                            .setTitle(`/ ~ ${capitalize(machineName.split("-")[0])} ${capitalize(machineName.split("-")[1])} ~ \\`)
+                            .setDescription(`** **\n\`\`\`\n    ${rows[0].join(" | ")}\n  > ${rows[1].join(" | ")}\n    ${rows[2].join(" | ")}\n\`\`\`\n> ${jackpotStatus}\n\n${prizeList}`)
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [jackpotEmbed] });
                         break;
@@ -790,6 +830,7 @@ module.exports = {
 
                         for (let i = 0; i < grid.length; i++) {
                             const x = i;
+
                             for (let j = 0; j < grid[i].length; j++) {
                                 const y = j;
 
@@ -824,26 +865,26 @@ module.exports = {
 
                         finalGrid += "||";
 
-                        await interaction.reply({ content: finalGrid, flags: MessageFlags.Ephemeral });
+                        await interaction.reply({ content: finalGrid, flags: [MessageFlags.Ephemeral] });
                         break;
 
                     case "pikpik":
-                        const userPickaexe = await getValue(userID, "users", "pickaxe");
+                        const userPickaxe = await getValue(userID, "users", "pickaxe");
 
-                        if (userPickaexe < 1)
-                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir une pioche du magasin de Kerusuna !", flags: MessageFlags.Ephemeral });
+                        if (userPickaxe < 1 && await resetCooldown(userID, "pikpik"))
+                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir une pioche du magasin de Kerusuna !", flags: [MessageFlags.Ephemeral] });
 
-                        const hasPickaexeUpgrade = userPickaexe > 1;
+                        const hasPickaxeUpgrade = userPickaxe > 1;
 
-                        await interaction.reply({ content: `${uniqueItemEmojis[`pickaxe${hasPickaexeUpgrade ? "-upgrade" : ""}`]} En route vers la mine !` });
+                        await interaction.reply({ content: `${uniqueItemEmojis[`pickaxe${hasPickaxeUpgrade ? "-upgrade" : ""}`]} En route vers la mine !` });
 
                         setTimeout(async () => {
-                            await sendResult({ catchedName: "Un caillou", keptName: "Le caillou", color: [87, 87, 87], price: "50", shortName: "rock" }, "pikpik", interaction, userID, hasPickaexeUpgrade);
+                            await sendResult({ catchedName: "Un caillou", keptName: "Le caillou", color: [87, 87, 87], price: "50", shortName: "rock" }, "pikpik", interaction, userID, hasPickaxeUpgrade);
                         }, 1_000);
                         break;
 
                     case "puzzle":
-                        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+                        await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
                         const code = interaction.options.getString("code") ?? null;
                         const codes = process.env.PUZZLE_CODES.split(",");
@@ -852,7 +893,7 @@ module.exports = {
                         let puzzleLevelEmbed = new EmbedBuilder()
                             .setColor([255, 85, 0])
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         if (code !== null) {
                             switch (code.toLowerCase().replace("ω", "Ω")) {
@@ -869,7 +910,7 @@ module.exports = {
                                 case codes[2]:
                                     puzzleLevelEmbed.setTitle("Niveau 4")
                                         .setDescription(puzzleLevels["4"].split(";")[0])
-                                        .setFooter({ text: puzzleLevels["4"].split(";")[1], iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                                        .setFooter({ text: puzzleLevels["4"].split(";")[1], iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
                                     break;
 
                                 case codes[3]:
@@ -958,8 +999,8 @@ module.exports = {
                     case "snap-bird":
                         const userCamera = await getValue(userID, "users", "camera");
 
-                        if (userCamera < 1)
-                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir un appareil photo du magasin de Kerusuna !", flags: MessageFlags.Ephemeral });
+                        if (userCamera < 1 && await resetCooldown(userID, "snap-bird"))
+                            return await interaction.reply({ content: "❌ Tu as besoin d'avoir un appareil photo du magasin de Kerusuna !", flags: [MessageFlags.Ephemeral] });
 
                         const hasCameraUpgrade = userCamera > 1;
 
@@ -1019,7 +1060,7 @@ module.exports = {
                             .setColor([255, 85, 0])
                             .setTitle("Morpion !")
                             .setTimestamp()
-                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                            .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                         await interaction.reply({ embeds: [tictactoeEmbed], components: [tictactoeFirstRowButtons, tictactoeSecondRowButtons, tictactoeThirdRowButtons] });
                         break;
@@ -1035,7 +1076,7 @@ module.exports = {
                         let hasWon;
 
                         if (userMove === tokiMove) {
-                            return await interaction.reply({ content: `${affrontation}\n➖ Égalité !`, flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: `${affrontation}\n➖ Égalité !`, flags: [MessageFlags.Ephemeral] });
                         }
 
                         switch (userMove) {
@@ -1068,10 +1109,10 @@ module.exports = {
                             const reward = Math.floor(Math.random() * 25) + 25;
 
                             await updateValue(userID, "users", "toki-coin", reward);
-                            await interaction.reply({ content: `${affrontation}\n✅ Gagné ! Tu remportes ${reward} ${getCurrencySymbol("toki-coin")} !`, flags: MessageFlags.Ephemeral });
+                            await interaction.reply({ content: `${affrontation}\n✅ Gagné ! Tu remportes ${reward} ${getCurrencySymbol("toki-coin")} !`, flags: [MessageFlags.Ephemeral] });
                             await addTeamPoints(interaction, userID, 1);
                         } else {
-                            await interaction.reply({ content: `${affrontation}\n❌ Perdu !`, flags: MessageFlags.Ephemeral });
+                            await interaction.reply({ content: `${affrontation}\n❌ Perdu !`, flags: [MessageFlags.Ephemeral] });
                         }
                         break;
 
@@ -1081,7 +1122,7 @@ module.exports = {
                         const isUserTeamWinning = rouletteWinningTeam["isUserTeamWinning"];
 
                         if ((isUserTeamWinning && betAmount * 2 > userRouletteTokiCoins) || betAmount > userRouletteTokiCoins)
-                            return await interaction.reply({ content: "❌ Tu n'as pas autant d'argent à miser !", flags: MessageFlags.Ephemeral });
+                            return await interaction.reply({ content: "❌ Tu n'as pas autant d'argent à miser !", flags: [MessageFlags.Ephemeral] });
 
                         const betColor = interaction.options.getString("color");
                         const colors = { "red": ["🟥", "rouge"], "black": ["⚫", "noire"] };

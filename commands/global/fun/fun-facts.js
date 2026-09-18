@@ -40,7 +40,7 @@ module.exports = {
                 .setTitle(`${categoryEmoji} Fait sur ${categoryName} Nº${factIndex + 1} / ${factsNumber} !`)
                 .setDescription(fact)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.reply({ embeds: [factEmbed] });
         } catch (error) {

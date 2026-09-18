@@ -42,6 +42,7 @@ module.exports = {
                 "stonks": "Stonks",
                 "super-mario-maker": "Super Mario Maker 2",
                 "three-shots-of-derek-bum": "Kitchen Gun - 3 Shots Of Derek Bum",
+                "tokic-mania": "Sonic Mania",
                 "tokino-sky": "Rolling Sky",
                 "undertale": "Undertale",
                 "youtube": "YouTube"
@@ -50,10 +51,10 @@ module.exports = {
             const tokimgEmbed = new EmbedBuilder()
                 .setColor([255, 85, 0])
                 .setTitle(`Tokinotsuki Nº${randomImageIndex + 1} / ${tokimagesNumber} !`)
-                .setDescription(`> ### ${references[tokimage.split(".")[0]]}`)
+                .setDescription(`> **${references[tokimage.split(".")[0]]}**`)
                 .setImage(`attachment://${tokimage}`)
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.editReply({ embeds: [tokimgEmbed], files: [`./assets/images/tokimages/${tokimage}`] });
         } catch (error) {

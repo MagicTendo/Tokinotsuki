@@ -38,7 +38,7 @@ module.exports = {
                             .setEmoji({ name: "✔️" })
                             .setLabel("Terminer")
                             .setStyle(ButtonStyle.Danger)
-                            .setCustomId(`report_finish_${userID}_610493430325313549`),
+                            .setCustomId(`report_finish-deny_${userID}_610493430325313549`),
                         new ButtonBuilder()
                             .setEmoji({ name: "📨" })
                             .setLabel("Envoyer un message")
@@ -61,17 +61,17 @@ module.exports = {
 
                     await interaction.update({ embeds: [reportDoneEmbed], components: [] });
 
-                    if (reportType === "report") {
+                    if (reportType === "report")
                         await client.users.cache.get(userID).send({ content: `Salut ! Ta demande (\`${reportShortDescription}\`) a bien été effectuée !` });
-                    } else {
+                    else
                         await client.users.cache.get(userID).send({ content: `Salut ! Ton rapport (\`${reportShortDescription}\`) a bien été effectué, et sera implémenté ou corrigé dans la nouvelle version !` });
-                    }
                     break;
 
-                case "finish":
+                case "finish-deny":
                     const reportFinishEmbed = new EmbedBuilder(interaction.message.embeds[0].data);
 
                     await interaction.update({ embeds: [reportFinishEmbed], components: [] });
+                    await client.users.cache.get(userID).send({ content: `Salut ! Ton rapport (\`${reportShortDescription}\`) a bien été effectué, et sera implémenté ou corrigé dans la nouvelle version !` });
                     break;
 
                 case "send-message":

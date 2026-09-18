@@ -26,7 +26,7 @@ module.exports = {
             .setRequired(true)),
     async execute(interaction, client) {
         try {
-            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+            await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
             const commandType = interaction.options.getString("command");
 
@@ -44,7 +44,7 @@ module.exports = {
                         .setTitle("Clique sur 🎣 quand le poisson est sous le flotteur !")
                         .setDescription("<:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:TokinotsukiOldSprite:1392835480692850698><:Fence:1392835534614958222>\n<:Waves:1392835555032567921><:Waves:1392835555032567921><:Waves:1392835555032567921><:Float:1392835544588877905><:Waves:1392835555032567921><:Waves:1392835555032567921><:Waves:1392835555032567921><:Waves:1392835555032567921><:Waves:1392835555032567921><:GrassBlock:1392835505334390875><:GrassBlock:1392835505334390875>\n<:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:DirtBlock:1392835518118629449><:DirtBlock:1392835518118629449>\n<:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:Empty:1392835565723975873><:DirtBlock:1392835518118629449><:DirtBlock:1392835518118629449>")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.followUp({ embeds: [nostalgiaFishEmbed], components: [nostalgiaFishButton] });
 
@@ -145,7 +145,7 @@ module.exports = {
                             { name: `${shuffledLetters[7]} ${shuffledTimes[7]}`, value: "‎", inline: true },
                             { name: `${shuffledLetters[8]} ${shuffledTimes[8]}`, value: "‎", inline: true })
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.editReply({ embeds: [taimugemuEmbed] });
                     break;
@@ -168,7 +168,7 @@ module.exports = {
                         .setColor([0, 152, 217])
                         .setImage(`attachment://${choccyName}.png`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.editReply({ embeds: [choccyEmbed], files: [`./assets/images/archives/${choccyName}.png`] });
                     break;

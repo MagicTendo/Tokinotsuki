@@ -59,7 +59,7 @@ module.exports = {
                 .setTitle(`Classement des ${topCategory === "toki-coin" ? `Toki Coins ${getCurrencySymbol("toki-coin")}` : topCategory === "cookie" ? `cookies ${getCurrencySymbol("cookie")}` : topCategory === "congelo" ? `points en Congelo ${getCurrencySymbol("congelo")}` : topCategory === "team" ? "points d'équipe 🎉" : "bugs <:Bug:1462199247322747036>"}`)
                 .setDescription(description || "Personne n'est dans le classement pour l'instant...")
                 .setTimestamp()
-                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
             await interaction.editReply({ embeds: [topEmbed] });
         } catch (error) {

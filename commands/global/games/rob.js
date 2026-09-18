@@ -19,39 +19,43 @@ module.exports = {
         try {
             const robbedUser = interaction.options.getUser("user");
             const userID = interaction.user.id;
+            const robbedUserID = robbedUser.id;
 
             if (robbedUser.bot)
-                return await interaction.reply({ content: "❌ Tu ne peux pas voler un bot !", flags: MessageFlags.Ephemeral });
-            if (userID === robbedUser.id)
-                return await interaction.reply({ content: "❌ Tu ne peux pas voler de l'argent à toi même !", flags: MessageFlags.Ephemeral });
-            if (!interaction.guild.members.cache.get(robbedUser.id))
-                return await interaction.reply({ content: "❌ L'utilisateur doit être présent sur ce serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Tu ne peux pas voler un bot !", flags: [MessageFlags.Ephemeral] });
+            if (userID === robbedUserID)
+                return await interaction.reply({ content: "❌ Tu ne peux pas voler de l'argent à toi même !", flags: [MessageFlags.Ephemeral] });
+            if (!interaction.guild.members.cache.get(robbedUserID))
+                return await interaction.reply({ content: "❌ L'utilisateur doit être présent sur ce serveur !", flags: [MessageFlags.Ephemeral] });
 
             const totalRobberUserMoney = await getValue(userID, "users", "toki-coin");
-            let totalRobbedUserMoney = await getValue(robbedUser.id, "users", "toki-coin");
+            let totalRobbedUserMoney = await getValue(robbedUserID, "users", "toki-coin");
 
             if (totalRobbedUserMoney < 10_000)
-                return await interaction.reply({ content: `❌ La personne n'a pas assez d'argent ! Elle doit avoir au moins ${await simplify(userID, 10_000)} ${getCurrencySymbol("toki-coin")} !`, flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: `❌ La personne n'a pas assez d'argent ! Elle doit avoir au moins ${await simplify(userID, 10_000)} ${getCurrencySymbol("toki-coin")} !`, flags: [MessageFlags.Ephemeral] });
 
             const cooldownList = await getCooldownList();
 
             if (await hasCooldownFinished(interaction, "rob", cooldownList["rob"])) {
                 totalRobbedUserMoney > 50_000 ? totalRobbedUserMoney = 50_000 : totalRobbedUserMoney;
 
-                const canRob = true// (Math.floor(Math.random() * 3) + 1) % 3 === 0;
-                const totalRobbable = canRob ? totalRobbedUserMoney : totalRobberUserMoney / 2;
-                let randomRobAmount = Math.floor(Math.random() * (totalRobbable - 1_000) + 1_000);
+                const canRobTokiCoins = (Math.floor(Math.random() * 3) + 1) % 3 === 0;
+                const canRobCookies = await getValue(robbedUserID, "users", "cookie") >= 5;
+                const randomRobCookiesAmount = Math.floor(Math.random() * 5);
+                let randomRobTokiCoinsAmount = Math.floor(Math.random() * ((canRobTokiCoins ? totalRobbedUserMoney : totalRobberUserMoney / 2) - 1_000)) + 1_000;
 
-                canRob ? randomRobAmount = Math.min(randomRobAmount, totalRobbedUserMoney) : randomRobAmount = -Math.min(randomRobAmount, totalRobberUserMoney);
+                canRobTokiCoins ? randomRobTokiCoinsAmount = Math.min(randomRobTokiCoinsAmount, totalRobbedUserMoney) : randomRobTokiCoinsAmount = -Math.min(randomRobTokiCoinsAmount, totalRobberUserMoney);
 
-                await updateValue(userID, "users", "toki-coin", randomRobAmount);
-                await updateValue(robbedUser.id, "users", "toki-coin", -randomRobAmount);
+                await updateValue(userID, "users", "toki-coin", randomRobTokiCoinsAmount);
+                await updateValue(robbedUserID, "users", "toki-coin", -randomRobTokiCoinsAmount);
 
-                if (canRob) {
-                    await interaction.reply({ content: `<@${userID}> a volé ${await simplify(userID, randomRobAmount)} ${getCurrencySymbol("toki-coin")} à <@${robbedUser.id}> !` });
-                } else {
-                    await interaction.reply({ content: `<@${userID}> a tenté de voler <@${robbedUser.id}>, mais cela n'a pas fonctionné !${randomRobAmount !== 0 ? ` <@${robbedUser.id}> te prends ${await simplify(userID, Math.abs(randomRobAmount))} ${getCurrencySymbol("toki-coin")} !` : ""}` });
-                }
+                if (canRobTokiCoins && canRobCookies)
+                    await updateValue(robbedUserID, "users", "cookie", -randomRobCookiesAmount);
+
+                if (canRobTokiCoins)
+                    await interaction.reply({ content: `<@${userID}> a volé ${await simplify(userID, randomRobTokiCoinsAmount)} ${getCurrencySymbol("toki-coin")} ${canRobCookies ? `et ${randomRobCookiesAmount} ${getCurrencySymbol("cookie")} à` : "à"} <@${robbedUserID}> !` });
+                else
+                    await interaction.reply({ content: `<@${userID}> a tenté de voler <@${robbedUserID}>, mais cela n'a pas fonctionné !${randomRobTokiCoinsAmount !== 0 ? ` <@${robbedUserID}> te prends ${await simplify(userID, Math.abs(randomRobTokiCoinsAmount))} ${getCurrencySymbol("toki-coin")} !` : ""}` });
             }
         } catch (error) {
             await sendError(interaction, client, error);

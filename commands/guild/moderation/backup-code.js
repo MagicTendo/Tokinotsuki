@@ -21,7 +21,7 @@ module.exports = {
 
             await updateValue("toki", "toki", interaction.user.id, code, false);
 
-            await interaction.reply({ content: `🔐 Ton code est maintenant : **\`${code}\`** ! Pour rappel, si tu as besoin de changer de compte tout en gardant ton statut sur les serveurs de BakaTaida, donne lui ce code et le nom de ton ancien compte pour confirmer ton identité !`, flags: MessageFlags.Ephemeral });
+            await interaction.reply({ content: `🔐 Ton code est maintenant : **\`${code}\`** ! Pour rappel, si tu as besoin de changer de compte tout en gardant ton statut sur les serveurs de BakaTaida, donne lui ce code et le nom de ton ancien compte pour confirmer ton identité !`, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

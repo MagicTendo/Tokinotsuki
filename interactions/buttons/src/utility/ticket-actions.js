@@ -5,7 +5,7 @@ module.exports = {
     async execute(interaction, client) {
         try {
             if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageChannels))
-                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les salons !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ Je n'ai pas la permission de gérer les salons !", flags: [MessageFlags.Ephemeral] });
 
             const buttonContent = interaction.customId.split("_");
             const ticketNumber = buttonContent[1];
@@ -42,7 +42,7 @@ module.exports = {
             });
 
             await interaction.update({ embeds: [ticketEmbed], components: [ticketButton] });
-            await interaction.followUp({ content: `✅ Ticket créé à <#${ticketChannel.id}> !`, flags: MessageFlags.Ephemeral });
+            await interaction.followUp({ content: `✅ Ticket créé à <#${ticketChannel.id}> !`, flags: [MessageFlags.Ephemeral] });
         } catch (error) {
             await sendError(interaction, client, error);
         }

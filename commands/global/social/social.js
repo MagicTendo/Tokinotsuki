@@ -211,13 +211,13 @@ module.exports = {
                 .setRequired(false))),
     async execute(interaction, client) {
         try {
-            const subcommand = interaction.commandType === 1 ? interaction.options?.getSubcommand() : "cookie";
-            const socialUser = interaction.options.getUser("user") ?? interaction.user;
+            const subcommand = interaction.options?.getSubcommand() ?? "cookie";
+            const socialUser = interaction.options?.getUser("user") ?? client.users.cache.get(interaction.customId?.split("_")[2]) ?? interaction.user;
             const author = interaction.user.globalName;
             const receiver = socialUser.globalName ?? socialUser.username;
 
             if (!client.guilds.cache.get(interaction.guild.id).members.cache.get(socialUser.id))
-                return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: MessageFlags.Ephemeral });
+                return await interaction.reply({ content: "❌ L'utilisateur n'est pas sur le serveur !", flags: [MessageFlags.Ephemeral] });
 
             let canSocial = true;
             let isSelf = socialUser === interaction.user;
@@ -369,9 +369,9 @@ module.exports = {
 
                 case "cookie":
                     if (socialUser.bot)
-                        return await interaction.reply({ content: "❌ Tu ne peux pas mentionner un bot !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu ne peux pas mentionner un bot !", flags: [MessageFlags.Ephemeral] });
                     if (socialUser.id === interaction.user.id)
-                        return await interaction.reply({ content: "❌ Tu ne peux pas te mentionner toi même !", flags: MessageFlags.Ephemeral });
+                        return await interaction.reply({ content: "❌ Tu ne peux pas te donner un cookie !", flags: [MessageFlags.Ephemeral] });
 
                     const cooldownList = await getCooldownList();
 
@@ -909,7 +909,7 @@ module.exports = {
                     .setTitle(title)
                     .setImage(socialImage)
                     .setTimestamp()
-                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                 if (typeof description !== "undefined")
                     socialEmbed.setDescription(description);

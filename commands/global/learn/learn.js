@@ -230,7 +230,7 @@ module.exports = {
                 .setRequired(false))),
     async execute(interaction, client) {
         try {
-            if (await canCreateCollector(interaction, interaction.guild.id)) {
+            if (await canCreateCollector(interaction, interaction.guildId)) {
                 await interaction.deferReply();
 
                 const quizType = interaction.options.getSubcommand();
@@ -370,7 +370,7 @@ module.exports = {
                         .setTitle(`${quizType === "capitals" ? `Quelle est la capitale de ce territoire : **\`${question}\`** ?` : quizType === "flags" ? `Quelle territoire a ce drapeau ?` : quizType === "kana" ? `Quel est ce kana : ${question}` : quizType === "outlines" ? `Quelle territoire a ce contour ?` : `Quelle est le résultat : **${question.replaceAll("*", "\\*")}** |`} (${currentRound} / ${maximumRound})`)
                         .setDescription(`⌚ **Temps restant** : <t:${Math.floor(Date.now() / 1_000 + (roundDuration / 1_000))}:R>\n⭐ **Points** : ${points}${previousAnswer !== null ? `\n💡 **Réponse précédante** : ${previousAnswer.replaceAll("*", "\\*")}` : ""}\n\n-# Envoie \`skip\` si tu ne connais pas la réponse, ou \`*\` quand la question n'a pas de réponse (des territoires n'ont pas des capitales par exemple, mais ça reste rare). Si tu veux arrêter, envoie \`stop\`.`)
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     if (quizType !== "capitals" && quizType !== "kana" && quizType !== "mathematics") {
                         learnEmbed.setImage("attachment://question.png");
@@ -474,7 +474,7 @@ module.exports = {
                         .setTitle("Fin de la partie !")
                         .setDescription(numberErrors !== 0 || points !== 0 ? `## Tu as eu ${points} bonne(s) réponse(s) !\n\n${numberErrors > 0 ? `❌ Et tu as fait **${numberErrors}** erreur(s) :\n${errorList}` : "Tu as fait un sans-fautes, félicitations !"}` : "Tu n'as pas joué...")
                         .setTimestamp()
-                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64, dynamic: true }) });
+                        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
                     await interaction.editReply({ embeds: [finishedLearnEmbed], files: [] });
                 }
