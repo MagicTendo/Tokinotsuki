@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require("discord.js");
 const { updateValue } = require("../../../../tools/database.js");
 const { sendError } = require("../../../../tools/error-catcher.js");
-const { capitalize, addTeamPoints } = require("../../../../tools/modules.js");
+const { capitalise, addTeamPoints } = require("../../../../tools/modules.js");
 
 module.exports = {
     async execute(interaction, client) {
@@ -15,7 +15,7 @@ module.exports = {
 
             const newTeamEmbed = new EmbedBuilder(interaction.message.embeds[0].data)
                 .setTitle("Succès !")
-                .setDescription(`Tu as bien rejoint l'équipe **${capitalize(teamName)}** !`);
+                .setDescription(`Tu as bien rejoint l'équipe **${capitalise(teamName)}** !`);
 
             await interaction.update({ embeds: [newTeamEmbed], components: [] });
 

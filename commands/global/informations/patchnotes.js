@@ -12,6 +12,7 @@ module.exports = {
             .setName("version")
             .setDescription("Choisis la version.")
             .addChoices(
+                { name: "v4.3.0", value: "4.3.0" },
                 { name: "v4.2.0", value: "4.2.0" },
                 { name: "v4.1.0", value: "4.1.0" },
                 { name: "v4.0.0", value: "4.0.0" },
@@ -30,6 +31,10 @@ module.exports = {
             let patchNotesContent;
 
             switch (version) {
+                case "4.3.0":
+                    patchNotesContent = "➜ Amélioration du système des radios ! Toutes les actions sont maintenant écrites sur le salon vocal, la commande `/radio status` a été rajoutée pour avoir des informations sur la radio en cours, le volume ne se réinitialise plus si on change de radio et le volume est plus bas par défaut.\n➜ Ajout du mini-jeu `/game 1-or-2` pour poser un dilemme à quelqu'un !\n➜ Ajout de nouvelles régions dans `/game adventure`.\n➜ Amélioration du `/count words` qui ignore désormais tous les caractères spéciaux pour ne compter que des mots.\n➜ Bugs réglés pour les statuts saisonniers et les flux RSS.\n➜ Petites modifications mineures et amélioration du code.";
+                    break;
+
                 case "4.2.0":
                     patchNotesContent = "➜ Ajout du module musique avec la commande `/radio` permettant d'avoir une radio dans un salon vocal !\n➜ Suppression de la commande `/tenor` car j'avais oublié que l'API allait disparaître !\n➜ Ajout de nouveaux flux RSS pour le serveur [Yunayunori](https://discord.gg/DYQutQvbSu).\n➜ Quelques petites optimisations de code.\n➜ Changement de la nomenclature des versions.";
                     break;

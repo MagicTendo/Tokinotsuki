@@ -22,8 +22,8 @@ function deployCommands(client) {
                 client.commands.set(command.data.name, command);
                 commands.push(command.data);
 
-                console.log(`\x1b[35mLoading ${type}/${category}/${command.data.name} !\x1b[0m`);
-                console.log(`${commands.length} commands loaded !`);
+                console.log(`\x1b[35mLoading ${type}/${category}/${command.data.name}!\x1b[0m`);
+                console.log(`${commands.length} commands loaded!`);
             }
         }
 
@@ -42,7 +42,7 @@ async function slashCommandLoad(client, commands, commandType) {
         } else if (commandType === "guild") {
             commandsData = await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_COMMANDS_ID), { body: commands });
         } else {
-            console.error(`\x1b[31m❌ ERROR : Unknow command type ! Command type : ${commandType}\x1b[0m`);
+            console.error(`\x1b[31m❌ ERROR : Unknow command type! Command type : ${commandType}\x1b[0m`);
         }
 
         console.log(`\x1b[32m➔  Commands of type ${commandType} are now loaded and sent ✅\x1b[0m`);

@@ -391,11 +391,14 @@ module.exports = {
                 exemptRoles: roleException === null ? null : [roleException],
                 reason: reason
             }).catch(async error => {
-                if (error.message.includes("BASE_TYPE_BAD_LENGTH")) return await interaction.reply({ content: "❌ Ta configuration n'est pas possible !", flags: [MessageFlags.Ephemeral] });
-                if (error.message.includes("AUTO_MODERATION_MAX_RULES_OF_TYPE_EXCEEDED")) return await interaction.reply({ content: "❌ Tu ne peux plus créer cette règle car il y en a trop !", flags: [MessageFlags.Ephemeral] });
-                if (error.message === "Missing Access") return await interaction.reply({ content: "❌ Cette fonctionalité n'est disponible que pour les serveurs communautaires !", flags: [MessageFlags.Ephemeral] });
-
-                return await interaction.reply({ content: `❌ Cela semble être une erreur ! Signale-le à mon créateur avec la commande \`/report\` et ce message : \`\`\`js\n${error.message}\`\`\``, flags: [MessageFlags.Ephemeral] });
+                if (error.message.includes("BASE_TYPE_BAD_LENGTH"))
+                    await interaction.reply({ content: "❌ Ta configuration n'est pas possible !", flags: [MessageFlags.Ephemeral] });
+                else if (error.message.includes("AUTO_MODERATION_MAX_RULES_OF_TYPE_EXCEEDED"))
+                    await interaction.reply({ content: "❌ Tu ne peux plus créer cette règle car il y en a trop !", flags: [MessageFlags.Ephemeral] });
+                else if (error.message === "Missing Access")
+                    await interaction.reply({ content: "❌ Cette fonctionalité n'est disponible que pour les serveurs communautaires !", flags: [MessageFlags.Ephemeral] });
+                else
+                    await interaction.reply({ content: `❌ Cela semble être une erreur ! Signale-le à mon créateur avec la commande \`/report\` et ce message : \`\`\`js\n${error.message}\`\`\``, flags: [MessageFlags.Ephemeral] });
             });
 
             if (rule) {

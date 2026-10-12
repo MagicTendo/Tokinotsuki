@@ -1,9 +1,10 @@
-const infoUserActions = require("./src/informations/info-user-actions.js");
-const pingActions = require("./src/informations/ping-actions.js");
-const reportActions = require("./src/informations/report-actions.js");
+const infoUserActions = require("./src/information/info-user-actions.js");
+const pingActions = require("./src/information/ping-actions.js");
+const reportActions = require("./src/information/report-actions.js");
 const oldFishActions = require("./src/fun/old-fish-actions.js");
 const scpActions = require("./src/fun/scp-actions.js");
 const adventureActions = require("./src/games/adventure-actions.js");
+const dilemmaActions = require("./src/games/dilemma-actions.js");
 const gameItemActions = require("./src/games/game-item-actions.js");
 const cardsActions = require("./src/games/cards-actions.js");
 const blackjackActions = require("./src/games/blackjack-actions.js");
@@ -26,6 +27,7 @@ buttonList = {
     "old-fish": oldFishActions,
     "scp": scpActions,
     "adventure": adventureActions,
+    "dilemma": dilemmaActions,
     "item": gameItemActions,
     "cards": cardsActions,
     "blackjack": blackjackActions,

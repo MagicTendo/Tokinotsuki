@@ -207,7 +207,7 @@ module.exports = {
                     const authorNameEmbed = interaction.options.getString("author-name");
                     const authorImageEmbed = interaction.options.getAttachment("author-image")?.url;
                     const authorURLEmbed = interaction.options.getString("author-url");
-                    const descriptionEmbed = interaction.options.getString("description") ?? "‎";
+                    const descriptionEmbed = interaction.options.getString("description").replace(/(?<!\\)\\(?!\\)n/g, "\n") ?? "‎";
                     const firstFieldNameEmbed = interaction.options.getString("field-name-1");
                     const firstFieldValueEmbed = interaction.options.getString("field-value-1");
                     const firstFieldInlineEmbed = interaction.options.getString("field-inline-1") === "no";

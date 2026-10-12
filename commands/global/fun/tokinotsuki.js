@@ -20,7 +20,7 @@ module.exports = {
 
             const references = {
                 "among-us": "Among Us",
-                "arkotalan-project": "Arkotalan Project",
+                "arukota-project": "Arukota Project",
                 "back-to-the-future": "Retour vers le futur",
                 "discord": "Discord",
                 "gta": "Grand Theft Auto V",

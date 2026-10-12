@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { sendError } = require("../../../tools/error-catcher.js");
 const { shopToItemTable } = require("../../../tools/items-table.js");
-const { capitalize } = require("../../../tools/modules.js");
+const { capitalise } = require("../../../tools/modules.js");
 const { refreshShop } = require("../../../tools/refresh-shop.js");
 
 module.exports = {
@@ -84,7 +84,7 @@ module.exports = {
                 const shopFields = shop["fields"];
                 const shopEmbed = new EmbedBuilder()
                     .setColor(shopColor)
-                    .setTitle(`Magasin de ${capitalize(shopType)}`)
+                    .setTitle(`Magasin de ${capitalise(shopType)}`)
                     .setDescription(`-# *${shopDescription}*`)
                     .setImage(`attachment://${shopType}.png`)
                     .setTimestamp()

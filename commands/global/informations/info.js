@@ -5,7 +5,7 @@ const { dependencies } = require("../../../package.json");
 const { getValue, hasValue } = require("../../../tools/database.js");
 const { sendError } = require("../../../tools/error-catcher.js");
 const { flagToTeam } = require("../../../tools/flags.js");
-const { capitalize, simplify, getWinningTeam } = require("../../../tools/modules.js");
+const { capitalise, simplify, getWinningTeam } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Informations",
@@ -165,7 +165,7 @@ module.exports = {
                         const colorLightOrDark = color.isDark() ? "La couleur est sombre." : "La couleur est claire";
                         const colorGrayscale = color.grayscale().string();
                         const colorNegative = color.negate().string();
-                        const colorWord = capitalize(color.keyword());
+                        const colorWord = capitalise(color.keyword());
                         const colorHexadecimal = color.hex();
                         const colorRGB = color.rgb().string();
                         const colorRGBPercent = color.percentString();
@@ -429,13 +429,13 @@ module.exports = {
                     const numberNPMPackages = String(Object.keys(dependencies).length);
                     const fetchToki = await client.user.fetch();
                     const tokiBanner = fetchToki.bannerURL({ extension: "png", size: 4_096, dynamic: true });
-                        
+
                     const infoBotEmbed = new EmbedBuilder()
                         .setColor([255, 85, 0])
                         .setDescription(`## __Informations sur moi !__\n** **\nJe suis connectée depuis **${uptimeDays}** jours, **${uptimeHours}** heures, **${uptimeMinutes}** minutes, et **${uptimeSeconds}** secondes !\n-# *Encore merci à [Hasuko](https://www.youtube.com/@ohanashihasuko6535) (créateur du bot [Hasu](https://top.gg/bot/353949197571194890)) et à YuriSensei pour les tout débuts du projet, ainsi qu'à [Ninjdai](https://github.com/Ninjdai1) pour la suite et la première documentation !*\n\n** **`)
                         .setFields(
-                            { name: "📁 __Version__", value: "v4.2.0", inline: true },
-                            { name: "⌚ __Dernière mise à jour__", value: "<t:1789682400:D>", inline: true },
+                            { name: "📁 __Version__", value: "v4.3.0", inline: true },
+                            { name: "⌚ __Dernière mise à jour__", value: "<t:1791756000:D>", inline: true },
                             { name: "💾 __Commandes__", value: numberCommands, inline: true },
                             { name: "🔧 __Développeur__", value: "<@610493430325313549>", inline: true },
                             { name: "🗺️ __Serveurs__", value: `${numberGuilds} serveurs`, inline: true },
@@ -529,7 +529,7 @@ module.exports = {
                     const nominativePlaqueID = user.collectibles?.nameplate?.skuId;
                     const nominativePlaqueName = user.collectibles?.nameplate?.label;
                     const nominativePlaqueCleanName = nominativePlaqueName ? nominativePlaqueName.split("_").slice(2, -1).join(" ").toLowerCase() : null;
-                    const nominativePlaque = nominativePlaqueID !== undefined && nominativePlaqueID !== null ? `[${capitalize(nominativePlaqueCleanName)}](${nominativePlaqueLink}) (${nominativePlaqueID})` : "*aucune*";
+                    const nominativePlaque = nominativePlaqueID !== undefined && nominativePlaqueID !== null ? `[${capitalise(nominativePlaqueCleanName)}](${nominativePlaqueLink}) (${nominativePlaqueID})` : "*aucune*";
 
                     const guildTagName = user.primaryGuild?.tag;
                     let guildTag = "*aucun*";

@@ -85,7 +85,7 @@ module.exports = {
                     const packOpeningButton = new ActionRowBuilder().addComponents(
                         new ButtonBuilder()
                             .setEmoji({ name: "🎴" })
-                            .setLabel("Suivant")
+                            .setLabel("Ouvrir")
                             .setStyle(ButtonStyle.Secondary)
                             .setCustomId(`cards_1_${cardsID.join("_")}_${userID}`));
 

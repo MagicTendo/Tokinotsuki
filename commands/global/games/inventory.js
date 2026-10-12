@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, MessageFlags } = require("discord.js"
 const { sendError } = require("../../../tools/error-catcher.js");
 const { getValue } = require("../../../tools/database.js");
 const { fishes, fishTable, ores, oreTable, birds, birdTable, artefacts, artefactTable, items, itemTable, fakeItems, uniqueItemEmojis } = require("../../../tools/items-table.js");
-const { capitalize, simplify } = require("../../../tools/modules.js");
+const { capitalise, simplify } = require("../../../tools/modules.js");
 
 module.exports = {
 	category: "Jeux",
@@ -79,7 +79,7 @@ module.exports = {
 				const itemCount = await getValue(user.id, "users", item, true);
 				const itemKey = Object.keys(inventoryTable).find(key => inventoryTable[key]["name"] === item);
 				const itemEmoji = itemCount === undefined && inventoryType !== "items" ? inventoryTable[itemKey]["shadow"] : inventoryTable[itemKey]["emoji"];
-				const itemName = itemCount === undefined && inventoryType !== "items" ? "???" : capitalize(itemKey.split("|")[2] ?? itemKey) ?? itemKey;
+				const itemName = itemCount === undefined && inventoryType !== "items" ? "???" : capitalise(itemKey.split("|")[2] ?? itemKey) ?? itemKey;
 
 				inventoryEmbed.addFields({ name: `${itemEmoji} ${itemName}`, value: await simplify(interaction.user.id, itemCount ?? 0), inline: true });
 			}

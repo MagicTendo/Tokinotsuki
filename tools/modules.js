@@ -2,6 +2,11 @@ const { MessageFlags } = require("discord.js");
 const cleanTextUtils = require("clean-text-utils");
 const { getValue, hasValue, updateValue } = require("./database.js");
 
+const levelsXP = [1000, 2900, 5200, 8000, 11200, 14700, 18600, 22700, 27000, 31700, 36500, 41600, 46900, 52400, 58100, 64000, 70100, 76400, 82900, 89500, 96300, 103200, 110400, 117600, 125000, 132600, 140300, 148200, 156200, 164400, 172600, 181100, 189600, 198300, 207100, 216000, 225100, 234300, 243600, 253000, 262600, 272200, 282000, 291900, 301900, 312000, 322300, 332600, 343000, 353600, 364300, 375000, 385900, 396900, 407900, 419100, 430400, 441800, 453200, 464800, 476500, 488200, 500100, 512000, 524100, 536200, 548500, 560800, 573200, 585700, 598300, 611000, 623800, 636600, 649600, 662600, 675700, 688900, 702200, 715600, 729000, 742600, 756200, 769900, 783700, 797600, 811500, 825600, 839700, 853900, 868100, 882500, 896900, 911400, 926000, 940700, 955400, 970200, 985100, 1000000, 1015100, 1030200, 1045400, 1060600, 1076000, 1091400, 1106900, 1122400, 1138000, 1153700, 1169500, 1185300, 1201300, 1217200, 1233300, 1249400, 1265600, 1281900, 1298200, 1314600, 1331000, 1347600, 1364200, 1380900, 1397600, 1414400, 1431300, 1448200, 1465200, 1482300, 1499400, 1516600, 1533900, 1551200, 1568600, 1586100, 1603600, 1621200, 1638800, 1656600, 1674300, 1692200, 1710100, 1728000, 1746100, 1764200, 1782300, 1800500, 1818800, 1837200];
+const specialLevels = [1, 5, 10, 15, 30, 55, 95, 100, 150];
+const rolesLevel = { 1: "872572122860507167", 5: "872572202439016498", 15: "872573986255548446", 30: "872575802229784616", 55: "872574522698637402", 95: "1071480361202237460", 100: "872575492283318282", 150: "1473696565192425675" };
+const levelMessages = { "872571888356974624": "- Accès au serveur", "872572122860507167": "- Changer le pseudo\n- Définir un statut pour le salon vocal", "872572202439016498": "- Joindre des fichiers\n- Envoyer des messages vocaux", "872573986255548446": "- Utiliser Soundboard\n- Salon TTS Twitch", "872575802229784616": "- Créer des fils publics et privés\n- Vidéo dans les salons vocaux", "872574522698637402": "- Un émoji personalisé", "1071480361202237460": "- Le pin Kyujūgopiku", "872575492283318282": "- Un rôle personalisé", "1473696565192425675": "- Un sticker personalisé" };
+
 async function addTeamPoints(interaction, userID, points, response = true) {
     const { flagToTeam } = require("./flags.js");
     const getTeam = await getValue(userID, "users", "team");
@@ -16,7 +21,7 @@ async function addTeamPoints(interaction, userID, points, response = true) {
     }
 }
 
-function capitalize(word) {
+function capitalise(word) {
     return String(word).charAt(0).toUpperCase() + String(word).slice(1);
 }
 
@@ -183,4 +188,4 @@ async function updateMemberCounts(client) {
     await botCountChannel.setName(`${botCountChannelPrefixName} : ${botCount}`);
 }
 
-module.exports = { addTeamPoints, capitalize, clean, completeQuest, getCurrencySymbol, getEmoteList, getPing, getRandomKanji, getWinningTeam, isLink, simplify, updateMemberCounts };
+module.exports = { levelsXP, specialLevels, rolesLevel, levelMessages, addTeamPoints, capitalise, clean, completeQuest, getCurrencySymbol, getEmoteList, getPing, getRandomKanji, getWinningTeam, isLink, simplify, updateMemberCounts };

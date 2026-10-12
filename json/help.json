@@ -1,5 +1,5 @@
 {
-    "count": 204,
+    "count": 206,
     "Informations": {
         "emoji": "📄",
         "commands": [
@@ -250,67 +250,71 @@
                 "description": "Permet d'obtenir une récompense toutes les 24 heures."
             },
             {
-                "name": "</game adventure:1394643470177665024>",
+                "name": "</game 1-or-2:1557784186956284025>",
+                "description": "Lance un défi à quelqu'un qui doit choisir entre 1 ou 2 (très compliqué)."
+            },
+            {
+                "name": "</game adventure:1557784186956284025>",
                 "description": "Un jeu d'aventure où des ressources sont nécessaire pour envoyer Miyunira à l'aventure !"
             },
             {
-                "name": "</game arkeology:1394643470177665024>",
+                "name": "</game arkeology:1557784186956284025>",
                 "description": "Un jeu d'archéologie où il faut faire attention de ne pas se faire voler !"
             },
             {
-                "name": "</game blackjack:1394643470177665024>",
+                "name": "</game blackjack:1557784186956284025>",
                 "description": "Permet de jouer au blackjack avec des règles simplifiées."
             },
             {
-                "name": "</game congelo:1394643470177665024>",
+                "name": "</game congelo:1557784186956284025>",
                 "description": "Concept repris de la commande +explo du bot Discord Hasu."
             },
             {
-                "name": "</game fight:1394643470177665024>",
+                "name": "</game fight:1557784186956284025>",
                 "description": "Un petit jeu de combat à la RPG où il faut vaincre un ennemi en tour par tour."
             },
             {
-                "name": "</game fish:1394643470177665024>",
+                "name": "</game fish:1557784186956284025>",
                 "description": "Un simple jeu de pêche avec divers poissons à attraper."
             },
             {
-                "name": "</game gtn:1394643470177665024>",
+                "name": "</game gtn:1557784186956284025>",
                 "description": "Un jeu où il faut trouver un nombre choisi au hasard."
             },
             {
-                "name": "</game guess-my-ping:1394643470177665024>",
+                "name": "</game guess-my-ping:1557784186956284025>",
                 "description": "Jeu où tu dois essayer de trouver ma latence exacte en millisecondes."
             },
             {
-                "name": "</game jackpot:1394643470177665024>",
+                "name": "</game jackpot:1557784186956284025>",
                 "description": "Jouable toutes les heures, si les 3 émojis sont les mêmes, c'est gagné !"
             },
             {
-                "name": "</game minesweeper:1394643470177665024>",
+                "name": "</game minesweeper:1557784186956284025>",
                 "description": "Pour jouer au jeu du démineur, mais il n'y a rien à gagner..."
             },
             {
-                "name": "</game pikpik:1394643470177665024>",
+                "name": "</game pikpik:1557784186956284025>",
                 "description": "Jeu se passant dans une mine, où il faut miner pour avoir le meilleur minerai."
             },
             {
-                "name": "</game puzzle:1394643470177665024>",
+                "name": "</game puzzle:1557784186956284025>",
                 "description": "Un jeu d'énigme où il faut trouver un code pour passer au niveau suivant."
             },
             {
-                "name": "</game snap-bird:1394643470177665024>",
+                "name": "</game snap-bird:1557784186956284025>",
                 "description": "Permet de tenter de photographier des oiseaux pour gagner de l'argent."
             },
             {
-                "name": "</game tictactoe:1394643470177665024>",
+                "name": "</game tictactoe:1557784186956284025>",
                 "description": "Pour jouer au jeu du morpion !"
             },
             {
-                "name": "</game rock-paper-scissors:1394643470177665024>",
+                "name": "</game rock-paper-scissors:1557784186956284025>",
                 "description": "Permet de jouer au chifoumi contre moi."
             },
             {
-                "name": "</game roulette:1394643470177665024>",
+                "name": "</game roulette:1557784186956284025>",
                 "description": "Permet de doubler ta mise, ou tout perdre !"
             },
             {
@@ -665,6 +669,10 @@
                 "description": "Reprends la radio en cours."
             },
             {
+                "name": "</radio status:1548097207159230504>",
+                "description": "Affiche des informations sur la radio en cours."
+            },
+            {
                 "name": "</radio stop:1548097207159230504>",
                 "description": "Arrête la radio en cours."
             },
@@ -853,15 +861,15 @@
         "emoji": "🎴",
         "commands": [
             {
-                "name": "</experiments random-letters:1421801028130701342>",
+                "name": "</experiments random-letters:1401910205314240552>",
                 "description": "Pour obtenir des lettres aléatoires de l'alphabet... qui dancent !"
             },
             {
-                "name": "</experiments tsukinotoki:1421801028130701342>",
+                "name": "</experiments tsukinotoki:1401910205314240552>",
                 "description": "Une méthode d'encodage personalisée."
             },
             {
-                "name": "</xp:1421801028130701343>",
+                "name": "</xp:1409965015980834998>",
                 "description": "Pour voir ton XP et ton niveau !"
             }
         ]

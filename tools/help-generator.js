@@ -1,8 +1,8 @@
 const { writeFileSync } = require("fs");
-const { capitalize } = require("./modules.js");
+const { capitalise } = require("./modules.js");
 
 const commandByCategory = { "count": 0, "Informations": { "emoji": "📄", "commands": [] }, "Fun": { "emoji": "🎉", "commands": [] }, "Jeux": { "emoji": "🎮", "commands": [] }, "Modération": { "emoji": "🛡️", "commands": [] }, "Utilitaire": { "emoji": "🛠️", "commands": [] }, "Musique": { "emoji": "🎶", "commands": [] }, "Apprentissage": { "emoji": "📖", "commands": [] }, "Social": { "emoji": "💬", "commands": [] }, "Inutile": { "emoji": "🫠", "commands": [] }, "Serveur": { "emoji": "🎴", "commands": [] } };
-let commandInformations = [];
+let commandInformation = [];
 let topGGCommandList = [];
 let commandsCount = 0;
 
@@ -17,27 +17,27 @@ function generateHelp(client, commands, ids) {
         const commandOptions = commands[i].options;
 
         if (commandOptions.some(subcommandData => "type" in subcommandData) || commandOptions.length === 0) {
-            commandInformations.push({ name: `</${commandName}:${ids[i]}>`, description: commands[i].description });
+            commandInformation.push({ name: `</${commandName}:${ids[i]}>`, description: commands[i].description });
             topGGCommandList.push({ name: commandName, description: commands[i].description });
         }
 
         if (commandOptions.length !== 0) {
             for (let j = 0; j < commandOptions.length; j++) {
                 if (commandOptions[j].type === undefined) {
-                    commandInformations.push({ name: `</${commandName} ${commandOptions[j].name}:${ids[i]}>`, description: commandOptions[j].description });
+                    commandInformation.push({ name: `</${commandName} ${commandOptions[j].name}:${ids[i]}>`, description: commandOptions[j].description });
                     topGGCommandList.push({ name: `${commandName} ${commandOptions[j].name}`, description: commandOptions[j].description });
                 }
             }
         }
 
-        const commandsCategory = capitalize(command.category);
+        const commandsCategory = capitalise(command.category);
 
-        for (let i = 0; i < commandInformations.length; i++) {
-            commandByCategory[commandsCategory]["commands"].push(commandInformations[i]);
+        for (let i = 0; i < commandInformation.length; i++) {
+            commandByCategory[commandsCategory]["commands"].push(commandInformation[i]);
             commandsCount += 1;
         }
 
-        commandInformations = [];
+        commandInformation = [];
         commandByCategory["count"] = commandsCount;
 
         writeFileSync("./_configs/top-gg-command-list.json", JSON.stringify(topGGCommandList, null, 4));

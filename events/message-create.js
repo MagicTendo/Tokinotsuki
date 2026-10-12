@@ -1,8 +1,7 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType, MessageFlags } = require("discord.js");
 const { readFileSync } = require("fs");
 const { getValue, hasValue, updateValue } = require("../tools/database.js");
-const { getCurrencySymbol, isLink } = require("../tools/modules.js");
-const { levelsXP, specialLevels, rolesLevel } = require("../tools/xp-levels.js");
+const { levelsXP, specialLevels, rolesLevel, getCurrencySymbol, isLink } = require("../tools/modules.js");
 
 module.exports = {
     name: "messageCreate",

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { keyvUsers, getValue } = require("../../../tools/database.js");
 const { sendError } = require("../../../tools/error-catcher.js");
-const { capitalize, getCurrencySymbol, simplify } = require("../../../tools/modules.js");
+const { capitalise, getCurrencySymbol, simplify } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Jeux",
@@ -51,7 +51,7 @@ module.exports = {
             leaderboard = Object.keys(leaderboard).map(k => ([k, leaderboard[k]])).sort((a, b) => (b[1] - a[1])).slice(0, 15);
 
             for (let i = 0; i < leaderboard.length; i++) {
-                description += `${userID === leaderboard[i][0] ? "> " : ""}**${i + 1}** - ${topCategory === "team" ? capitalize(leaderboard[i][0]) : await client.users.cache?.get(leaderboard[i][0])?.globalName ?? `<@${leaderboard[i][0]}>`} | \`${await simplify(userID, leaderboard[i][1])}\` ${topCategory === "toki-coin" ? getCurrencySymbol("toki-coin") : topCategory === "cookie" ? getCurrencySymbol("cookie") : topCategory === "congelo" ? getCurrencySymbol("congelo") : topCategory === "team" ? "points" : "<:Bug:1462199247322747036>"}\n`;
+                description += `${userID === leaderboard[i][0] ? "> " : ""}**${i + 1}** - ${topCategory === "team" ? capitalise(leaderboard[i][0]) : await client.users.cache?.get(leaderboard[i][0])?.globalName ?? `<@${leaderboard[i][0]}>`} | \`${await simplify(userID, leaderboard[i][1])}\` ${topCategory === "toki-coin" ? getCurrencySymbol("toki-coin") : topCategory === "cookie" ? getCurrencySymbol("cookie") : topCategory === "congelo" ? getCurrencySymbol("congelo") : topCategory === "team" ? "points" : "<:Bug:1462199247322747036>"}\n`;
             }
 
             const topEmbed = new EmbedBuilder()

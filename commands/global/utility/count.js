@@ -55,7 +55,7 @@ module.exports = {
                     break;
 
                 case "words":
-                    const wordCount = text.split(" ").length;
+                    const wordCount = text.replace(/[^\w\s]/g, "").replace(/ {2,}/g, " ").trim().split(" ").length;
 
                     await interaction.reply({ content: `Il y a **${wordCount}** mot(s) !`, flags: [MessageFlags.Ephemeral] });
                     break;

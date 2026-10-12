@@ -1,8 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, OverwriteType, PermissionsBitField, MessageFlags } = require("discord.js");
 const { readFileSync, writeFileSync } = require("fs");
 const { sendError } = require("../../../tools/error-catcher.js");
-const { updateMemberCounts } = require("../../../tools/modules.js");
-const { levelMessages } = require("../../../tools/xp-levels.js");
+const { levelMessages, updateMemberCounts } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Serveur",

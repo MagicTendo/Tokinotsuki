@@ -1,7 +1,7 @@
 const { ActionRowBuilder, StringSelectMenuBuilder } = require("discord.js");
 const { hasValue, getValue } = require("./database.js");
 const { fakeItems } = require("./items-table.js");
-const { capitalize, getCurrencySymbol, simplify } = require("./modules.js");
+const { capitalise, getCurrencySymbol, simplify } = require("./modules.js");
 
 async function refreshShop(itemTable, userID, shopType, mode) {
     const embedFields = [];
@@ -29,7 +29,7 @@ async function refreshShop(itemTable, userID, shopType, mode) {
         if (fakeItems.includes(itemID) || (isItemUnique && (itemID.includes("upgrade") ? await getValue(userID, "users", itemID.slice(0, -8)) > 1 : await hasValue(userID, "users", itemID))))
             continue;
 
-        const itemPresentationName = capitalize(itemSeperatedName[2]);
+        const itemPresentationName = capitalise(itemSeperatedName[2]);
         const itemName = `${itemSeperatedName[0].toLowerCase()} ${itemSeperatedName[2]}`;
         const itemEmoji = item["emoji"];
         const canReveal = mode !== "sell" || await getValue(userID, "users", itemID, true) >= 0;

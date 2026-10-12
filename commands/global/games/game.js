@@ -9,7 +9,7 @@ const { sendError } = require("../../../tools/error-catcher.js");
 const { adventureFlags, flagToTeam } = require("../../../tools/flags.js");
 const { getRandomItem, sendResult } = require("../../../tools/game-result.js");
 const { fishTable, birdTable, artefactTable, uniqueItemEmojis } = require("../../../tools/items-table.js");
-const { addTeamPoints, completeQuest, getCurrencySymbol, getPing, getWinningTeam, simplify, capitalize } = require("../../../tools/modules.js");
+const { addTeamPoints, capitalise, completeQuest, getCurrencySymbol, getPing, getWinningTeam, simplify } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Jeux",
@@ -18,6 +18,33 @@ module.exports = {
         .setDescription("Contient tous les jeux, permettant ou non, de gagner le l'argent.")
         .setIntegrationTypes([0])
         .setContexts([0])
+        .addSubcommand(subcommand => subcommand
+            .setName("1-or-2")
+            .setDescription("Lance un défi à quelqu'un qui doit choisir entre 1 ou 2 (très compliqué).")
+            .addStringOption(option => option
+                .setName("answer")
+                .setDescription("Choisis qui gagne entre 1 ou 2.")
+                .addChoices(
+                    { name: "☝️ 1", value: "1" },
+                    { name: "✌️ 2", value: "2" })
+                .setRequired(true))
+            .addUserOption(option => option
+                .setName("opponent")
+                .setDescription("Choisis qui défier !")
+                .setRequired(true))
+            .addStringOption(option => option
+                .setName("prize")
+                .setDescription("Choisis le gain que tu promets de faire gagner s'il choisit correctement.")
+                .setMaxLength(50)
+                .setRequired(false))
+            .addStringOption(option => option
+                .setName("reveal-order")
+                .setDescription("Faut-il révéler le gain avant ou après ?")
+                .addChoices(
+                    { name: "⏪ Avant", value: "before" },
+                    { name: "⏩ Après (par défaut)", value: "after" })
+                .setRequired(false)))
+
         .addSubcommand(subcommand => subcommand
             .setName("adventure")
             .setDescription("Un jeu d'aventure où des ressources sont nécessaire pour envoyer Miyunira à l'aventure !"))
@@ -144,6 +171,41 @@ module.exports = {
 
             if (!gamesWithCooldown.includes(gameType) || await hasCooldownFinished(interaction, gameType, cooldownList[gameType])) {
                 switch (gameType) {
+                    case "1-or-2":
+                        const answer = interaction.options.getString("answer");
+                        const opponent = interaction.options.getUser("opponent");
+                        const prize = interaction.options?.getString("prize") ?? "";
+                        const prizeReveal = interaction.options?.getString("reveal-order") ?? "after";
+                        const opponentID = opponent.id;
+
+                        if (opponent.id !== userID) {
+                            if (!opponent.bot) {
+                                const dilemmaButtons = new ActionRowBuilder().addComponents(
+                                    new ButtonBuilder()
+                                        .setEmoji({ name: "1️⃣" })
+                                        .setStyle(ButtonStyle.Primary)
+                                        .setCustomId(`dilemma_1_${answer}_${prize}_${opponentID}`),
+                                    new ButtonBuilder()
+                                        .setEmoji({ name: "2️⃣" })
+                                        .setStyle(ButtonStyle.Primary)
+                                        .setCustomId(`dilemma_2_${answer}_${prize}_${opponentID}`));
+
+                                const dilemmaEmbed = new EmbedBuilder()
+                                    .setColor([255, 85, 0])
+                                    .setDescription(`# <@${opponentID}>, 1 ou 2 ??${prize && prizeReveal === "before" ? `\n### 🎁 Tu peux remporter : ${prize}` : ""}`)
+                                    .setTimestamp()
+                                    .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
+
+                                await interaction.channel.send({ embeds: [dilemmaEmbed], components: [dilemmaButtons] });
+                                await interaction.reply({ content: "✅ Dilemme envoyé !", flags: [MessageFlags.Ephemeral] });
+                            } else {
+                                await interaction.reply({ content: "❌ Tu ne peux pas défier un bot !", flags: [MessageFlags.Ephemeral] });
+                            }
+                        } else {
+                            await interaction.reply({ content: "❌ Tu ne peux pas te défier !", flags: [MessageFlags.Ephemeral] });
+                        }
+                        break;
+
                     case "adventure":
                         const adventureStatus = await getValue(userID, "users", "adventure-status");
 
@@ -156,9 +218,74 @@ module.exports = {
                                 return await interaction.reply({ content: `⌚ Attends encore un peu, tu pourras refaire une expédition <t:${Math.round(adventureBackTime / 1_000)}:R> !`, flags: [MessageFlags.Ephemeral] });
                         }
 
-                        if (adventureStatus > adventureFlags.none) {
-                            const rewardRanges = [[50_000, 75_000], [80_000, 100_000], [2_500, 5_000], [30_000, 40_000], [15_000, 25_000], [5_000, 12_500]];
+                        const regions = {
+                            "yukami": {
+                                "emoji": "❄️",
+                                "description": "Une région très froide et dangereuse.",
+                                "difficulty": 4,
+                                "duration": 10_800_000,
+                                "requirements": [10, 15, 8, 5],
+                                "reward-range": [50_000, 75_000]
+                            },
+                            "yokanatcci": {
+                                "emoji": "🌋",
+                                "description": "Une région volcanique encore active.",
+                                "difficulty": 6,
+                                "duration": 18_000_000,
+                                "requirements": [15, 25, 10, 6],
+                                "reward-range": [80_000, 100_000]
+                            },
+                            "tenerina": {
+                                "emoji": "🌳",
+                                "description": "Une forêt plutôt calme.",
+                                "difficulty": 0,
+                                "duration": 600_000,
+                                "requirements": [1, 2, 1, 0],
+                                "reward-range": [1_000, 2_500]
+                            },
+                            "otsorayo": {
+                                "emoji": "⛱️",
+                                "description": "Un bord de plage sympathique.",
+                                "difficulty": 1,
+                                "duration": 1_800_000,
+                                "requirements": [2, 4, 2, 1],
+                                "reward-range": [2_500, 5_000]
+                            },
+                            "surusiki": {
+                                "emoji": "🪽",
+                                "description": "Une zone très montagneuse et venteuse.",
+                                "difficulty": 7,
+                                "duration": 28_800_000,
+                                "requirements": [20, 30, 12, 8],
+                                "reward-range": [100_000, 125_000]
+                            },
+                            "reinaisu": {
+                                "emoji": "🕯️",
+                                "description": "Une grotte remplie d'âme, d'esprits et de spectres.",
+                                "difficulty": 5,
+                                "duration": 7_200_000,
+                                "requirements": [12, 18, 8, 5],
+                                "reward-range": [30_000, 40_000]
+                            },
+                            "iyiya": {
+                                "emoji": "❔",
+                                "description": "Une forêt plutôt étrangères sur une île.",
+                                "difficulty": 3,
+                                "duration": 3_600_000,
+                                "requirements": [5, 10, 5, 3],
+                                "reward-range": [15_000, 25_000]
+                            },
+                            "arukota": {
+                                "emoji": "🏚️",
+                                "description": "Des ruines d'une ancienne civilisation.",
+                                "difficulty": 2,
+                                "duration": 2_700_000,
+                                "requirements": [3, 5, 5, 1],
+                                "reward-range": [5_000, 12_500]
+                            }
+                        };
 
+                        if (adventureStatus > adventureFlags.none) {
                             if (adventureStatus === adventureFlags.failed) {
                                 await updateValue(userID, "users", "adventure-status", adventureFlags.failed, false);
                                 await updateValue(userID, "users", "adventure-time", Date.now(), false);
@@ -173,16 +300,16 @@ module.exports = {
 
                                 await interaction.reply({ embeds: [adventureEmbed] });
                             } else {
-                                const prizeRange = rewardRanges[adventureStatus - 2];
-                                const prize = Math.floor(Math.random() * prizeRange[1] - prizeRange[0]) + prizeRange[0];
+                                const rewardRange = regions[Object.keys(regions)[adventureStatus - 2]]["reward-range"];
+                                const reward = Math.floor(Math.random() * rewardRange[1] - rewardRange[0]) + rewardRange[0];
 
                                 await updateValue(userID, "users", "adventure-status", adventureFlags.none, false);
-                                await updateValue(userID, "users", "toki-coin", prize);
+                                await updateValue(userID, "users", "toki-coin", reward);
 
                                 const adventureEmbed = new EmbedBuilder()
                                     .setColor([255, 85, 0])
                                     .setTitle("L'expédition est terminée !")
-                                    .setDescription(`Grâce aux découvertes de Miyunira, cela t'as rapporté ${await simplify(userID, prize)} ${getCurrencySymbol("toki-coin")} !`)
+                                    .setDescription(`Grâce aux découvertes de Miyunira, cela t'as rapporté ${await simplify(userID, reward)} ${getCurrencySymbol("toki-coin")} !`)
                                     .setTimestamp()
                                     .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
@@ -211,51 +338,37 @@ module.exports = {
                                     .setStyle(ButtonStyle.Secondary)
                                     .setCustomId(`adventure_sleep-kit_3_0_${userID}`));
 
+                            let regionOptions = [];
+                            let regionDescriptions = "";
+                            let regionData;
+                            let regionRequirements;
+                            let regionDuration;
+
+                            Object.keys(regions).forEach(region => {
+                                regionData = regions[region];
+                                regionRequirements = regionData["requirements"];
+                                regionDuration = regionData["duration"];
+
+                                regionOptions.push({
+                                    emoji: { name: regionData["emoji"] },
+                                    label: capitalise(region),
+                                    description: regionData["description"],
+                                    value: `${region}_${regionData["difficulty"]}_${regionDuration}`
+                                });
+
+                                regionDescriptions += `${regionData["emoji"]} **${capitalise(region)}** : ≈ ${regionRequirements[0]} 🍴 | ${regionRequirements[1]} 💧 | ${regionRequirements[2]} 🩹 | ${regionRequirements[3]} 💤 | ${regionDuration < 3_600_000 ? `${regionDuration / 60_000}m` : `${regionDuration / 3_600_000}h`} 🕰️\n`;
+                            });
+
                             const adventurePreparationMenu = new ActionRowBuilder().addComponents(
                                 new StringSelectMenuBuilder()
                                     .setPlaceholder("🗺️ Régions")
-                                    .addOptions([{
-                                        emoji: { name: "❄️" },
-                                        label: "Yukidami",
-                                        description: "Une région très froide et dangereuse.",
-                                        value: "yukidami_3_10800000",
-                                    },
-                                    {
-                                        emoji: { name: "🌋" },
-                                        label: "Yōgandaichi",
-                                        description: "Une région volcanique encore active.",
-                                        value: "yogandaichi_5_18000000",
-                                    },
-                                    {
-                                        emoji: { name: "🌳" },
-                                        label: "Tennenrin",
-                                        description: "Une forêt plutôt calme.",
-                                        value: "tennenrin_0_600000",
-                                    },
-                                    {
-                                        emoji: { name: "🕯️" },
-                                        label: "Reidaihōsun",
-                                        description: "Une grotte remplie d'âme, d'esprits et de spectres.",
-                                        value: "reidaihosun_4_7200000",
-                                    },
-                                    {
-                                        emoji: { name: "❔" },
-                                        label: "Iryūjon",
-                                        description: "Une forêt avec des propriétés bizarres.",
-                                        value: "iryujon_2_3600000",
-                                    },
-                                    {
-                                        emoji: { name: "🏚️" },
-                                        label: "Arkotalan",
-                                        description: "Une ancienne ville en ruine.",
-                                        value: "arkotalan_1_1800000",
-                                    }])
+                                    .addOptions(regionOptions)
                                     .setCustomId(`adventure_region_${userID}`));
 
                             const adventurePreparationEmbed = new EmbedBuilder()
                                 .setColor([255, 85, 0])
                                 .setTitle("Préparations pour l'aventure !")
-                                .setDescription("### Ressources\n> D'abord, donne autant de **ressources** que nécessaire pour l'aventure, la **quantité dépendra de la difficulté de la localisation**. Une localisation **plus compliquée demandera plus de ressources et de temps**, mais apporte de **meilleurs récompenses**. Les ressources sont achetable depuis **le magasin de Kerusuna**. S'il n'y a pas assez de ressources, **Miyunira ne pourra pas repartir en aventure pendant 2 jours** le temps qu'elle soit rapatriée, s'il en a trop, **tu perderas l'excédent**. Une fois la quantités des ressources choisies, **choisi la région dans laquelle partir**, et l'aventure commencera directement !\n\n### Difficultés des régions\n**Yukidami** : Plutôt dangereuse (≈ 10 🍴 | 15 💧 | 8 🩹 | 5 💤 | 3h 🕰️)\n**Yōgandaichi** : Très dangereuse (≈ 15 🍴 | 25 💧 | 10 🩹 | 5 💤 | 5h 🕰️)\n**Tennenrin** : Très calme (≈ 1 🍴 | 2 💧 | 1 🩹 | 0 💤 | 10m 🕰️)\n**Reidaihōsun** : Dangereux (≈ 10 🍴 | 15 💧 | 8 🩹 | 4 💤 | 2h 🕰️)\n**Iryūjon** : Un peu dangereux (≈ 5 🍴 | 10 💧 | 5 🩹 | 3 💤 | 1h 🕰️)\n**Arkotalan** : Peu dangereux (≈ 3 🍴 | 5 💧 | 5 🩹 | 1 💤 | 30m 🕰️)")
+                                .setDescription(`### Ressources\n> D'abord, donne autant de **ressources** que nécessaire pour l'aventure, la **quantité dépendra de la difficulté de la localisation**. Une localisation **plus compliquée demandera plus de ressources et de temps**, mais apporte de **meilleurs récompenses**. Les ressources sont achetable depuis **le magasin de Kerusuna**. S'il n'y a pas assez de ressources, **Miyunira ne pourra pas repartir en aventure pendant 2 jours** le temps qu'elle soit rapatriée, s'il en a trop, **tu perderas l'excédent**. Une fois la quantités des ressources choisies, **choisi la région dans laquelle partir**, et l'aventure commencera directement !\n\n### Difficultés des régions\n${regionDescriptions}`)
                                 .setTimestamp()
                                 .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
@@ -797,7 +910,7 @@ module.exports = {
 
                         const jackpotEmbed = new EmbedBuilder()
                             .setColor([255, 85, 0])
-                            .setTitle(`/ ~ ${capitalize(machineName.split("-")[0])} ${capitalize(machineName.split("-")[1])} ~ \\`)
+                            .setTitle(`/ ~ ${capitalise(machineName.split("-")[0])} ${capitalise(machineName.split("-")[1])} ~ \\`)
                             .setDescription(`** **\n\`\`\`\n    ${rows[0].join(" | ")}\n  > ${rows[1].join(" | ")}\n    ${rows[2].join(" | ")}\n\`\`\`\n> ${jackpotStatus}\n\n${prizeList}`)
                             .setTimestamp()
                             .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });

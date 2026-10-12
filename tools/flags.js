@@ -1,14 +1,16 @@
-const { capitalize } = require("./modules.js");
+const { capitalise } = require("./modules.js");
 
 const adventureFlags = {
     "none": 0,
     "failed": 1,
-    "yukidamiSuccess": 2,
-    "yogandaichiSuccess": 3,
-    "tennenrinSuccess": 4,
-    "reidaihosunSuccess": 5,
-    "iryujonSuccess": 6,
-    "arkotalanSuccess": 7,
+    "yukamiSuccess": 2,
+    "yokanatcciSuccess": 3,
+    "tenerinaSuccess": 4,
+    "otsorayoSuccess": 5,
+    "surusikiSuccess": 6,
+    "reinaisuSuccess": 7,
+    "iyiyaSuccess": 8,
+    "arukotaSuccess": 9
 };
 
 const questFlags = {
@@ -34,7 +36,7 @@ const tictactoeFlags = {
 
 async function flagToTeam(flag) {
     const team = Object.keys(teamFlags).find(team => teamFlags[team] == flag);
-    const teamName = capitalize(team);
+    const teamName = capitalise(team);
 
     return teamName;
 }

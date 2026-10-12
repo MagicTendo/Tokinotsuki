@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 const { getValue } = require("../../../tools/database.js");
 const { sendError } = require("../../../tools/error-catcher.js");
 const { flagToTeam } = require("../../../tools/flags.js");
-const { capitalize, getCurrencySymbol, getWinningTeam, simplify } = require("../../../tools/modules.js");
+const { capitalise, getCurrencySymbol, getWinningTeam, simplify } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Jeux",
@@ -60,7 +60,7 @@ module.exports = {
                     const teamEmbed = new EmbedBuilder()
                         .setColor(flagToColor[teamFlag])
                         .setTitle("Confirmation")
-                        .setDescription(`Es-tu sûr de vouloir rejoindre l'équipe **${capitalize(teamName)}** ? Une fois rejoins, tu ne pourras plus changer !`)
+                        .setDescription(`Es-tu sûr de vouloir rejoindre l'équipe **${capitalise(teamName)}** ? Une fois rejoins, tu ne pourras plus changer !`)
                         .setTimestamp()
                         .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 
@@ -74,12 +74,12 @@ module.exports = {
                     const winningTeam = await getWinningTeam(userID);
 
                     if (!winningTeam["isUserTeamWinning"])
-                        return await interaction.reply({ content: `❌ Ton équipe n'est pas gagnante, tu n'as pas accès à de récompenses... ${winningTeam["name"] === "tie" ? "Il y a actuellement une égalité, fait gagner des points à ton équipe pour qu'elle se démarque !" : `Celle en tête est **${capitalize(winningTeam["name"])}**, fait gagner des points à ton équipe pour la dépasser !`}`, flags: [MessageFlags.Ephemeral] });
+                        return await interaction.reply({ content: `❌ Ton équipe n'est pas gagnante, tu n'as pas accès à de récompenses... ${winningTeam["name"] === "tie" ? "Il y a actuellement une égalité, fait gagner des points à ton équipe pour qu'elle se démarque !" : `Celle en tête est **${capitalise(winningTeam["name"])}**, fait gagner des points à ton équipe pour la dépasser !`}`, flags: [MessageFlags.Ephemeral] });
 
                     const teamRewardsEmbed = new EmbedBuilder()
                         .setColor(flagToColor[userTeam])
                         .setTitle("Félicitation !")
-                        .setDescription(`✨ Ton équipe, ${capitalize(userTeamName)}, est actuellement celle avec le plus de points ! Tu as désormais accès à ces avantages :\n\n- Ajout d'un bonus supplémentaire de 100 jours sur \`/daily\` et \`/weekly\`.\n- Un personnage bonus dans le \`/game fight\`.\n- Gains de \`/game roulette\` triplés, mais avec la possibilité de perdre le double de sa mise.\n- Temps d'attente de \`/game jackpot\`, \`/social cookie\` et \`/rob\` divisé par deux.\n- Badge d'équipe doré sur le \`/info user\`.`)
+                        .setDescription(`✨ Ton équipe, ${capitalise(userTeamName)}, est actuellement celle avec le plus de points ! Tu as désormais accès à ces avantages :\n\n- Ajout d'un bonus supplémentaire de 100 jours sur \`/daily\` et \`/weekly\`.\n- Un personnage bonus dans le \`/game fight\`.\n- Gains de \`/game roulette\` triplés, mais avec la possibilité de perdre le double de sa mise.\n- Temps d'attente de \`/game jackpot\`, \`/social cookie\` et \`/rob\` divisé par deux.\n- Badge d'équipe doré sur le \`/info user\`.`)
                         .setTimestamp()
                         .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL({ extension: "png", size: 64 }) });
 

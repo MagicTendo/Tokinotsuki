@@ -10,17 +10,14 @@ const numberOfCommands = commandList["count"];
 
 const statuses = {
     "playing": [
-        "être en version 4, enfin ! :D",
         "être sur la shard 9 ! Nan en vrai aucune idée...",
         "répondre aux commandes !",
-        "dormi- ah bah non du coup...",
-        "être outrée du nombre de bug que BakaTaida doit corriger sur moi",
+        "être outrée du nombre de bugs que BakaTaida doit corriger sur moi",
         "être en ligne et à essayer de ne pas crash",
         "ne pas aimer les CAPTCHAs AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH",
         "être sur Discord",
         "faire une omelette d'easter eggs (oui)",
         "01000010 01000001 01001011 01000001 00100000 00100001",
-        "calculer 0,1 + 0,2 (c'est compliqué)",
         "essayer d'avoir l'erreur 418 !",
 
         "avoir [STATUS_AMOUNT] statuts !",
@@ -45,10 +42,10 @@ const statuses = {
         "une partie de démineur",
         "faire toutes les quêtes",
         "obtenir tous les badges",
-        "tenter de trouver un Miyakitsu",
-        "tenter de trouver du Tekakitsu",
+        "tenter de trouver un miyakitsu",
+        "tenter de trouver du tekakitsu",
         "tenter de trouver un ticket du temps",
-        "tenter de trouver un Sanikitsu",
+        "tenter de trouver un sanikitsu",
 
         "attendre qu'un bot ait plus de statuts que moi !",
         "essayer de ne pas se faire taper dessus par Discord à cause du nombre de statuts",
@@ -58,10 +55,8 @@ const statuses = {
         "se bagarrer contre Discord pour avoir le retour du vrai \"Joue à\" !",
 
         "étudier l'histoire d'Arukota avec Yuyunori",
-        "discuter avec Kerusuna",
         "se plaindre que son rāmen est froid",
         "cartographier Yunayunori",
-        "essayer de comprendre les lois de la physique dans la forêt Iyiya",
         "convaincre que le Miyakitsu n'est pas une Tempura",
         "convaincre que JavaScript > all",
 
@@ -140,6 +135,7 @@ const statuses = {
         "THE POWER OF TOKINOTSUKI",
         "時の月協奏会 ～Concert of Tokinotsuki～",
         "時の月喜劇会 ～Comedy of Tokinotsuki～",
+        "時の月永劫舞曲 ～Infinity of Tokinotsuki～",
         "New Toki's Dreams!",
         "Toki:SAIKYO",
         "Re:Toki",
@@ -181,7 +177,6 @@ const statuses = {
 
         "le code 995-OWO-500",
         "mon système d'économie se faire encore détruire...",
-        "un article sur la 9ème radio secrète",
 
         "toi, qui me regarde"
     ],
@@ -203,34 +198,34 @@ const statuses = {
         "en live",
         "en 9K",
         "avec Miyunira",
-        "tous les mercredis et samedis soirs"
+        "tous les samedis soirs"
     ],
 
     "time": {
         "00": "📙 Minuit, lecture nocturne !",
-        "01": "💤 1h, va se couche- ah bah non, toujours pas...",
+        "01": "💤 1h, va se couche- ah bah non, toujours pas... Je suis un bot !",
         "02": "💬 2h, discute avec Yuyunori",
         "03": "❗ 3h, tu es encore là toi ? O.O",
         "04": "🤍 4h, rassure Tcceisa",
         "05": "🔵 5h, essaye de trouver des archives sur O",
-        "06": "📸 6h, tente de photographier des bururus sauvages",
+        "06": "📸 6h, tente de photographier des bururus tsurus",
         "07": "🎼 7h, écoute la dernière musique de Miyunira",
         "08": "☀️ 8h, bonne matinée ! :D",
         "09": "✨ 9h, la meilleure heure de la journée !",
         "10": "🍵 10h, petit thé !",
-        "11": "🕰️ 11h, essayons de créer une petite horloge !",
+        "11": "🕰️ 11h, essayons de créer un petit cadran solaire !",
         "12": "🍞 12h, tient, c'est l'heure d'aller manger !",
-        "13": "🌳 13h, promenade avec Ekayasena dans Tenerina",
-        "14": "🫧 14h, fait des bulles",
-        "15": "🍙 15h, apprentissage du japonais !",
+        "13": "🌳 13h, promenade avec Yatccuria dans Tenerina",
+        "14": "🫧 14h, fait des bulles !",
+        "15": "📖 15h, apprentissage des divers dialectes de Yunayunori !",
         "16": "🍪 16h, mange un cookie avec Miyunira",
-        "17": "🎮 17h, joue au prochain jeu de BakaTaida",
-        "18": "📄 18h, aide Cerusuna à finaliser ses derniers documents",
+        "17": "💬 17h, discute avec des yunaris",
+        "18": "🏖️ 18h, se prélasse à Otsorayo ! ",
         "19": "🌇 19h, bonne fin de journée ! :D",
         "20": "✏️ 20h, c'est partie pour le dessin du soir !",
-        "21": "🎴 21h, petite partie de cartes avec Kerusuna",
+        "21": "🎴 21h, petite partie de cartes avec Miyunira",
         "22": "🌙 22h, bonne nuit ! :D",
-        "23": "🎶 23h, le concert de Miyunira a commencé !"
+        "23": "🎶 23h, aide Miyunira pour une musique"
     }
 };
 
@@ -238,7 +233,7 @@ const seasonnalStatuses = {
     "halloween": [
         "manger des bonbons",
         "Fancy Island",
-        "trouver l'entrée des Backrooms",
+        "trouver la sortie des Backrooms",
         "te faire peur, bouh !",
         "se déguiser en Enderman",
         "raconter des histoires d'horreur"
@@ -248,21 +243,26 @@ const seasonnalStatuses = {
         "faire des cadeaux",
         "chanter padoru padoru~",
         "décorer Otsorayo",
-        "fabriquer une maison en pain d'épices",
         "faire une bataille de boule de neige",
         "faire une Bjimmy de neige"
     ]
 };
 
+const allStatuses = Object.assign({}, statuses, seasonnalStatuses);
 const statusAmount = statuses["playing"].length + statuses["listening"].length + statuses["watching"].length + statuses["streaming"].length + Object.keys(statuses["time"]).length + seasonnalStatuses["halloween"].length + seasonnalStatuses["christmas"].length;
-const statusTypes = Object.keys(statuses);
 
 function getRandomStatus(client) {
     const currentMonth = new Date().toLocaleDateString("fr-FR", { month: "numeric", timeZone: "Europe/Paris" });
     const season = currentMonth === "10" ? "halloween" : currentMonth === "12" ? "christmas" : null;
+    const statusTypes = Object.keys(statuses);
+
+    if (season)
+        statusTypes.push(season);
+
     const randomStatusType = statusTypes[Math.floor(Math.random() * statusTypes.length)];
-    const finalActivityIndex = randomStatusType === "time" ? new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", timeZone: "Europe/Paris" }).replace(" h", "") : Math.floor(Math.random() * statuses[randomStatusType].length);
+    const finalActivityIndex = randomStatusType === "time" ? new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", timeZone: "Europe/Paris" }).replace(" h", "") : Math.floor(Math.random() * allStatuses[randomStatusType].length);
     let activityPrefix = "";
+    let activityType;
 
     const variableData = {
         "[STATUS_AMOUNT]": statusAmount,
@@ -272,31 +272,33 @@ function getRandomStatus(client) {
         "[YEAR_CAKE]": Math.floor((Math.random() * (new Date(Date.now() - +new Date("February 1, 2021")).getUTCFullYear() - 1_970)) + 1)
     };
 
-    if (season !== null) {
-        statuses["seasonnal"] = seasonnalStatuses[season];
-
-        statusTypes.push("seasonnal");
-    }
-
     switch (randomStatusType) {
-        case "playing":
-            activityPrefix = "Joue à ";
-            break;
-
         case "listening":
-            activityPrefix = "Écoute ";
+            activityPrefix = "Écoute";
+            activityType = ActivityType.Listening;
             break;
 
         case "watching":
-            activityPrefix = "Regarde ";
+            activityPrefix = "Regarde";
+            activityType = ActivityType.Watching;
             break;
 
         case "streaming":
-            activityPrefix = "Stream ";
+            activityPrefix = "Stream";
+            activityType = ActivityType.Streaming;
+            break;
+
+        case "time":
+            activityType = ActivityType.Custom;
+            break;
+
+        default:
+            activityPrefix = "Joue à";
+            activityType = ActivityType.Playing;
             break;
     }
 
-    let finalActivity = activityPrefix + statuses[randomStatusType][finalActivityIndex];
+    let finalActivity = `${activityPrefix} ${allStatuses[randomStatusType][finalActivityIndex]}`;
 
     for (let i = 0; i < Object.keys(variableData).length; i++) {
         const variableKey = Object.keys(variableData)[i];
@@ -304,7 +306,7 @@ function getRandomStatus(client) {
         finalActivity = finalActivity.replaceAll(variableKey, variableData[variableKey]);
     }
 
-    return { type: randomStatusType === "streaming" ? ActivityType.Streaming : ActivityType.time, activity: finalActivity, amount: statusAmount };
+    return { type: activityType, activity: finalActivity };
 }
 
 module.exports = { getRandomStatus };

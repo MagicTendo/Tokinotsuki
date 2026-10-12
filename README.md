@@ -45,7 +45,7 @@ There is now two ways you can try Tokinotsuki! By clicking **[this link](https:/
 
 Here's a little guide explaining how to self-host Tokinotsuki.
 
-First, clone the repository. Then, type `nvm use`, this should installs Node.js v24.18.0 if you don't have it. After that, install PNPM, and type `pnpm install --frozen-lockfile`, this should install every dependencies on the correct version. Next, copy the [.env.example](./.env.example) file, rename it to `.env`, and fill it. You probably don't need everything the file is asking for, in that case, remove the part in the code asking the keys you don't need. If you didn't already, create an application on the [Discord Developer Portal](https://discord.com/developers/applications/), and make it as a bot. You'll be able to get the bot's token from the Bot section. Finally, when the `.env` is ready, you can launch the bot with `node .` ! It is as easy as that, thank you JavaScript !
+First, clone the repository. Then, type `nvm use`, this should installs Node.js v24.18.0 if you don't have it. After that, install PNPM, and type `pnpm install --frozen-lockfile`, this should install every dependencies on the correct version. Next, copy the [.env.example](./.env.example) file, rename it to `.env`, and fill it. You probably don't need everything the file is asking for, in that case, remove the part in the code asking the keys you don't need. If you didn't already, create an application on the [Discord Developer Portal](https://discord.com/developers/applications/), and make it as a bot. You'll be able to get the bot's token from the Bot section. Finally, when the `.env` is ready, you can launch the bot with `node .`! It is as easy as that, thank you JavaScript!
 
 
 ## 🎫 Help
@@ -55,7 +55,7 @@ If you need to report a bug, to submit a suggestion, to indicate a misspelling, 
 
 ## 💖 Support
 
-Tokinotsuki will **[NEVER](https://tokinotsuki.rf.gd/premium)** have premium features, nor asking money for more items, commands, or whatever. The best way you can support this project is to add the bot on a server, upvoting it on **[Top.gg](https://top.gg/bot/791437575642152982)**, or just talking about it. Even doing only one of the threes already means a lot to me !
+Tokinotsuki will **[NEVER](https://tokinotsuki.rf.gd/premium)** have premium features, nor asking money for more items, commands, or whatever. The best way you can support this project is to add the bot on a server, upvoting it on **[Top.gg](https://top.gg/bot/791437575642152982)**, or just talking about it. Even doing only one of the threes already means a lot to me!
 
 
 ## 🔐 Security

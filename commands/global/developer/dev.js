@@ -8,6 +8,7 @@ const { sendError } = require("../../../tools/error-catcher.js");
 const { getRandomItem } = require("../../../tools/game-result.js");
 const { fishTable, oreTable, birdTable, artefactTable, cards } = require("../../../tools/items-table.js");
 const { getCurrencySymbol, simplify } = require("../../../tools/modules.js");
+const { socialMediaRoutes, sendMessage } = require("../../../tools/rss-feeds.js");
 
 moment.locale("fr");
 
@@ -23,7 +24,7 @@ module.exports = {
             .setDescription("Pour créer un code de récompenses.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("rewards")
@@ -43,7 +44,7 @@ module.exports = {
             .setDescription("Permet de tester une portion de code.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("code")
@@ -63,7 +64,7 @@ module.exports = {
             .setDescription("Permet de supprimer des éléments dans la base de données.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("table")
@@ -87,7 +88,7 @@ module.exports = {
             .setDescription("Permet d'effectuer des actions sur les fichiers du bot.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("action")
@@ -107,7 +108,7 @@ module.exports = {
             .setDescription("Permet de donner un objet à quelqu'un.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("item")
@@ -127,12 +128,38 @@ module.exports = {
                 .setRequired(true)))
 
         .addSubcommand(subcommand => subcommand
-            .setName("simulate")
+            .setName("rss")
+            .setDescription("Force l'envoi d'un message d'un ou plusieurs flux RSS.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
+            .addStringOption(option => option
+                .setName("feed")
+                .setDescription("Quel flux RSS ?")
+                .addChoices(
+                    { name: "🌐 Tous", value: "all" },
+                    { name: "✨ YouTube (BakaTaida)", value: "youtube-bakataida" },
+                    { name: "🛑 YouTube (Otomadan)", value: "youtube-otomadan" },
+                    { name: "🔁 YouTube (BakaTaida VOWOD)", value: "youtube-vowod" },
+                    { name: "🌱 YouTube (Team Pik)", value: "youtube-team-pik" },
+                    { name: "🎴 YouTube (Yunayunori)", value: "youtube-yunayunori" },
+                    { name: "🚙 YouTube (Olivier)", value: "youtube-olivier" },
+                    { name: "📹️ Twitch", value: "twitch" },
+                    { name: "📸 Instagram", value: "instagram" },
+                    { name: "🎨 pixiv", value: "pixiv" },
+                    { name: "🦋 Bluesky", value: "bluesky" },
+                    { name: "🎼 Bandcamp", value: "bandcamp" },
+                    { name: "💻 Github", value: "github" })
+                .setRequired(true)))
+
+        .addSubcommand(subcommand => subcommand
+            .setName("simulate")
             .setDescription("Permet de faire des simulations pour tester les probabilités !")
+            .addStringOption(option => option
+                .setName("secret-code")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
+                .setRequired(true))
             .addIntegerOption(option => option
                 .setName("amount")
                 .setDescription("Le nombre de tirage à faire.")
@@ -159,19 +186,11 @@ module.exports = {
                 .setRequired(false)))
 
         .addSubcommand(subcommand => subcommand
-            .setName("tesuto")
-            .setDescription("Juste une commande de test qui peut faire des trucs divers.")
-            .addStringOption(option => option
-                .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
-                .setRequired(true)))
-
-        .addSubcommand(subcommand => subcommand
             .setName("query")
             .setDescription("Permet de faire des requêtes à la base de données.")
             .addStringOption(option => option
                 .setName("secret-code")
-                .setDescription("Ce code n'est pas un easter egg et sert comme double vérification !")
+                .setDescription("Ce code n'est pas un easter egg et sert juste comme double vérification !")
                 .setRequired(true))
             .addStringOption(option => option
                 .setName("sql")
@@ -342,70 +361,31 @@ module.exports = {
                     }
                     break;
 
-                case "tesuto":
-                    // === Check if accounts existed with a list of IDs ===
-                    // await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
+                case "rss":
+                    await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
-                    // const retroUsers = ["USER_IDS"];
-                    // const finalUsers = [];
-                    // const embeds = [];
-                    // let description = "";
+                    const feed = interaction.options.getString("feed");
+                    let finalMessage = "";
+                    let result;
 
-                    // for (let i = 0; i < 10; i++) {
-                    //     description = "";
+                    if (feed === "all") {
+                        const socialMediaNames = Object.keys(socialMediaRoutes);
+                        let socialMediaName;
 
-                    //     for (let j = 0; j < retroUsers.length / 10; j++) {
-                    //         console.log(`${(i * (retroUsers.length / 10)) + (j + 1)} / ${retroUsers.length} (${((i * (retroUsers.length / 10) + (j + 1)) / retroUsers.length * 100).toFixed(2)}%)`);
+                        for (let i = 0; i < socialMediaNames.length; i++) {
+                            socialMediaName = socialMediaNames[i];
 
-                    //         const userID = retroUsers[(i * (retroUsers.length / 10)) + j];
-                    //         const user = await client.users.fetch?.(userID);
-                    //         const isDeleted = !user || (user && user?.username?.startsWith("deleted_user"));
+                            result = await sendMessage(client, socialMediaRoutes[socialMediaName], socialMediaName);
 
-                    //         if (!isDeleted && !user.bot && userID != "610493430325313549")
-                    //             finalUsers.push(userID);
+                            finalMessage += !result["error"] ? `✅ Message envoyé pour ${socialMediaName} !\n` : `❌ Erreur avec ${socialMediaName} : **${result["message"].toLowerCase()}**\n`;
+                        }
+                    } else {
+                        result = await sendMessage(client, socialMediaRoutes[feed], feed);
 
-                    //         description += `<@${userID}> ${isDeleted ? "❌" : "✅"}\n`;
-                    //     }
+                        !result["error"] ? finalMessage = "✅ La notification du dernier post a bien été envoyée !" : finalMessage = `❌ Une erreur s'est produite : **${result["message"].toLowerCase()}**`;
+                    }
 
-                    //     const embed = new EmbedBuilder()
-                    //         .setColor([255, 85, 0])
-                    //         .setDescription(description);
-
-                    //     embeds.push(embed);
-                    // }
-
-                    // const embed = new EmbedBuilder()
-                    //     .setColor([255, 85, 0])
-                    //     .setDescription(`[${finalUsers.join(",")}] (${finalUsers.length})`);
-
-                    // await interaction.editReply({ embeds: embeds });
-                    // await interaction.followUp({ embeds: [embed], flags: [MessageFlags.Ephemeral] });
-
-
-                    // === Get v3 leaderboards ===
-                    // await interaction.reply({ embeds: [tesutoEmbed], flags: [MessageFlags.Ephemeral] });
-
-                    // const oldTokiCoinLeaderboardID = [["719970883938287720", 398534], ["743089421749977109", 366337], ["830313779182567476", 337339], ["286787996940894209", 252880], ["697438073646088194", 198550], ["385772850499420161", 113171], ["448847464884207627", 90202], ["426000385895825408", 70577], ["482897963744624660", 55315], ["730434563360424047", 48012], ["494552404747091969", 46775], ["718456289704804392", 27533], ["610493430325313549", 19813], ["833326528401637376", 19777], ["930832815468216400", 12417], ["526775472885858306", 12345], ["851871020188434492", 11399], ["781443974497435658", 10521], ["809053504030638121", 9004], ["692833570334572554", 8879], ["742438761530654861", 6791], ["723494807569170483", 6292], ["556454400772538388", 4769], ["887639389809819709", 2999], ["689028243256639524", 2557], ["807546731587829770", 2504], ["437504868840898569", 1897], ["1135850277644275732", 1366], ["277136155244232706", 1259], ["575656511691554816", 1180], ["713001105252155473", 1030], ["477485109403058176", 972], ["991024791970537544", 922], ["891610376985260033", 906], ["785591158280814664", 866], ["886353118491721779", 852], ["945376610767491092", 780], ["1026052826658504734", 735], ["916387535314386944", 728], ["767446931499909131", 715], ["826047634757517343", 681], ["827232338039144518", 679], ["576847831940464668", 640], ["419885376027623434", 637], ["763350993512562709", 636], ["784835010263777356", 619], ["587887807284903936", 563], ["615965033683484684", 555], ["458218450393890831", 545], ["928703852167962665", 535], ["919991063177990184", 524], ["922187797169848362", 485], ["638087966715019294", 484], ["629020731862286336", 472], ["447480244207616002", 464], ["708039665189388289", 448], ["726058517001273358", 431], ["1025082642485493870", 413], ["793281583985590302", 413], ["609300543730483201", 384], ["235425276903948289", 314], ["746022329511051324", 311], ["635411133091807254", 296], ["766291588708040734", 247], ["870253081659605002", 240], ["754033387072782396", 225], ["1057243614935261334", 28], ["495278377821798401", 2]];
-                    // const oldTokiCoinLeaderboardName = [["Bebaal", 398534], ["Nagano", 366337], ["Arcose 🗣", 337339], ["Ska", 252880], ["Ninjdai", 198550], ["ScoobyBrown", 113171], ["MGW_Zoro", 90202], ["undefined", 70577], ["Richard Pudépié", 55315], ["undefined", 48012], ["undefined", 46775], ["Seaclye", 27533], ["BakaTaida", 19813], ["Leo Le Pik", 19777], ["undefined", 12417], [".", 12345], ["undefined", 11399], ["undefined", 10521], ["kapla", 9004], ["cool kyuju", 8879], ["Shadox", 6791], ["undefined", 6292], [".꧁╭⊱Zelda🌺 ⊱╮꧂", 4769], ["undefined", 2999], ["arno", 2557], ["undefined", 2504], ["Gab", 1897], ["˗ˏˋ 𝐀𝐥𝐢𝐚  ´ˎ˗", 1366], ["Dawn 🍊", 1259], ["ProHartz", 1180], ["Aélizya", 1030], ["Nono Mystica", 972], ["undefined", 922], ["Twentysix - Settings_Server", 906], ["polo3515", 866], ["undefined", 852], ["!   M. ARGOS 🦚", 780], ["undefined", 735], ["Mangaka Émancipé ☆♡☆", 728], ["undefined", 715], ["undefined", 681], ["Arcﾑde", 679], ["undefined", 640], ["[Ancien Compte] F²", 637], ["XinKaoDai", 636], ["undefined", 619], ["undefined", 563], ["undefined", 555], ["undefined", 545], ["Noah_411", 535], ["Adrien™", 524], ["undefined", 485], ["undefined", 484], ["Austcraft", 472], ["gaetan2wiish", 464], ["As(térion)unayo", 448], ["undefined", 431], [".", 413], ["undefined", 413], ["=+=ITHRI=+=", 384], ["Aznum_Shark", 314], ["undefined", 311], ["undefined", 296], ["liamvittoz", 247], ["undefined", 240], ["undefined", 225], ["GBZ team", 28], ["Neramawa", 2]];
-                    // const oldCookieLeaderboardID = [["833326528401637376", 515], ["809053504030638121", 101], ["830313779182567476", 38], ["743089421749977109", 36], ["697438073646088194", 32], ["610493430325313549", 25], ["494552404747091969", 25], ["526775472885858306", 23], ["385772850499420161", 18], ["482897963744624660", 12], ["426000385895825408", 8], ["556454400772538388", 6], ["886353118491721779", 6], ["448847464884207627", 4], ["851871020188434492", 3], ["447040889651724289", 2], ["763350993512562709", 1], ["437504868840898569", 1], ["718456289704804392", 1], ["730434563360424047", 1], ["930832815468216400", 1], ["887639389809819709", 1], ["726058517001273358", 1], ["629020731862286336", 1]];
-                    // const oldCookieLeaderboardName = [["Leo Le Pik", 515], ["kapla", 101], ["Arcose 🗣", 38], ["Nagano", 36], ["Ninjdai", 32], ["BakaTaida", 25], ["undefined", 25], [".", 23], ["ScoobyBrown", 18], ["Richard Pudépié", 12], ["undefined", 8], [".꧁╭⊱Zelda🌺 ⊱╮꧂", 6], ["undefined", 6], ["MGW_Zoro", 4], ["undefined", 3], ["undefined", 2], ["XinKaoDai", 1], ["Gab", 1], ["Seaclye", 1], ["undefined", 1], ["undefined", 1], ["undefined", 1], ["undefined", 1], ["Austcraft", 1]];
-                    // const oldBugLeaderboardID = [["697438073646088194", 12], ["891610376985260033", 5], ["785591158280814664", 4], ["719970883938287720", 4], ["809053504030638121", 1], ["886353118491721779", 1]];
-                    // const oldBugLeaderboardName = [["Ninjdai", 12], ["Twentysix - Settings_Server", 5], ["polo3515", 4], ["Bebaal", 4], ["kapla", 1], ["undefined", 1]];
-                    // let description = "";
-
-                    // for (let i = 0; i < oldTokiCoinLeaderboardID.length; i++) {
-                    //     description += `${i + 1} | <@${oldTokiCoinLeaderboardID[i][0]}> - ${oldTokiCoinLeaderboardID[i][1]}\n`;
-                    // }
-
-                    // const tesutoEmbed = new EmbedBuilder()
-                    //     .setColor([255, 85, 0])
-                    //     .setDescription(description)
-
-                    // await interaction.reply({ embeds: [tesutoEmbed], flags: [MessageFlags.Ephemeral] });
-
-
-                    // === Check probabilities ===
-                    // await interaction.reply({ content: String(Object.values(cards).map(item => item.probability).reduce((a, b) => a + b)), flags: [MessageFlags.Ephemeral] });
+                    await interaction.editReply({ content: finalMessage });
                     break;
 
                 case "simulate":

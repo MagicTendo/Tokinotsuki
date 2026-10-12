@@ -3,7 +3,7 @@ const Color = require("color").default;
 const { readFileSync } = require("fs");
 const { cardAcronyms } = require("../../../tools/card.js");
 const { sendError } = require("../../../tools/error-catcher.js");
-const { capitalize, getRandomKanji } = require("../../../tools/modules.js");
+const { capitalise, getRandomKanji } = require("../../../tools/modules.js");
 
 module.exports = {
     category: "Fun",
@@ -220,10 +220,10 @@ module.exports = {
                     break;
 
                 case "kanji":
-                    const kanjiInformations = getRandomKanji();
-                    const kanji = kanjiInformations[0];
-                    const kanjiIndex = kanjiInformations[1] + 1;
-                    const kanjiNumber = kanjiInformations[2];
+                    const kanjiInformation = getRandomKanji();
+                    const kanji = kanjiInformation[0];
+                    const kanjiIndex = kanjiInformation[1] + 1;
+                    const kanjiNumber = kanjiInformation[2];
 
                     await fetch(`https://kanjiapi.dev/v1/kanji/${kanji}`).then(function (response) {
                         return response.json();
@@ -298,7 +298,7 @@ module.exports = {
                     await fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemonID}`).then(function (response) {
                         return response.json();
                     }).then(async function (data) {
-                        const pokemonName = capitalize(data["name"]);
+                        const pokemonName = capitalise(data["name"]);
                         const pokemonID = data["id"];
                         const pokemonImage = data["sprites"]["other"]["official-artwork"]["front_default"];
                         const pokemonShinyImage = data["sprites"]["other"]["official-artwork"]["front_shiny"];
